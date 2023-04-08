@@ -10,6 +10,26 @@ import threading
 from collections import deque
 from torch.distributions import Categorical
 
+class ActorCritic(nn.Module):
+    def __init__(self, state_dim, action_dim):
+        super().__init__()
+        self.actor = nn.Sequential(
+            nn.Linear(state_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, action_dim),
+            nn.Softmax(dim=-1)
+        )
+        self.critic = nn.Sequential(
+            nn.Linear(state_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, 1)
+        )
+
+    def forward(self, state):
+        action_probs = self.actor(state)
+        value = self.critic(state)
+        return action_probs, value
+
 class A3C:
     def __init__(self, env, gamma=0.99, lr=0.001, num_processes=4, max_steps=1000, num_episodes=1000):
         self.env = env
@@ -101,3 +121,9 @@ class A3C:
                 probs = F.softmax(log_prob, dim=0)
                 action = Categorical(probs).sample().cpu().numpy
 
+                
+                actions[i].append(int(action))
+                log_probs[i].append(log_prob)
+                values[i].append(value)
+                
+                
