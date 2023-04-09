@@ -62,3 +62,4 @@ class ANNBase:
 
     def set_learning_rate(self, learning_rate):
         self.learning_rate = learning_rate
+
