@@ -4,7 +4,7 @@ import GABANN
 import NorepinephrineANN
 import SerotoninANN
 
-class ANNBase:
+class ANN:
     def __init__(self, input_dim, hidden_dim, output_dim, learning_rate=0.01):
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim

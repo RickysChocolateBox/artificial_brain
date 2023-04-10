@@ -21,7 +21,7 @@ from preprocess_texture_data import preprocess_texture_data
 
 
 class AdaptiveNeuralNetwork:
-    import sys
+ import sys
 sys.path.append("sys:\Users\info\anaconda3\envs\Artificial_Brain_Project\Lib\site-packages")
 import sys
 sys.path.append("sys:\Users\info\OneDrive\Desktop\Artificia Brain\artificial_brain\ProtoBrainModel\ProtoBrainModel.py")
@@ -33,7 +33,7 @@ import numpy as np
 from ProtoBrainModel import ProtoBrainModel 
 from deap import algorithms, base, creator, tools
 from emotional_class import EmotionalModel
-
+from NeurotransmitterTuner import NeurotransmitterTuner
 
 class Neuron:
     def process_inputs(self, inputs):
@@ -41,6 +41,8 @@ class Neuron:
         attended_inputs = self.apply_attention(inputs, attention_weights)
         processed_outputs = self.process_attended_inputs(attended_inputs)
         return processed_outputs
+    def request_neurotransmitter_adjustment(self, proto_brain_model, adjustment_type):
+        return self.neurotransmitter_tuner.adjust_neurotransmitters(proto_brain_model, adjustment_type)
 
     def calculate_attention_weights(self, inputs):
         attention_weights = [1.0 / len(inputs) for _ in range(len(inputs))]
@@ -66,8 +68,76 @@ class AutotuningToolkit:
 
     def report_action(self, action_data):
         self.ann.receive_toolkit_report(self, action_data)
-    class AdaptiveNeuralNetwork:
-     def __init__(self, num_neurons, learning_rate, num_emotions=5):
+import sys
+sys.path.append("sys:\Users\info\anaconda3\envs\Artificial_Brain_Project\Lib\site-packages")
+import sys
+sys.path.append("sys:\Users\info\OneDrive\Desktop\Artificia Brain\artificial_brain\ProtoBrainModel\ProtoBrainModel.py")
+import random
+import tensorflow as tf
+import networkx as nx
+import gym 
+import numpy as np 
+from ProtoBrainModel import ProtoBrainModel 
+from deap import algorithms, base, creator, tools
+from emotional_class import EmotionalModel
+from NeurotransmitterTuner import NeurotransmitterTuner
+
+class HebbianLearning:
+    def update_weights(self, neurons, learning_rate):
+        for neuron in neurons:
+            for synapse in neuron.synapses:
+                # Update the synapse weight based on the Hebbian learning rule
+                synapse.weight += learning_rate * neuron.activation * synapse.target.activation
+        pass
+
+
+class SynapticScaling:
+    def scale_synapses(self, neurons, target_sum):
+        for neuron in neurons:
+            synapse_weights = [synapse.weight for synapse in neuron.synapses]
+            sum_weights = sum(synapse_weights)
+
+            if sum_weights > 0:
+                scale_factor = target_sum / sum_weights
+                for synapse in neuron.synapses:
+                    synapse.weight *= scale_factor
+        pass
+
+class Neuron:
+    def process_inputs(self, inputs):
+        attention_weights = self.calculate_attention_weights(inputs)
+        attended_inputs = self.apply_attention(inputs, attention_weights)
+        processed_outputs = self.process_attended_inputs(attended_inputs)
+        return processed_outputs
+    def request_neurotransmitter_adjustment(self, proto_brain_model, adjustment_type):
+        return self.neurotransmitter_tuner.adjust_neurotransmitters(proto_brain_model, adjustment_type)
+
+    def calculate_attention_weights(self, inputs):
+        attention_weights = [1.0 / len(inputs) for _ in range(len(inputs))]
+        return attention_weights
+
+    def apply_attention(self, inputs, attention_weights):
+        attended_inputs = inputs * attention_weights
+        return attended_inputs
+
+    def process_attended_inputs(self, attended_inputs):
+        processed_outputs = attended_inputs * 2
+        return processed_outputs
+class HebbianLearning:
+    def update_weights(self, neurons, learning_rate):
+        pass
+class SynapticScaling:
+    def scale_synapses(self, neurons):
+        pass
+class AutotuningToolkit:
+    def __init__(self, ann):
+        self.ann = ann
+        # ...rest of the initialization code...
+
+    def report_action(self, action_data):
+        self.ann.receive_toolkit_report(self, action_data)
+class AdaptiveNeuralNetwork:
+    def __init__(self, num_neurons, learning_rate, num_emotions=5):
         self.neurons = [Neuron() for _ in range(num_neurons)]
         self.learning_rate = learning_rate
         self.hebbian_learning = HebbianLearning()
@@ -79,6 +149,7 @@ class AutotuningToolkit:
         self.hebbian_learning = HebbianLearning()
         self.synaptic_scaling = SynapticScaling()
         self.brain_structure = self.load_brain_structure()
+        self.neurotransmitter_tuner = NeurotransmitterTuner(self)
     def receive_toolkit_report(self, toolkit, action_data):
         # Process the report from the toolkit
         # This can involve updating internal data structures, making decisions, etc.
@@ -202,7 +273,7 @@ class AutotuningToolkit:
         },
     },
     "Right Hemisphere": {
-"Forebrain": {
+         "Forebrain": {
             "Telencephalon": {
                 "Cerebral_cortex": {
                     "Neocortex": {
@@ -342,6 +413,7 @@ class AutotuningToolkit:
 
         self.hebbian_learning.update_weights(self.neurons, self.learning_rate)
         self.synaptic_scaling.scale_synapses(self.neurons)
+
 def main():
      adaptive_nn = AdaptiveNeuralNetwork(num_neurons=10, learning_rate=0.01)
 
@@ -354,7 +426,8 @@ for neuron in AdaptiveNeuralNetwork.neurons:
 
 if __name__ == "__main__":
     main()
-    pass
+
+
 
 class HebbianLearning:
     def update_weights(self, neurons, learning_rate):

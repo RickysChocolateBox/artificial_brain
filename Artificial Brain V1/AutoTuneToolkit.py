@@ -2,10 +2,12 @@ import numpy as np
 import random
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
+from NeurotransmitterTuner import NeurotransmitterTuner
 
-class AutotuningToolkit:
+class AutoTuneToolkit:
     def __init__(self, ann):
         self.ann = ann
+        self.neurotransmitter_tuner = NeurotransmitterTuner(self)
         self.gradient_objective_functions = {
             'mean_squared_error': self.mean_squared_error,
             'binary_crossentropy': self.binary_crossentropy,
@@ -111,7 +113,7 @@ class AdaptiveNeuralNetwork:
 
     def create_toolkits(self, num_toolkits):
         for _ in range(num_toolkits):
-            toolkit = AutotuningToolkit(self)
+            toolkit = AutoTuneToolkit(self)
             self.toolkits.append(toolkit)
 
     def receive_toolkit_report(self, toolkit, action_data):
@@ -126,6 +128,7 @@ ann.create_toolkits(56)  # Create 56 toolkits for the artificial brain
 
 # Run the adaptive neural network
 # ... code to run the ANN and have it process information ...
+
 def optimize_proto_brain_components(self, proto_brain_model):
         # Define the optimization ranges for learning_rate, discount_factor, and exploration_rate
         optimization_ranges = {
@@ -168,5 +171,4 @@ def optimize_proto_brain_components(self, proto_brain_model):
         )
 
         for _, network in proto_brain_model.neural_networks.items():
-            network.set_learning_rate
-        (best_params["neural_network_learning_rate"])
+            network.set_learning_rate(best_params["neural_network_learning_rate"])

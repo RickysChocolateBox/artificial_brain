@@ -2,10 +2,12 @@ import numpy as np
 import random
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
+from NeurotransmitterTuner import NeurotransmitterTuner
 
-class AutotuningToolkit:
+class AutoTuneToolkit:
     def __init__(self, ann):
         self.ann = ann
+        self.neurotransmitter_tuner = NeurotransmitterTuner(self)
         self.gradient_objective_functions = {
             'mean_squared_error': self.mean_squared_error,
             'binary_crossentropy': self.binary_crossentropy,
@@ -111,7 +113,7 @@ class AdaptiveNeuralNetwork:
 
     def create_toolkits(self, num_toolkits):
         for _ in range(num_toolkits):
-            toolkit = AutotuningToolkit(self)
+            toolkit = AutoTuneToolkit(self)
             self.toolkits.append(toolkit)
 
     def receive_toolkit_report(self, toolkit, action_data):

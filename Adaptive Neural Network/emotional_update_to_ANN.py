@@ -29,7 +29,7 @@ class AdaptiveNeuralNetwork:
 def load_training_data():
     # Replace with your actual dataset
     X_train = np.random.rand(100, 10)
-    y_train = np.random.randint(0,
+    y_train = np.random.randint(0,)
     y_train = np.random.randint(0, 2, size=(100,))
     return X_train, y_train
 
