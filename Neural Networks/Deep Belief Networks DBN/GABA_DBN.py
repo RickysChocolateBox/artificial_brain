@@ -1,7 +1,13 @@
 import tensorflow as tf
-from tensorflow.keras.layers import Input, Dense
-from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import Adam
+from tensorflow import keras
+from keras import layers 
+from keras import Input, Dense
+from tensorflow import keras
+from keras import models 
+from keras import Model
+from tensorflow import keras
+from keras import optimizers 
+from keras import Adam
 
 # Define GABA model for Deep Belief Network
 def GABA_DBN(input_shape):

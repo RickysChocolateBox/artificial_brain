@@ -1,5 +1,8 @@
+import numpy as np
 import tensorflow as tf
-from tensorflow.keras.layers import Dense
+from tensorflow import keras
+from keras import layers 
+from keras import Dense
 
 class Norepinephrine(tf.keras.layers.Layer):
     def __init__(self, **kwargs):
