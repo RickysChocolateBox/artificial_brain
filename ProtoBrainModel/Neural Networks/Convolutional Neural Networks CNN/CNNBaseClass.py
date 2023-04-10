@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras import layers, models
+from tensorflow import keras 
+from keras import layers, models
 
 class CNN:
     def __init__(self, input_shape, num_classes, conv_layers, dense_layers, dropout_rate=0.5):
@@ -38,3 +39,8 @@ class CNN:
 
     def evaluate(self, x_test, y_test):
         return self.model.evaluate(x_test, y_test)
+
+    def update_neurotransmitter_levels(self, toolkit_report):
+        # Set learning rate based on neurotransmitter levels
+        learning_rate = toolkit_report['dopamine_level'] * toolkit_report['gaba_level'] * toolkit_report['norepinephrine_level'] * toolkit_report['serotonin_level']
+        self.model.optimizer.lr.assign(learning_rate)

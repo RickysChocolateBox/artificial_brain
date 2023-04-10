@@ -1,4 +1,4 @@
-class Serotonin_GRU:
+class SerotoninGRU:
     def __init__(self):
         self.balance_factor = 0.5
     

@@ -1,9 +1,9 @@
 import tensorflow as tf
 
-class Dopamine_LSTM(tf.keras.Model):
+class NorepinephrineLSTM(tf.keras.Model):
     def __init__(self, **kwargs):
-        super(Dopamine_LSTM, self).__init__(**kwargs)
-        self.lstm_layer = tf.keras.layers.LSTM(units=64, return_sequences=True)
+        super(NorepinephrineLSTM, self).__init__(**kwargs)
+        self.lstm_layer = tf.keras.layers.LSTM(units=64, return_sequences=True, recurrent_activation='sigmoid')
         self.dense_layer = tf.keras.layers.Dense(units=1, activation='sigmoid')
 
     def call(self, inputs, training=None, mask=None):

@@ -1,14 +1,17 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.layers import Dense
+from tensorflow import keras
+from keras import layers 
+from keras import Dense
 
 class DQN(tf.keras.Model):
-    def __init__(self, state_size, action_size, hidden_layers, learning_rate=0.001):
+    def __init__(self, state_size, action_size, hidden_layers, learning_rate=0.001, neurotransmitter_classes=None):
         super(DQN, self).__init__()
 
         self.state_size = state_size
         self.action_size = action_size
         self.learning_rate = learning_rate
+        self.neurotransmitter_classes = neurotransmitter_classes if neurotransmitter_classes is not None else []
 
         self.model = tf.keras.Sequential()
         for hidden_layer in hidden_layers:
@@ -19,6 +22,15 @@ class DQN(tf.keras.Model):
 
     def call(self, state):
         return self.model(state)
+
+    def update_neurotransmitter_levels(self, toolkit_report):
+        for neurotransmitter_class in self.neurotransmitter_classes:
+            neurotransmitter = neurotransmitter_class()
+            neurotransmitter.model = self.model
+
+            # Update the learning rate based on the neurotransmitter levels
+            learning_rate = toolkit_report['dopamine_level'] * toolkit_report['gaba_level'] * toolkit_report['norepinephrine_level'] * toolkit_report['serotonin_level']
+            keras.backend.set_value(self.optimizer.lr, learning_rate)
 
     def train_step(self, states, actions, rewards, next_states, dones, gamma=0.99):
         with tf.GradientTape() as tape:

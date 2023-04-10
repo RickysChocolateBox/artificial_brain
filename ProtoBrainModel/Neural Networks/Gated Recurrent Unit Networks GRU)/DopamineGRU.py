@@ -1,4 +1,4 @@
-class Dopamine_GRU:
+class DopamineGRU:
     def __init__(self):
         self.threshold = 0.5
     

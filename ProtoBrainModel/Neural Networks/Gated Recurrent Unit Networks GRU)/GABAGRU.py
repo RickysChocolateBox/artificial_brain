@@ -1,4 +1,4 @@
-class GABA_GRU:
+class GABAGRU:
     def __init__(self):
         self.inhibitory_factor = 0.1
     

@@ -1,8 +1,8 @@
 import tensorflow as tf
 
-class Serotonin_LSTM(tf.keras.Model):
+class SerotoninLSTM(tf.keras.Model):
     def __init__(self, **kwargs):
-        super(Serotonin_LSTM, self).__init__(**kwargs)
+        super(SerotoninLSTM, self).__init__(**kwargs)
         self.lstm_layer = tf.keras.layers.LSTM(units=64, return_sequences=True, activation='tanh', recurrent_activation='sigmoid')
         self.dense_layer = tf.keras.layers.Dense(units=1, activation='sigmoid')
 

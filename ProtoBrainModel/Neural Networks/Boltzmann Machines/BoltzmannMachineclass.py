@@ -12,6 +12,12 @@ class RBM:
         self.a = np.zeros(n_visible)
         self.b = np.zeros(n_hidden)
 
+        # Initialize neurotransmitter levels
+        self.dopamine_level = 0.5
+        self.gaba_level = 0.5
+        self.norepinephrine_level = 0.5
+        self.serotonin_level = 0.5
+
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
@@ -31,11 +37,10 @@ class RBM:
         visible_recon_prob = self.sigmoid(np.dot(hidden_sample, self.W.T) + self.a)
         visible_recon_sample = self.sample(visible_recon_prob)
         hidden_recon_prob = self.sigmoid(np.dot(visible_recon_sample, self.W) + self.b)
-        
+
         return hidden_prob, hidden_recon_prob
 
     def update_weights(self, visible, hidden_prob, hidden_recon_prob):
-        dW = np.dot
         dW = np.dot(visible.T, hidden_prob) - np.dot(visible.T, hidden_recon_prob)
         da = np.sum(visible - visible.T, axis=0)
         db = np.sum(hidden_prob - hidden_recon_prob, axis=0)
@@ -44,7 +49,7 @@ class RBM:
         self.a += self.learning_rate * da
         self.b += self.learning_rate * db
 
-    def train(self, data):
+    def train(self, data, toolkit):
         n_batches = len(data) // self.batch_size
 
         for epoch in range(self.n_epochs):
@@ -53,3 +58,13 @@ class RBM:
                 batch = data[batch_index * self.batch_size: (batch_index + 1) * self.batch_size]
                 hidden_prob, hidden_recon_prob = self.contrastive_divergence(batch)
                 self.update_weights(batch, hidden_prob, hidden_recon_prob)
+
+            # Update neurotransmitter levels using the toolkit report after each epoch
+            report = toolkit.generate_report()
+            self.update_neurotransmitter_levels(report)
+
+    def update_neurotransmitter_levels(self, report):
+        self.dopamine_level = report['dopamine_level']
+        self.gaba_level = report['gaba_level']
+        self.norepinephrine_level = report['norepinephrine_level']
+        self.serotonin_level = report['serotonin_level']
