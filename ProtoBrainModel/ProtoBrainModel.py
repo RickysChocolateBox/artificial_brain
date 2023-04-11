@@ -66,14 +66,14 @@ class ProtoBrainModel:
     def __init__(self, brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate):
         self.brain_structure_map = brain_structure_map
         self.sensory_data = sensory_data
-        self.network_types = ["FNN", "MLP", "CNN", "LSTM", "VAE", "DCGAN", "GPT", "GNN", "SOM", "RBFN", "ESN", "LSM", "Deep Q-Network","ANN","Autoencoder","RBM","DBN","HopfieldNetwork"
+        self.network_types = ["ANN", "Autoencoder", "RBM", "CNN", "DBN", "DQN", "FNN", "GRUNetwork", "HopfieldNetwork", "LSNN", "LSTMNetwork", "MLPNetwork", "RBFN","SimpleRNN","SOM","VAE",
         ]
         self.neural_networks = self.initialize_neural_networks()
         self.genetic_algorithm = GeneticAlgorithm()
         self.reinforcement_learning = ReinforcementLearning()
         self.correction_mechanism = CorrectionMechanism()
         self.intrinsic_motivation_agent = IntrinsicMotivationQAgent(state_size, action_size, learning_rate, discount_factor, exploration_rate)
-        self.autotune_toolkit = AutotuneToolkit()  # Initialize AutotuneToolkit
+        self.autotune_toolkit = AutoTuneToolkit()  # Initialize AutotuneToolkit
 
     def initialize_neural_networks(self):
         neural_networks = {}
@@ -108,7 +108,7 @@ class ProtoBrainModel:
             return FNN()
         elif best_network_type == "GRUNetwork":
             return GRUNetwork()
-        elif best_network_type == "HopfieldNetwork:":
+        elif best_network_type == "HopfieldNetwork":
             return HopfieldNetwork()
         elif best_network_type == "LSNN":
             return LSNN()
