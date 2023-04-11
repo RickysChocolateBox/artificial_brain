@@ -3,7 +3,7 @@ import struct
 import random
 import numpy as np
 import tensorflow as tf
-from AutotuningToolkit import AutotuningToolkit
+from AutoTuneToolkit import AutoTuneToolkit
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
 from preprocess_stereo_vision_data import preprocess_stereo_vision_data

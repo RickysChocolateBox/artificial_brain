@@ -4,6 +4,29 @@ from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
 from NeurotransmitterTuner import NeurotransmitterTuner
 
+# Import the required modules
+import Adadelta
+import AdaGrad
+import Adamax
+import AdversarialTraining
+import BatchNormalization
+import DataAugmentation
+import DropoutRegularization
+import EarlyStopping
+import EnsembleLearning
+import GradientDescent
+import HyperMetaOptimization
+import L1L2Regularization
+import Momentum
+import NesterovAcceleratedGradient
+import OptimizationAlgorithmBaseClass
+import OptimizationAlgorithmBaseClassTOputInOtherCodes
+import ResNetBlock
+import RMSProp
+import SGD
+import WeightDecay
+
+
 class AutoTuneToolkit:
     def __init__(self, ann):
         self.ann = ann
@@ -25,7 +48,58 @@ class AutoTuneToolkit:
         # Initialize UCB1 algorithm data
         self.ucb1_counts = np.zeros(len(self.gradient_objective_functions))
         self.ucb1_rewards = np.zeros(len(self.gradient_objective_functions))
+        # Initialize optimization and regularization techniques
+        self.optimizer = None
+        self.regularizer = None
+        self.batch_normalization = None
+        self.data_augmentation = None
+        self.dropout = None
+        self.early_stopping = None
+    def apply_optimization_technique(self, optimization_technique):
+        if optimization_technique == "SGD":
+            self.optimizer = SGD.SGD()
+        elif optimization_technique == "Adadelta":
+            self.optimizer = Adadelta.Adadelta()
+        elif optimization_technique == "AdaGrad":
+            self.optimizer = AdaGrad.AdaGrad()
+        elif optimization_technique == "Adamax":
+            self.optimizer = Adamax.Adamax()
+        elif optimization_technique == "RMSProp":
+            self.optimizer = RMSProp.RMSProp()
+        elif optimization_technique == "Momentum":
+            self.optimizer = Momentum.Momentum()
+        elif optimization_technique == "NesterovAcceleratedGradient":
+            self.optimizer = NesterovAcceleratedGradient.NesterovAcceleratedGradient()
+        elif optimization_technique == "GradientDescent":
+            self.optimizer = GradientDescent.GradientDescent()
+        # Add more optimization techniques here
 
+    def apply_regularization_technique(self, regularization_technique):
+        if regularization_technique == "L1":
+            self.regularizer = L1L2Regularization.L1()
+        elif regularization_technique == "L2":
+            self.regularizer = L1L2Regularization.L2()
+        elif regularization_technique == "Dropout":
+            self.dropout = DropoutRegularization.Dropout()
+        elif regularization_technique == "WeightDecay":
+            self.regularizer = WeightDecay.WeightDecay()
+        # Add more regularization techniques here
+
+    def apply_additional_techniques(self, technique):
+        if technique == "BatchNormalization":
+            self.batch_normalization = BatchNormalization.BatchNormalization()
+        elif technique == "DataAugmentation":
+            self.data_augmentation = DataAugmentation.DataAugmentation()
+        elif technique == "EarlyStopping":
+            self.early_stopping = EarlyStopping.EarlyStopping()
+        # Add more additional techniques here
+    def apply_techniques(self, optimization_technique, regularization_technique, additional_techniques=None):
+        self.apply_optimization_technique(optimization_technique)
+        self.apply_regularization_technique(regularization_technique)
+
+        if additional_techniques is not None:
+            for technique in additional_techniques:
+                self.apply_additional_techniques(technique)
     def report_action(self, action_data):
         self.ann.receive_toolkit_report(self, action_data)
 

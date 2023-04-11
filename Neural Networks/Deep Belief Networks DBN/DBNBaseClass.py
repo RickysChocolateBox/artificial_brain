@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
-from RBMBaseClass import RBM_BaseClass  # Assuming you have an implementation of the Restricted Boltzmann Machine (RBM)
+from BoltzmannMachineclass import RBM_BaseClass  # Assuming you have an implementation of the Restricted Boltzmann Machine (RBM)
 
 class DBN:
     def __init__(self, layers, neurotransmitter_classes=None):

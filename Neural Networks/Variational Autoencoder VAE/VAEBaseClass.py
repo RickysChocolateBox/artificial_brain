@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers, models
-from AutotuningToolkit import AutotuningToolkit
+from AutoTuneToolkit import AutoTuneToolkit
 # Import the neurotransmitter classes
 from SerotoninVAE import SerotoninVAE
 from NorepinephrineVAE import NorepinephrineVAE
@@ -82,7 +82,7 @@ class VAE(tf.keras.Model):
             result = self.train_step(data, toolkit_report)
 
             # Update the toolkit report based on the training result
-            toolkit_report = AutotuningToolkit.evaluate(result)
+            toolkit_report = AutoTuneToolkit.evaluate(result)
 
         return result
 

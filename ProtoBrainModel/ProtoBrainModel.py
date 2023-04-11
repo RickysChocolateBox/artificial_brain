@@ -1,6 +1,5 @@
 import sys
 sys.path.append("C:\\Users\\info\\HebbianLearningThesis\\HebbianLearningThesis")
-
 import numpy as np
 import random
 import math
@@ -10,7 +9,24 @@ from ReinforcementLearningClass import ReinforcementLearning
 from CorrectionMechanisms import CorrectionMechanism
 from RandomParameterGenerator import RandomParameterGenerator
 from IntrinsicMotivationQAgent import IntrinsicMotivationQAgent
-from AutoTuneToolkit import AutoTuneToolkit  # Import AutotuneToolkit
+from AutoTuneToolkit import AutoTuneToolkit  
+from AutoTuneToolkit import NeurotransmitterTuner
+from ANNBaseClass import ANN
+from AE_BaseClass import Autoencoder
+from BoltzmannMachineclass import RBM
+from CNNBaseClass import CNN
+from DBNBaseClass import DBN
+from DeepQNetworkBaseClass import DQN
+from FNNBaseClass import FNN
+from GRUBaseClass import GRUNetwork
+from HopfieldBaseClass import HopfieldNetwork
+from LSNNBaseClass import LSNN
+from LSTMBaseClass import LSTMNetwork
+from MLPBaseClass import MLPNetwork
+from RBFNBaseClass import RBFN
+from RNNBaseClass import SimpleRNN
+from SOMBaseClass import SOM
+from VAEBaseClass import VAE
 
 class HebbianLearning:
     def update_weights(self, neurons, learning_rate):
@@ -53,11 +69,6 @@ class Neuron:
     def process_attended_inputs(self, attended_inputs):
         processed_outputs = attended_inputs * 2
         return processed_outputs
-
-class AutotuningToolkit:
-    def __init__(self, ann):
-        self.ann = ann
-        # ...rest of the initialization code...
 
     def report_action(self, action_data):
         self.ann.receive_toolkit_report(self, action_data)
