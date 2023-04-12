@@ -1,3 +1,4 @@
+here is a link to the full article https://1drv.ms/w/s!AmN0SPjhTRGug75qY6OPkmgBjPYWZw?e=gXfOam
 Artificial Brain Project
 The Artificial Brain Project aims to create an artificial brain by simulating the human brain's structure and functions using a Brainstem class, a brain structure map, adaptive neural networks, and Protobrain models. This project is intended to be self-optimizing and self-adaptive, with the artificial brain growing and evolving over time.
 
