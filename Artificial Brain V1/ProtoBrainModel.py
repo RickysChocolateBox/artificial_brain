@@ -1,5 +1,6 @@
 import sys
 sys.path.append("C:\\Users\\info\\HebbianLearningThesis\\HebbianLearningThesis")
+import tensorflow as tf
 import numpy as np
 import random
 import math
@@ -11,6 +12,7 @@ from RandomParameterGenerator import RandomParameterGenerator
 from IntrinsicMotivationQAgent import IntrinsicMotivationQAgent
 from AutoTuneToolkit import AutoTuneToolkit  
 from AutoTuneToolkit import NeurotransmitterTuner
+from PlaceCellClass import PlaceCellModel
 from ANNBaseClass import ANN
 from AE_BaseClass import Autoencoder
 from BoltzmannMachineclass import RBM
@@ -27,6 +29,8 @@ from RBFNBaseClass import RBFN
 from RNNBaseClass import SimpleRNN
 from SOMBaseClass import SOM
 from VAEBaseClass import VAE
+
+
 
 class HebbianLearning:
     def update_weights(self, neurons, learning_rate):
@@ -74,7 +78,7 @@ class Neuron:
         self.ann.receive_toolkit_report(self, action_data)
 
 class ProtoBrainModel:
-    def __init__(self, brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate):
+    def __init__(self, brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate, num_neurons, num_place_cells):
         self.brain_structure_map = brain_structure_map
         self.sensory_data = sensory_data
         self.network_types = ["ANN", "Autoencoder", "RBM", "CNN", "DBN", "DQN", "FNN", "GRUNetwork", "HopfieldNetwork", "LSNN", "LSTMNetwork", "MLPNetwork", "RBFN","SimpleRNN","SOM","VAE",
@@ -84,7 +88,15 @@ class ProtoBrainModel:
         self.reinforcement_learning = ReinforcementLearning()
         self.correction_mechanism = CorrectionMechanism()
         self.intrinsic_motivation_agent = IntrinsicMotivationQAgent(state_size, action_size, learning_rate, discount_factor, exploration_rate)
-        self.autotune_toolkit = AutoTuneToolkit()  # Initialize AutotuneToolkit
+        self.autotune_toolkit = AutoTuneToolkit()  
+        
+        self.neurons = [Neuron() for _ in range(num_neurons)]
+        self.place_cell_model = PlaceCellModel((None, num_neurons), num_place_cells)
+        self.learning_rate = learning_rate
+
+        input_shape = (None, 3)  # (batch_size, input_dim) for a 3D environment
+        num_place_cells = 32
+        self.place_cell_model = PlaceCellModel(input_shape, num_place_cells)
 
     def initialize_neural_networks(self):
         neural_networks = {}
@@ -143,6 +155,14 @@ class ProtoBrainModel:
         for region, network in self.neural_networks.items():
             reprocessed_data[region] = network.process(self.sensory_data[region])
         return reprocessed_data
+
+    def connect_neurons(self, pre_neuron, post_neuron, weight):
+        self.neurons[pre_neuron].add_connection(self.neurons[post_neuron], weight)
+
+    def process_sensory_data(self, sensory_data):
+        place_cell_activity = self.place_cell_model.process_input(np.array([sensory_data]))
+        self.process_input(place_cell_activity[0])
+
 
     def select_optimal_network(self, reprocessed_data):
         self.genetic_algorithm.select_best_individuals(reprocessed_data)
