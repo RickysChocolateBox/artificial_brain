@@ -1,3 +1,7 @@
+import numpy as np
+import random
+from collections import defaultdict
+from ProtoBrainModel import ProtoBrainModel
 class IntrinsicMotivationQAgent:
     def __init__(self, state_size, action_size, learning_rate, discount_factor, exploration_rate):
         self.state_size = state_size
@@ -28,4 +32,9 @@ class IntrinsicMotivationQAgent:
             return np.random.choice(self.action_size)
         else:
             return np.argmax(self.q_table[state])
+
+proto_brain = ProtoBrainModel(num_neurons=10, learning_rate=0.01)
+q_agent = IntrinsicMotivationQAgent(state_size=5, action_size=3, learning_rate=0.1, discount_factor=0.99, exploration_rate=0.5)
+
+# Connect neurons and set up the environment in a way that suits your problem
 

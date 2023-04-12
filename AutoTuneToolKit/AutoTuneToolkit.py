@@ -246,3 +246,4 @@ def optimize_proto_brain_components(self, proto_brain_model):
 
         for _, network in proto_brain_model.neural_networks.items():
             network.set_learning_rate(best_params["neural_network_learning_rate"])
+
