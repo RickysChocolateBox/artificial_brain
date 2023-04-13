@@ -4,26 +4,83 @@ import random
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
 from NeurotransmitterTuner import NeurotransmitterTuner
-import Adadelta
-import AdaGrad
-import Adamax
-import AdversarialTraining
-import BatchNormalization
-import DataAugmentation
-import DropoutRegularization
-import EarlyStopping
-import EnsembleLearning
-import GradientDescent
-import HyperMetaOptimization
-import L1L2Regularization
-import Momentum
-import NesterovAcceleratedGradient
-import OptimizationAlgorithmBaseClass
-import OptimizationAlgorithmBaseClassTOputInOtherCodes
-import ResNetBlock
-import RMSProp
-import SGD
-import WeightDecay
+from Adadelta import Adadelta
+from AdaGrad import AdaGrad
+from Adamax import Adamax
+from AdversarialTraining import AdversarialTraining
+from BatchNormalization import BatchNormalization
+from DataAugmentation import DataAugmentation
+from DropoutRegularization import DropoutRegularization
+from EarlyStopping import EarlyStopping
+from EnsembleLearning import EnsembleLearning
+from GradientDescent import GradientDescent
+from HyperMetaOptimization import HyperMetaOptimization
+from L1L2Regularization import L1L2Regularization
+from Momentum import Momentum
+from NesterovAcceleratedGradient import NesterovAcceleratedGradient
+from OptimizationAlgorithmBaseClass import OptimizationAlgorithmBaseClass
+from ResNetBlock import ResNetBlock
+from RMSProp import RMSProp
+from SGD import SGD
+from WeightDecay import WeightDecay
+
+class SelfOptimizingAutoTuneToolkit:
+    def __init__(self, model):
+        self.model = model
+        self.optimization_techniques = [
+            "SGD", "Adadelta", "AdaGrad", "Adamax",
+            "RMSProp", "Momentum", "NesterovAcceleratedGradient", "GradientDescent"
+        ]
+        self.regularization_techniques = [
+            "L1", "L2", "Dropout", "WeightDecay"
+        ]
+        self.additional_techniques = [
+            "BatchNormalization", "DataAugmentation", "EarlyStopping"
+        ]
+    
+def evaluate_convergence_speed(model, input_data, output_data, epochs=10):
+     history = model.fit(input_data, output_data, epochs=epochs, verbose=0)
+     training_loss = history.history["loss"]
+    
+    # Calculate the convergence speed as the average decrease in loss per epoch
+     loss_differences = np.diff(training_loss)
+     convergence_speed = -np.mean(loss_differences)
+    
+     return convergence_speed
+def train_and_evaluate(self, pipeline):
+        model = pipeline["neural_network"]
+        input_data = pipeline["input_data"]
+        output_data = pipeline["output_data"]
+        model.fit(input_data, output_data)
+        convergence_speed = evaluate_convergence_speed(model, input_data, output_data)
+        return convergence_speed
+
+def optimize_hyperparameters(self, input_data, output_data, num_trials=50):
+        study = optuna.create_study()
+        study.optimize(lambda trial: self._objective(trial, input_data, output_data), n_trials=num_trials)
+
+        best_params = study.best_params
+        self.apply_techniques(
+            optimization_technique=best_params["optimization_technique"],
+            regularization_technique=best_params["regularization_technique"],
+            additional_techniques=best_params["additional_techniques"]
+        )
+
+def _objective(self, trial, input_data, output_data):
+        optimization_technique = trial.suggest_categorical("optimization_technique", self.optimization_techniques)
+        regularization_technique = trial.suggest_categorical("regularization_technique", self.regularization_techniques)
+        additional_techniques = trial.suggest_categorical("additional_techniques", self.additional_techniques)
+
+        self.apply_techniques(optimization_technique, regularization_technique, [additional_techniques])
+
+        self.model.train(input_data, output_data)  # Train the model here
+        metric_to_optimize = self.model.evaluate(input_data, output_data)  # Evaluate the model here
+        return metric_to_optimize
+
+def apply_techniques(self, optimization_technique, regularization_technique, additional_techniques):
+        # Apply the selected techniques to the model
+        pass
+
 class AutoTuneToolkit:
     def __init__(self, ann):
         self.ann = ann
@@ -52,7 +109,7 @@ class AutoTuneToolkit:
         self.data_augmentation = None
         self.dropout = None
         self.early_stopping = None
-    def apply_optimization_technique(self, optimization_technique):
+def apply_optimization_technique(self, optimization_technique):
         if optimization_technique == "SGD":
             self.optimizer = SGD.SGD()
         elif optimization_technique == "Adadelta":
@@ -70,7 +127,7 @@ class AutoTuneToolkit:
         elif optimization_technique == "GradientDescent":
             self.optimizer = GradientDescent.GradientDescent()
         # Add more optimization techniques here
-    def apply_regularization_technique(self, regularization_technique):
+def apply_regularization_technique(self, regularization_technique):
         if regularization_technique == "L1":
             self.regularizer = L1L2Regularization.L1()
         elif regularization_technique == "L2":
@@ -80,7 +137,7 @@ class AutoTuneToolkit:
         elif regularization_technique == "WeightDecay":
             self.regularizer = WeightDecay.WeightDecay()
         # Add more regularization techniques here
-    def apply_additional_techniques(self, technique):
+def apply_additional_techniques(self, technique):
         if technique == "BatchNormalization":
             self.batch_normalization = BatchNormalization.BatchNormalization()
         elif technique == "DataAugmentation":
@@ -88,15 +145,15 @@ class AutoTuneToolkit:
         elif technique == "EarlyStopping":
             self.early_stopping = EarlyStopping.EarlyStopping()
         # Add more additional techniques here
-    def apply_techniques(self, optimization_technique, regularization_technique, additional_techniques=None):
+def apply_techniques(self, optimization_technique, regularization_technique, additional_techniques=None):
         self.apply_optimization_technique(optimization_technique)
         self.apply_regularization_technique(regularization_technique)
         if additional_techniques is not None:
             for technique in additional_techniques:
                 self.apply_additional_techniques(technique)
-    def report_action(self, action_data):
+def report_action(self, action_data):
         self.ann.receive_toolkit_report(self, action_data)
-    def ucb1_select_gradient_objective_function(self):
+def ucb1_select_gradient_objective_function(self):
         total_counts = np.sum(self.ucb1_counts)
         if total_counts == 0:
             # If no function has been tried, choose a random one
@@ -113,39 +170,39 @@ class AutoTuneToolkit:
         # Return the selected gradient objective function
         function_name = list(self.gradient_objective_functions.keys())[index]
         return function_name, self.gradient_objective_functions[function_name]
-    def optimize(self, y_true, y_pred):
+def optimize(self, y_true, y_pred):
         function_name, selected_gradient_objective_function = self.ucb1_select_gradient_objective_function()
         performance = selected_gradient_objective_function(y_true, y_pred)
         # Update the rewards for the chosen function
         index = list(self.gradient_objective_functions.keys()).index(function_name)
         self.ucb1_rewards[index] += performance
         return performance
-    def mean_squared_error(self, y_true, y_pred):
+def mean_squared_error(self, y_true, y_pred):
         return mean_squared_error(y_true, y_pred)
-    def binary_crossentropy(self, y_true, y_pred):
+def binary_crossentropy(self, y_true, y_pred):
         return log_loss(y_true, y_pred)
-    def categorical_crossentropy(self, y_true, y_pred):
+def categorical_crossentropy(self, y_true, y_pred):
         return log_loss(y_true, y_pred, labels=np.unique(y_true))
-    def sparse_categorical_crossentropy(self, y_true, y_pred):
+def sparse_categorical_crossentropy(self, y_true, y_pred):
         y_true_sparse = np.zeros_like(y_pred)
         y_true_sparse[np.arange(len(y_true)), y_true.astype(int)] = 1
         return log_loss(y_true_sparse, y_pred, labels=np.unique(y_true_sparse))
-    def hinge_loss(self, y_true, y_pred):
+def hinge_loss(self, y_true, y_pred):
         return hinge_loss(y_true, y_pred)
-    def squared_hinge_loss(self, y_true, y_pred):
+def squared_hinge_loss(self, y_true, y_pred):
         return np
-    def squared_hinge_loss(self, y_true, y_pred):
+def squared_hinge_loss(self, y_true, y_pred):
         return np.mean(np.square(np.maximum(1 - y_true * y_pred, 0)))
-    def huber_loss(self, y_true, y_pred, delta=1.0):
+def huber_loss(self, y_true, y_pred, delta=1.0):
         error = y_true - y_pred
         abs_error = np.abs(error)
         return np.mean(np.where(abs_error < delta, 0.5 * np.square(error), delta * (abs_error - 0.5 * delta)))
-    def log_cosh_loss(self, y_true, y_pred):
+def log_cosh_loss(self, y_true, y_pred):
         error = y_true - y_pred
         return np.mean(np.log(np.cosh(error)))
-    def poisson_loss(self, y_true, y_pred):
+def poisson_loss(self, y_true, y_pred):
         return np.mean(y_pred - y_true * np.log(y_pred))
-    def kullback_leibler_divergence(self, y_true, y_pred):
+def kullback_leibler_divergence(self, y_true, y_pred):
         return np.sum(y_true * np.log(y_true / (y_pred + 1e-7)), axis=-1).mean()
 def multi_label_margin_loss(self, y_true, y_pred):
         y_pred_sorted = np.sort(y_pred, axis=-1)
@@ -192,75 +249,75 @@ def evaluate_adaptability(neural_network, input_data, output_data, num_splits=5)
             adaptability_score = np.mean(scores)
      return adaptability_score
 def normalize_data(input_data):
-     preprocessed_input_data = (input_data - np.mean(input_data, axis=0)) / np.std(input_data, axis=0)
-     return preprocessed_input_data
+         preprocessed_input_data = (input_data - np.mean(input_data, axis=0)) / np.std(input_data, axis=0)
+         return preprocessed_input_data
 def calculate_accuracy(predicted_output_data, output_data):
-     performance_score = np.mean(np.argmax(predicted_output_data, axis=1) == np.argmax(output_data, axis=1))
-     return performance_score
+         performance_score = np.mean(np.argmax(predicted_output_data, axis=1) == np.argmax(output_data, axis=1))
+         return performance_score
 def calculate_complexity_penalty(neural_network, max_complexity=1000, penalty_factor=0.001):
-     complexity_score = calculate_complexity(neural_network)
-     complexity_penalty = 0
-     if complexity_score > max_complexity:
-       complexity_penalty = (complexity_score - max_complexity) * penalty_factor
-       return complexity_penalty
+         complexity_score = calculate_complexity(neural_network)
+         complexity_penalty = 0
+         if complexity_score > max_complexity:
+            complexity_penalty = (complexity_score - max_complexity) * penalty_factor
+         return complexity_penalty
 def objective(trial):
-    penalty_factor = trial.suggest_uniform('penalty_factor', 0.0001, 0.01)
-    fitness = calculate_fitness(neural_network, input_data, output_data, penalty_factor)
-    return -fitness  # Optuna minimizes the objective, so return the negative of the fitness
+         penalty_factor = trial.suggest_uniform('penalty_factor', 0.0001, 0.01)
+         fitness = calculate_fitness(neural_network, input_data, output_data, penalty_factor)
+         return -fitness  # Optuna minimizes the objective, so return the negative of the fitness
 study = optuna.create_study()
 study.optimize(objective, n_trials=50)
 def evaluate_convergence_speed(model, input_data, output_data, epochs=10):
-    history = model.fit(input_data, output_data, epochs=epochs, verbose=0)
-    training_loss = history.history["loss"]
-    # Calculate the convergence speed as the average decrease in loss per epoch
-    loss_differences = np.diff(training_loss)
-    convergence_speed = -np.mean(loss_differences)
-    return convergence_speed
+         history = model.fit(input_data, output_data, epochs=epochs, verbose=0)
+         training_loss = history.history["loss"]
+         # Calculate the convergence speed as the average decrease in loss per epoch
+         loss_differences = np.diff(training_loss)
+         convergence_speed = -np.mean(loss_differences)
+         return convergence_speed
 def train_and_evaluate(self, pipeline):
-    model = pipeline["neural_network"]
-    input_data = pipeline["input_data"]
-    output_data = pipeline["output_data"]
-    # Find the optimal number of epochs
-    epochs, convergence_speed = find_optimal_epochs(model, input_data, output_data)
-    return convergence_speed
+        model = pipeline["neural_network"]
+        input_data = pipeline["input_data"]
+        output_data = pipeline["output_data"]
+        # Find the optimal number of epochs
+        epochs, convergence_speed = find_optimal_epochs(model, input_data, output_data)
+        return convergence_speed
 def find_optimal_epochs(model, input_data, output_data, max_epochs=100, threshold=0.001):
-    epoch = 0
-    prev_loss = float('inf')
-    min_loss_diff = float('inf')
-    while epoch < max_epochs:
-        history = model.fit(input_data, output_data, epochs=1, verbose=0)
-        current_loss = history.history['loss'][0]
-        loss_diff = prev_loss - current_loss
-        if loss_diff < threshold:
-            break
+        epoch = 0
+        prev_loss = float('inf')
+        min_loss_diff = float('inf')
+        while epoch < max_epochs:
+          history = model.fit(input_data, output_data, epochs=1, verbose=0)
+          current_loss = history.history['loss'][0]
+          loss_diff = prev_loss - current_loss
+          if loss_diff < threshold:
+              break
         min_loss_diff = min(min_loss_diff, loss_diff)
         prev_loss = current_loss
         epoch += 1
-    return epoch, min_loss_diff
+        return epoch, min_loss_diff
 def calculate_fitness(neural_network, input_data, output_data, penalty_factor=0.001):
-    convergence_speed = evaluate_convergence_speed(neural_network, input_data, output_data)
-    adaptability = evaluate_adaptability(neural_network, input_data, output_data)
-    complexity_penalty = calculate_complexity_penalty(neural_network, penalty_factor=penalty_factor)
-    fitness = (convergence_speed + adaptability) - complexity_penalty
-    return fitness
+        convergence_speed = evaluate_convergence_speed(neural_network, input_data, output_data)
+        adaptability = evaluate_adaptability(neural_network, input_data, output_data)
+        complexity_penalty = calculate_complexity_penalty(neural_network, penalty_factor=penalty_factor)
+        fitness = (convergence_speed + adaptability) - complexity_penalty
+        return fitness
 def custom_fitness_function(neural_network, input_data, output_data, project_specific_requirements):
-    # Step 1: Preprocess input_data according to project_specific_requirements
-    preprocessed_input_data = preprocess_input_data(input_data, project_specific_requirements)
-    # Step 2: Process input data using the neural_network
-    predicted_output_data = neural_network.predict(preprocessed_input_data)
-    # Step 3: Compare predicted_output_data with the actual output_data to evaluate performance
-    performance_score = compare_output_data(predicted_output_data, output_data, project_specific_requirements)
-    # Step 4: Apply any additional performance metrics or project-specific requirements
-    final_fitness_score = apply_additional_metrics(performance_score, project_specific_requirements, neural_network)
-    return final_fitness_score
+        # Step 1: Preprocess input_data according to project_specific_requirements
+        preprocessed_input_data = preprocess_input_data(input_data, project_specific_requirements)
+        # Step 2: Process input data using the neural_network
+        predicted_output_data = neural_network.predict(preprocessed_input_data)
+        # Step 3: Compare predicted_output_data with the actual output_data to evaluate performance
+        performance_score = compare_output_data(predicted_output_data, output_data, project_specific_requirements)
+        # Step 4: Apply any additional performance metrics or project-specific requirements
+        final_fitness_score = apply_additional_metrics(performance_score, project_specific_requirements, neural_network)
+        return final_fitness_score
 def preprocess_input_data(input_data, project_specific_requirements):
-    return normalize_data(input_data)
+        return normalize_data(input_data)
 def compare_output_data(predicted_output_data, output_data, project_specific_requirements):
-    return calculate_accuracy(predicted_output_data, output_data)
+        return calculate_accuracy(predicted_output_data, output_data)
 def apply_additional_metrics(performance_score, project_specific_requirements, neural_network):
-    complexity_penalty = calculate_complexity_penalty(neural_network)
-    final_fitness_score = performance_score - complexity_penalty
-    return final_fitness_score
+        complexity_penalty = calculate_complexity_penalty(neural_network)
+        final_fitness_score = performance_score - complexity_penalty
+        return final_fitness_score
 class AdaptiveNeuralNetwork:
     def __init__(self):
         # ... initialization code for the ANN ...
