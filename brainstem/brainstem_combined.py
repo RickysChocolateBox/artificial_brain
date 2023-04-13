@@ -3,7 +3,8 @@ import struct
 import random
 import numpy as np
 import tensorflow as tf
-from AutotuningToolkit import AutotuningToolkit
+from AdaptiveNeuralNetwork import AdaptiveNeuralNetwork
+from AutoTuneToolkit import AutoTuneToolkit
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
 from preprocess_stereo_vision_data import preprocess_stereo_vision_data
@@ -18,11 +19,6 @@ from preprocess_stereo_hearing_data import preprocess_stereo_hearing_data
 from preprocess_stereo_thermal_data import preprocess_stereo_thermal_data
 from preprocess_texture_data import preprocess_texture_data
 
-
-
-class AdaptiveNeuralNetwork:
-    # Replace with the actual ANN implementation
-    pass
 
 
 class HebbianLearning:
@@ -50,10 +46,10 @@ class SynapticScaling:
 class Brainstem:
     def __init__(
         self,
-        adaptive_neural_network,
-        hebbian_learning,
-        synaptic_scaling,
-        autotuning_toolkit,
+        AdaptiveNeuralNetwork,
+        HebbianLearning,
+        SynapticScaling,
+        AutoTuneToolkit,
         SSID=None,
         PASSWORD=None,
         SERVER_IP=None,
@@ -63,10 +59,8 @@ class Brainstem:
         CHECKSUM=None,
     ):
 
-        self.adaptive_neural_network = adaptive_neural_network
-        self.hebbian_learning = hebbian_learning
-        self.synaptic_scaling = synaptic_scaling
-        self.autotuning_toolkit = autotuning_toolkit
+        self.AdaptiveNeuralNetwork = AdaptiveNeuralNetwork
+        self.AutoTuneToolkit = AutoTuneToolkit
         self.SSID = SSID
         self.PASSWORD = PASSWORD
         self.SERVER_IP = SERVER_IP
@@ -77,8 +71,8 @@ class Brainstem:
         self.sensory_sources = []
         self.motor_sources = []
 
-        # Create an instance of the AutotuningToolkit
-        self.autotuning_toolkit = AutotuningToolkit(self.adaptive_neural_network)
+        # Create an instance of the AutoTuneToolkit
+        self.AutoTuneToolkit = AutoTuneToolkit(self.AdaptiveNeuralNetwork)
 
 
         # Initialize brain_structure
@@ -293,10 +287,10 @@ class Brainstem:
     },
 }
 
-        # Use the AutotuningToolkit to optimize preprocessing parameters
+        # Use the AutoTuneToolkit to optimize preprocessing parameters
         y_true = ... # Ground truth labels or values
         y_pred = ... # Predicted labels or values based on the current preprocessing
-        performance = self.autotuning_toolkit.optimize(y_true, y_pred)
+        performance = self.AutoTuneToolkit.optimize(y_true, y_pred)
     def add_sensory_source(self, source_type, source):
          self.sensory_sources.append((source_type, source))
 
@@ -352,22 +346,22 @@ def preprocess_sensory_data(self, data, source_type):
                     self.process_brain_signals()
 
                     # Update weights based on Hebbian learning rules and synaptic scaling
-                    self.hebbian_learning.update_weights(self.adaptive_neural_network.neurons, self.adaptive_neural_network.learning_rate)
-                    self.synaptic_scaling.scale_synapses(self.adaptive_neural_network.neurons, target_sum=1.0)
+                    self.HebbianLearning.update_weights(self.AdaptiveNeuralNetwork.neurons, self.AdaptiveNeuralNetwork.learning_rate)
+                    self.SynapticScaling.scale_synapses(self.AdaptiveNeuralNetwork.neurons, target_sum=1.0)
 
                     # Get motor outputs from the adaptive neural network
-                    motor_outputs = self.adaptive_neural_network.get_motor_outputs()
+                    motor_outputs = self.AdaptiveNeuralNetwork.get_motor_outputs()
 
                     # Control motor sources based on the motor_outputs
                     for source_type, source in self.motor_sources:
                         source.control_motor(motor_outputs[source_type])
 
 if __name__ == "__main__":
-    adaptive_neural_network = AdaptiveNeuralNetwork()
-    hebbian_learning = HebbianLearning()
-    synaptic_scaling = SynapticScaling()
-    autotuning_toolkit = AutotuningToolkit(adaptive_neural_network)
+    AdaptiveNeuralNetwork = AdaptiveNeuralNetwork()
+    HebbianLearning = HebbianLearning()
+    SynapticScaling = SynapticScaling()
+    AutoTuneToolkit = AutoTuneToolkit(AdaptiveNeuralNetwork)
 
-    brainstem = Brainstem(adaptive_neural_network, hebbian_learning, synaptic_scaling, autotuning_toolkit)
+    brainstem = Brainstem(AdaptiveNeuralNetwork, HebbianLearning, SynapticScaling, AutoTuneToolkit)
     brainstem.main()
 

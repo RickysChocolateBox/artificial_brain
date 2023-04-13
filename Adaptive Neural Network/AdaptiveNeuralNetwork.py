@@ -40,8 +40,8 @@ class Neuron:
         attended_inputs = self.apply_attention(inputs, attention_weights)
         processed_outputs = self.process_attended_inputs(attended_inputs)
         return processed_outputs
-    def request_neurotransmitter_adjustment(self, proto_brain_model, adjustment_type):
-        return self.neurotransmitter_tuner.adjust_neurotransmitters(proto_brain_model, adjustment_type)
+    def request_neurotransmitter_adjustment(self, ProtoBrainModel, adjustment_type):
+        return self.neurotransmitter_tuner.adjust_neurotransmitters(ProtoBrainModel, adjustment_type)
 
     def calculate_attention_weights(self, inputs):
         attention_weights = [1.0 / len(inputs) for _ in range(len(inputs))]
@@ -57,34 +57,34 @@ class Neuron:
 
 
     def report_action(self, action_data):
-        self.ann.receive_toolkit_report(self, action_data)
+        self.ann.receive_AutoTuneToolkit_report(self, action_data)
 class AdaptiveNeuralNetwork:
     def __init__(self, num_neurons, learning_rate, num_emotions=5):
         self.neurons = [Neuron() for _ in range(num_neurons)]
         self.learning_rate = learning_rate
-        self.hebbian_learning = HebbianLearning()
-        self.synaptic_scaling = SynapticScaling()
-        self.emotional_model = EmotionalModel(num_emotions=num_emotions)
+        self.HebbianLearning = HebbianLearning()
+        self.SynapticScaling = SynapticScaling()
+        self.EmotionalModel = EmotionalModel(num_emotions=num_emotions)
         self, num_neurons, learning_rate
         self.neurons = [Neuron() for _ in range(num_neurons)]
         self.brain_structure = self.load_brain_structure()
-        self.neurotransmitter_tuner = NeurotransmitterTuner(self)
+        self.NeurotransmitterTuner = NeurotransmitterTuner(self)
         self.brain_structure = self.load_brain_structure()
-    def receive_toolkit_report(self, toolkit, action_data):
-        # Process the report from the toolkit
+    def receive_AutoTuneToolkit_report(self, AutoTuneToolkit, action_data):
+        # Process the report from the /// AutoTuneToolkit
         # This can involve updating internal data structures, making decisions, etc.
         pass
 
-    def create_toolkits(self, num_toolkits, reinforcement_learning_models):
-        for _ in range(num_toolkits):
-            toolkit = AutoTuneToolkit(self, reinforcement_learning_models)
-            self.toolkits.append(toolkit)
+    def create_AutoTuneToolkit(self, num_AutoTuneToolkit, reinforcement_learning_models):
+        for _ in range(num_AutoTuneToolkit):
+            AutoTuneToolkit = AutoTuneToolkit(self, reinforcement_learning_models)
+            self.AutoTuneToolkit.append(AutoTuneToolkit)
 
-    def create_and_optimize_proto_brain_model(self, brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate):
-        proto_brain_model = ProtoBrainModel(brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate)
-        toolkit = AutoTuneToolkit(self)
-        proto_brain_model.optimize_components(toolkit)
-        return proto_brain_model
+    def create_and_optimize_ProtoBrainModel(self, brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate):
+        ProtoBrainModel = ProtoBrainModel(brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate)
+        AutoTuneToolkit = AutoTuneToolkit(self)
+        ProtoBrainModel.optimize_components(AutoTuneToolkit)
+        return ProtoBrainModel
 
     def load_brain_structure(self):
         brain_structure = {
@@ -299,43 +299,43 @@ class AdaptiveNeuralNetwork:
 } 
 
         return brain_structure
-    def fractal_growth_pattern(self, input_data, target_data, num_generations=50, population_size=100):
+    def FractalGrowthPattern(self, input_data, target_data, num_generations=50, population_size=100):
         creator.create("FitnessMax", base.Fitness, weights=(1.0,))
         creator.create("Individual", list, fitness=creator.FitnessMax)
 
-        toolbox = base.Toolbox()
-        toolbox.register("attr_bool", np.random.choice, [0, 1])
-        toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n=len(self.neurons))
-        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        AutoTuneToolkit = base.AutoTuneToolkit()
+        AutoTuneToolkit.register("attr_bool", np.random.choice, [0, 1])
+        AutoTuneToolkit.register("individual", tools.initRepeat, creator.Individual, AutoTuneToolkit.attr_bool, n=len(self.neurons))
+        AutoTuneToolkit.register("population", tools.initRepeat, list, AutoTuneToolkit.individual)
 
-        toolbox.register("mate", tools.cxTwoPoint)
-        toolbox.register("mutate", tools.mutFlipBit, indpb=0.1)
-        toolbox.register("select", tools.selBest)
-        toolbox.register("evaluate", self.evaluate_growth_pattern, input_data=input_data, target_data=target_data)
+        AutoTuneToolkit.register("mate", tools.cxTwoPoint)
+        AutoTuneToolkit.register("mutate", tools.mutFlipBit, indpb=0.1)
+        AutoTuneToolkit.register("select", tools.selBest)
+        AutoTuneToolkit.register("evaluate", self.evaluate_growth_pattern, input_data=input_data, target_data=target_data)
 
-        population = toolbox.population(n=population_size)
+        population = AutoTuneToolkit.population(n=population_size)
 
-        algorithms.eaSimple(population, toolbox, cxpb=0.5, mutpb=0.2, ngen=num_generations, verbose=False)
+        algorithms.eaSimple(population, AutoTuneToolkit, cxpb=0.5, mutpb=0.2, ngen=num_generations, verbose=False)
 
         best_individual = tools.selBest(population, k=1)[0]
-        self.apply_growth_pattern(best_individual)
+        self.apply_FractalGrowthPattern(best_individual,any )
 
-    def evaluate_growth_pattern(self, individual, input_data, target_data):
-        # Implement logic to evaluate the performance of the network with the proposed growth pattern
+    def evaluate_FractalGrowthPattern(self, individual, input_data, target_data):
+        self.AutoTuneToolkit(evaluate_performance)
         pass
 
-    def apply_growth_pattern(self, growth_pattern):
-        # Implement logic to apply the growth pattern (new neurons and connections) to the network
+    def apply_FractalGrowthPattern(self,FractalGrowthPattern):
+        # Implement logic to apply the FractalGrowthPattern (new neurons and connections) to the network
         pass
     def process_input_data(self, input_data):
         for neuron in self.neurons:
             neuron.process_inputs(input_data)
 
-        self.hebbian_learning.update_weights(self.neurons, self.learning_rate)
-        self.synaptic_scaling.scale_synapses(self.neurons)
+        self.HebbianLearning.update_weights(self.neurons, self.learning_rate)
+        self.SynapticScaling.scale_synapses(self.neurons)
     def forward_pass(self, input_values):
         # Apply the emotional influence
-        influenced_values = self.emotional_model.get_emotional_influence(input_values)
+        influenced_values = self.EmotionalModel.get_emotional_influence(input_values)
 
         # Replace input_values with influenced_values in the forward pass
         output_values = self.layers[0].forward(influenced_values)
@@ -386,8 +386,8 @@ def main():
     print("Accuracy of the AdaptiveNeuralNetwork:", accuracy)
 
     # Example of updating the emotional state
-    ann.emotional_model.increase_emotion(emotion_index=0, value=0.2)  # Increase the first emotion by 0.2
-    ann.emotional_model.decay_emotions()  # Decay the emotions
+    ann.EmotionalModel.increase_emotion(emotion_index=0, value=0.2)  # Increase the first emotion by 0.2
+    ann.EmotionalModell.decay_emotions()  # Decay the emotions
 
     # Make predictions with the updated emotional state
     y_pred_updated = ann.predict(X_test)
