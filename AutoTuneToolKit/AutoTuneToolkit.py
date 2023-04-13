@@ -166,6 +166,7 @@ def get_input_output_data(self):
         selected_dataset = random.choice(self.available_datasets)
         input_data, output_data = selected_dataset['input_data'], selected_dataset['output_data']
         return input_data, output_data
+
 def calculate_complexity(neural_network):
      complexity_score = 0
      for layer in neural_network.layers:
