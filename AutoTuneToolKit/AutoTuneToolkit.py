@@ -260,12 +260,12 @@ def calculate_complexity_penalty(neural_network, max_complexity=1000, penalty_fa
          if complexity_score > max_complexity:
             complexity_penalty = (complexity_score - max_complexity) * penalty_factor
          return complexity_penalty
-def objective(trial):
-         penalty_factor = trial.suggest_uniform('penalty_factor', 0.0001, 0.01)
-         fitness = calculate_fitness(neural_network, input_data, output_data, penalty_factor)
-         return -fitness  # Optuna minimizes the objective, so return the negative of the fitness
-study = optuna.create_study()
-study.optimize(objective, n_trials=50)
+         def objective(trial):
+             penalty_factor = trial.suggest_uniform('penalty_factor', 0.0001, 0.01)
+             fitness = calculate_fitness(neural_network, input_data, output_data, penalty_factor)
+             return -fitness  # Optuna minimizes the objective, so return the negative of the fitness
+         study = optuna.create_study()
+         study.optimize(objective, n_trials=50)
 def evaluate_convergence_speed(model, input_data, output_data, epochs=10):
          history = model.fit(input_data, output_data, epochs=epochs, verbose=0)
          training_loss = history.history["loss"]
