@@ -404,12 +404,4 @@ if __name__ == "__main__":
 def main():
     adaptive_nn = AdaptiveNeuralNetwork(num_neurons=10, learning_rate=0.01)
 
-    # Example usage:
-    inputs = np.array([1, 2, 3])
-    for neuron in AdaptiveNeuralNetwork.neurons:
-        outputs = neuron.process_inputs(inputs)
-        print(outputs)
-
-
-if __name__ == "__main__":
-    main()
+    
