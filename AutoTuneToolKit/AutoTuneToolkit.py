@@ -1,6 +1,17 @@
+import sys
+sys.path.append("sys:\Users\info\anaconda3\envs\Artificial_Brain_Project\Lib\site-packages")
+import sys
+sys.path.append("sys:\Users\info\OneDrive\Desktop\Artificia Brain\artificial_brain\ProtoBrainModel\ProtoBrainModel.py")
+import random
+import tensorflow as tf
+import networkx as nx
+import gym 
 import optuna
 import numpy as np
 import random
+from ProtoBrainModel import ProtoBrainModel 
+from deap import algorithms, base, creator, tools
+from emotional_class import EmotionalModel
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
 from NeurotransmitterTuner import NeurotransmitterTuner
@@ -354,6 +365,27 @@ def apply_additional_metrics(performance_score, project_specific_requirements, n
         complexity_penalty = calculate_complexity_penalty(neural_network)
         final_fitness_score = performance_score - complexity_penalty
         return final_fitness_score
+
+class HebbianLearning:
+    def update_weights(self, neurons, learning_rate):
+        for neuron in neurons:
+            for synapse in neuron.synapses:
+                # Update the synapse weight based on the Hebbian learning rule
+                synapse.weight += learning_rate * neuron.activation * synapse.target.activation
+        pass
+
+
+class SynapticScaling:
+    def scale_synapses(self, neurons, target_sum):
+        for neuron in neurons:
+            synapse_weights = [synapse.weight for synapse in neuron.synapses]
+            sum_weights = sum(synapse_weights)
+
+            if sum_weights > 0:
+                scale_factor = target_sum / sum_weights
+                for synapse in neuron.synapses:
+                    synapse.weight *= scale_factor
+        pass
 
 class AdaptiveNeuralNetwork:
     def __init__(self):
