@@ -21,27 +21,6 @@ from preprocess_texture_data import preprocess_texture_data
 
 
 
-class HebbianLearning:
-    def update_weights(self, neurons, learning_rate):
-        for neuron in neurons:
-            for synapse in neuron.synapses:
-                # Update the synapse weight based on the Hebbian learning rule
-                synapse.weight += learning_rate * neuron.activation * synapse.target.activation
-        pass
-
-
-class SynapticScaling:
-    def scale_synapses(self, neurons, target_sum):
-        for neuron in neurons:
-            synapse_weights = [synapse.weight for synapse in neuron.synapses]
-            sum_weights = sum(synapse_weights)
-
-            if sum_weights > 0:
-                scale_factor = target_sum / sum_weights
-                for synapse in neuron.synapses:
-                    synapse.weight *= scale_factor
-        pass
-
 
 class Brainstem:
     def __init__(
@@ -73,7 +52,26 @@ class Brainstem:
 
         # Create an instance of the AutoTuneToolkit
         self.AutoTuneToolkit = AutoTuneToolkit(self.AdaptiveNeuralNetwork)
+class HebbianLearning:
+    def update_weights(self, neurons, learning_rate):
+        for neuron in neurons:
+            for synapse in neuron.synapses:
+                # Update the synapse weight based on the Hebbian learning rule
+                synapse.weight += learning_rate * neuron.activation * synapse.target.activation
+        pass
 
+
+class SynapticScaling:
+    def scale_synapses(self, neurons, target_sum):
+        for neuron in neurons:
+            synapse_weights = [synapse.weight for synapse in neuron.synapses]
+            sum_weights = sum(synapse_weights)
+
+            if sum_weights > 0:
+                scale_factor = target_sum / sum_weights
+                for synapse in neuron.synapses:
+                    synapse.weight *= scale_factor
+        pass
 
         # Initialize brain_structure
         self.brain_structure = {
