@@ -24,8 +24,6 @@ import ResNetBlock
 import RMSProp
 import SGD
 import WeightDecay
-
-
 class AutoTuneToolkit:
     def __init__(self, ann):
         self.ann = ann
@@ -166,7 +164,6 @@ def get_input_output_data(self):
         selected_dataset = random.choice(self.available_datasets)
         input_data, output_data = selected_dataset['input_data'], selected_dataset['output_data']
         return input_data, output_data
-
 def calculate_complexity(neural_network):
      complexity_score = 0
      for layer in neural_network.layers:
@@ -184,19 +181,14 @@ def evaluate_adaptability(neural_network, input_data, output_data, num_splits=5)
      for i in range(num_splits):
             test_data_start = i * split_size
             test_data_end = (i + 1) * split_size
-
             test_input_data = input_data[test_data_start:test_data_end]
             test_output_data = output_data[test_data_start:test_data_end]
-
             train_input_data = np.concatenate((input_data[:test_data_start], input_data[test_data_end:]), axis=0)
             train_output_data = np.concatenate((output_data[:test_data_start], output_data[test_data_end:]), axis=0)
-
             neural_network.fit(train_input_data, train_output_data, epochs=10, batch_size=32, verbose=0)
             predicted_output_data = neural_network.predict(test_input_data)
-
             score = calculate_accuracy(predicted_output_data, test_output_data)
             scores.append(score)
-
             adaptability_score = np.mean(scores)
      return adaptability_score
 def normalize_data(input_data):
@@ -220,59 +212,46 @@ study.optimize(objective, n_trials=50)
 def evaluate_convergence_speed(model, input_data, output_data, epochs=10):
     history = model.fit(input_data, output_data, epochs=epochs, verbose=0)
     training_loss = history.history["loss"]
-    
     # Calculate the convergence speed as the average decrease in loss per epoch
     loss_differences = np.diff(training_loss)
     convergence_speed = -np.mean(loss_differences)
-    
     return convergence_speed
 def train_and_evaluate(self, pipeline):
     model = pipeline["neural_network"]
     input_data = pipeline["input_data"]
     output_data = pipeline["output_data"]
-
     # Find the optimal number of epochs
     epochs, convergence_speed = find_optimal_epochs(model, input_data, output_data)
-
     return convergence_speed
 def find_optimal_epochs(model, input_data, output_data, max_epochs=100, threshold=0.001):
     epoch = 0
     prev_loss = float('inf')
     min_loss_diff = float('inf')
-    
     while epoch < max_epochs:
         history = model.fit(input_data, output_data, epochs=1, verbose=0)
         current_loss = history.history['loss'][0]
         loss_diff = prev_loss - current_loss
-
         if loss_diff < threshold:
             break
-
         min_loss_diff = min(min_loss_diff, loss_diff)
         prev_loss = current_loss
         epoch += 1
-        
     return epoch, min_loss_diff
 def calculate_fitness(neural_network, input_data, output_data, penalty_factor=0.001):
     convergence_speed = evaluate_convergence_speed(neural_network, input_data, output_data)
     adaptability = evaluate_adaptability(neural_network, input_data, output_data)
     complexity_penalty = calculate_complexity_penalty(neural_network, penalty_factor=penalty_factor)
-
     fitness = (convergence_speed + adaptability) - complexity_penalty
     return fitness
 def custom_fitness_function(neural_network, input_data, output_data, project_specific_requirements):
     # Step 1: Preprocess input_data according to project_specific_requirements
     preprocessed_input_data = preprocess_input_data(input_data, project_specific_requirements)
-
     # Step 2: Process input data using the neural_network
     predicted_output_data = neural_network.predict(preprocessed_input_data)
-
     # Step 3: Compare predicted_output_data with the actual output_data to evaluate performance
     performance_score = compare_output_data(predicted_output_data, output_data, project_specific_requirements)
-
     # Step 4: Apply any additional performance metrics or project-specific requirements
     final_fitness_score = apply_additional_metrics(performance_score, project_specific_requirements, neural_network)
-
     return final_fitness_score
 def preprocess_input_data(input_data, project_specific_requirements):
     return normalize_data(input_data)
@@ -282,31 +261,23 @@ def apply_additional_metrics(performance_score, project_specific_requirements, n
     complexity_penalty = calculate_complexity_penalty(neural_network)
     final_fitness_score = performance_score - complexity_penalty
     return final_fitness_score
-
-
 class AdaptiveNeuralNetwork:
     def __init__(self):
         # ... initialization code for the ANN ...
         self.toolkits = []
-
     def create_toolkits(self, num_toolkits):
         for _ in range(num_toolkits):
             toolkit = AutoTuneToolkit(self)
             self.toolkits.append(toolkit)
-
     def receive_toolkit_report(self, toolkit, action_data):
         # ... process the report from the toolkit and decide on further actions ...
         pass
-
     # ... other methods for the ANN ...
-
 # Create an adaptive neural network and toolkits
 ann = AdaptiveNeuralNetwork()
 ann.create_toolkits(56)  # Create 56 toolkits for the artificial brain
-
 # Run the adaptive neural network
 # ... code to run the ANN and have it process information ...
-
 def optimize_proto_brain_components(self, proto_brain_model):
         # Define the optimization ranges for learning_rate, discount_factor, and exploration_rate
         optimization_ranges = {
@@ -315,13 +286,10 @@ def optimize_proto_brain_components(self, proto_brain_model):
             "exploration_rate": (0.01, 1.0),
             "neural_network_learning_rate": (0.001, 0.1),
         }
-
         # Generate random parameter sets within the defined ranges
         param_sets = self.generate_random_param_sets(optimization_ranges, num_sets=10)
-
         best_performance = float("-inf")
         best_params = None
-
         # Evaluate each parameter set and keep track of the best one
         for params in param_sets:
             proto_brain_model.intrinsic_motivation_agent.update_parameters(
@@ -329,25 +297,20 @@ def optimize_proto_brain_components(self, proto_brain_model):
                 discount_factor=params["discount_factor"],
                 exploration_rate=params["exploration_rate"],
             )
-
             # Update the learning rates of the neural networks
         for _, network in proto_brain_model.neural_networks.items():
                 network.set_learning_rate(params["neural_network_learning_rate"])
-
         proto_brain_model.train()  # Train the model using the new parameters
         performance = proto_brain_model.evaluate_performance()
-
         if performance > best_performance:
                 best_performance = performance
                 best_params = params
-
         # Set the best parameters for the IntrinsicMotivationQAgent and neural networks
         proto_brain_model.intrinsic_motivation_agent.update_parameters(
             learning_rate=best_params["learning_rate"],
             discount_factor=best_params["discount_factor"],
             exploration_rate=best_params["exploration_rate"],
         )
-
         for _, network in proto_brain_model.neural_networks.items():
             network.set_learning_rate(best_params["neural_network_learning_rate"])
 
