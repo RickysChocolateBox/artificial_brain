@@ -1,8 +1,41 @@
+import optuna
 import numpy as np
 import random
 from sklearn.metrics import hinge_loss, log_loss, mean_absolute_error, mean_squared_error, mean_squared_log_error, log_loss
 from scipy.spatial.distance import cosine
-from hyperopt import fmin, tpe, hp
+from hyperopt import fmin, tpe, hp, Trials
+
+class HyperParameterOptimizer:
+    def __init__(self, optimization_techniques, regularization_techniques, additional_techniques, model):
+        self.optimization_techniques = optimization_techniques
+        self.regularization_techniques = regularization_techniques
+        self.additional_techniques = additional_techniques
+        self.model = model
+
+    def _objective_function(self, trial, input_data, output_data):
+        optimization_technique = trial.suggest_categorical("optimization_technique", self.optimization_techniques)
+        regularization_technique = trial.suggest_categorical("regularization_technique", self.regularization_techniques)
+        additional_techniques = trial.suggest_categorical("additional_techniques", self.additional_techniques)
+
+        self.apply_techniques(optimization_technique, regularization_technique, [additional_techniques])
+
+        self.model.train(input_data, output_data)  # Train the model here
+        metric_to_optimize = self.model.evaluate(input_data, output_data)  # Evaluate the model here
+        return metric_to_optimize
+
+    def apply_techniques(self, optimization_technique, regularization_technique, additional_techniques):
+        # Apply the techniques to the model
+        pass
+
+    def optimize(self, input_data, output_data, n_trials=50, use_hyperopt=False):
+        if use_hyperopt:
+            trials = Trials()
+            fmin_fn = fmin(self._objective_function, self.search_space, algo=self.optimizer_algorithm, max_evals=self.max_evals, trials=trials)
+            return fmin_fn, trials
+        else:
+            study = optuna.create_study(direction="minimize")
+            study.optimize(lambda trial: self._objective_function(trial, input_data, output_data), n_trials=n_trials)
+            return study.best_params, study.best_value
 
 class OptimizationAlgorithmBaseClass:
     def __init__(self):
@@ -21,8 +54,10 @@ class OptimizationAlgorithmBaseClass:
             'cosine_proximity_loss': self.cosine_proximity_loss
         }
         self.auto_select_gradient_objective_function()
+
 def update_weights(self, weights, gradients):
         raise NotImplementedError("update_weights method should be implemented by subclasses.")
+
 def auto_select_gradient_objective_function(self):
         # Randomly select a gradient objective function
         self.selected_gradient_objective_function = random.choice(list(self.gradient_objective_functions.keys()))
@@ -69,34 +104,3 @@ def multi_label_margin_loss(self, y_true, y_pred):
 
 def cosine_proximity_loss(self, y_true, y_pred):
         return cosine(y_true, y_pred)
-class HyperParameterOptimizer:
-    def __init__(self, optimizer_algorithm, search_space, objective_function, max_evals):
-        self.optimizer_algorithm = optimizer_algorithm
-        self.search_space = search_space
-        self.objective_function = objective_function
-        self.max_evals = max_evals
-
-    def optimize(self):
-        trials = Trials()
-        fmin_fn = fmin(self.objective_function, self.search_space, algo=self.optimizer_algorithm, max_evals=self.max_evals, trials=trials)
-        return fmin_fn, trials
-
-
-
-    search_space = {
-        'learning_rate': hp.loguniform('learning_rate', np.log(0.0001), np.log(0.1)),
-        'batch_size': hp.choice('batch_size', [32, 64, 128]),
-        'num_layers': hp.choice('num_layers', [1, 2, 3]),
-        'num_neurons': hp.quniform('num_neurons', 32, 256, 32),
-        'activation': hp.choice('activation', ['relu', 'sigmoid', 'tanh']),
-        'optimizer': hp.choice('optimizer', ['sgd', 'adam', 'rmsprop']),
-    }
-
-    optimizer_algorithm = tpe.suggest
-    max_evals = 50
-
-    hyper_param_optimizer = HyperParameterOptimizer(optimizer_algorithm, search_space, objective_function, max_evals)
-    best_params, trials = hyper_param_optimizer.optimize()
-
-    print("Best Parameters: ", best_params)
-    print("Best Validation Accuracy: ", -trials.best_trial['result']['loss'])

@@ -11,7 +11,7 @@ import numpy as np
 import random
 from ProtoBrainModel import ProtoBrainModel 
 from deap import algorithms, base, creator, tools
-from emotional_class import EmotionalModel
+from EmotionalModel import EmotionalModel
 from sklearn.metrics import mean_squared_error, hinge_loss, log_loss
 from scipy.spatial.distance import cosine
 from NeurotransmitterTuner import NeurotransmitterTuner
@@ -29,7 +29,7 @@ from HyperMetaOptimization import HyperMetaOptimization
 from L1L2Regularization import L1L2Regularization
 from Momentum import Momentum
 from NesterovAcceleratedGradient import NesterovAcceleratedGradient
-from OptimizationAlgorithmBaseClass import OptimizationAlgorithmBaseClass
+from HyperParameterOptimizer import HyperParameterOptimizer
 from ResNetBlock import ResNetBlock
 from RMSProp import RMSProp
 from SGD import SGD
