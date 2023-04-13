@@ -77,12 +77,12 @@ class AdaptiveNeuralNetwork:
 
     def create_toolkits(self, num_toolkits, reinforcement_learning_models):
         for _ in range(num_toolkits):
-            toolkit = AutotuningToolkit(self, reinforcement_learning_models)
+            toolkit = AutoTuneToolkit(self, reinforcement_learning_models)
             self.toolkits.append(toolkit)
 
     def create_and_optimize_proto_brain_model(self, brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate):
         proto_brain_model = ProtoBrainModel(brain_structure_map, sensory_data, state_size, action_size, learning_rate, discount_factor, exploration_rate)
-        toolkit = AutotuningToolkit(self)
+        toolkit = AutoTuneToolkit(self)
         proto_brain_model.optimize_components(toolkit)
         return proto_brain_model
 
