@@ -49,6 +49,7 @@ class Brainstem:
         self.CHECKSUM = CHECKSUM
         self.sensory_sources = []
         self.motor_sources = []
+        self.sensory_sources = []
 
         # Create an instance of the AutoTuneToolkit
         self.AutoTuneToolkit = AutoTuneToolkit(self.AdaptiveNeuralNetwork)
@@ -289,13 +290,13 @@ class SynapticScaling:
         y_true = ... # Ground truth labels or values
         y_pred = ... # Predicted labels or values based on the current preprocessing
         performance = self.AutoTuneToolkit.optimize(y_true, y_pred)
-    def add_sensory_source(self, source_type, source):
-         self.sensory_sources.append((source_type, source))
+def add_sensory_source(self, source_type, source, sensor_id=None):
+        if sensor_id is not None:
+            self.sensory_sources.append((source_type, source, sensor_id))
+        else:
+            self.sensory_sources.append((source_type, source))
 
-    def add_motor_source(self, source_type, source):
-        self.motor_sources.append((source_type, source))
-
-def preprocess_sensory_data(self, data, source_type):
+def preprocess_sensory_data(self, data, source_type, sensor_id=None):
     if source_type == "stereo_camera":
         preprocessed_data = preprocess_stereo_vision_data(data)
     elif source_type == "pressure":
@@ -322,12 +323,15 @@ def preprocess_sensory_data(self, data, source_type):
         raise ValueError("Unknown sensory source type")
 
     return preprocessed_data
-
-    def process_brain_signals(self):
-                for source_type, source in self.sensory_sources:
-                    raw_data = source.read_data()
-                    preprocessed_data = self.preprocess_sensory_data(raw_data, source_type)
-                    self.adaptive_neural_network.process_sensory_data(preprocessed_data, source_type)
+    def process_sensory_data(self):
+        for source_type, source, *optional_sensor_id in self.sensory_sources:
+            data = source.get_data()
+            if optional_sensor_id:
+                sensor_id = optional_sensor_id[0]
+                preprocessed_data = self.preprocess_sensory_data(data, source_type, sensor_id)
+            else:
+                preprocessed_data = self.preprocess_sensory_data(data, source_type)
+            # Pass the preprocessed data to the Adaptive Neural Network
 
     def add_sensory_source(self, source_type, source):
                 self.sensory_sources.append((source_type, source))
