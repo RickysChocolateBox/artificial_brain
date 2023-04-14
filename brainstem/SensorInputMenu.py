@@ -94,8 +94,20 @@ class SensorInputMenuClass:
                 print(f"{num_sensors} pressure sensors added successfully!")
 
             elif choice == 6:
-                texture_sensor_source = TextureSensorSource()
-                Brainstem.add_sensory_source("texture", texture_sensor_source)
+                 sensor_type = input("Enter the sensor type ('biotac_sp', 'biotac_toccare', or 'optoforce'): ")
+    
+                 if sensor_type == "biotac_sp" or sensor_type == "biotac_toccare":
+                    port = input("Enter the serial port for the BioTac sensor (e.g., '/dev/ttyUSB0'): ")
+                    texture_sensor_source = TextureSensorSource(sensor_type, port=port)
+                 elif sensor_type == "optoforce":
+                    bus_number = int(input("Enter the I2C bus number (e.g., 1): "))
+                    sensor_address = int(input("Enter the I2C sensor address (e.g., 0x29): "), 0)
+                    texture_sensor_source = TextureSensorSource(sensor_type, bus_number=bus_number, sensor_address=sensor_address)
+                 else:
+                    print("Invalid sensor type. Please try again.")
+                    continue
+
+                 Brainstem.add_sensory_source("texture", texture_sensor_source)
 
             elif choice == 7:
                 external_heat_sensor_source = ExternalHeatSensorSource()

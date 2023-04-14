@@ -1,4 +1,5 @@
-import serial
+import asyncio
+import serial_asyncio
 import smbus
 import spidev
 import time
@@ -14,7 +15,9 @@ class TextureSensorSource:
 
         if self.sensor_type == "biotac_sp" or self.sensor_type == "biotac_toccare":
             if self.port:
-                self.serial_connection = serial.Serial(self.port, 115200)
+                loop = asyncio.get_event_loop()
+                coro = serial_asyncio.create_serial_connection(loop, serial_asyncio.SerialProtocol, self.port, baudrate=115200)
+                self.serial_connection, _ = loop.run_until_complete(coro)
             else:
                 raise ValueError("Serial port is required for BioTac sensors.")
         elif self.sensor_type == "optoforce":
@@ -25,13 +28,13 @@ class TextureSensorSource:
         else:
             raise ValueError("Invalid sensor_type. Supported types are 'biotac_sp', 'biotac_toccare', and 'optoforce'.")
 
-    def read_data(self):
+    async def read_data(self):
         if self.sensor_type == "biotac_sp" or self.sensor_type == "biotac_toccare":
-            return self.read_biotac_data()
+            return await self.read_biotac_data()
         elif self.sensor_type == "optoforce":
-            return self.read_optoforce_data()
+            return await self.read_optoforce_data()
 
-    def read_biotac_data(self):
+    async def read_biotac_data(self):
         # Assuming BioTac sensor uses SPI communication protocol
         # Replace CHANNEL and DEVICE with the appropriate values for your setup
         CHANNEL = 0
@@ -50,8 +53,7 @@ class TextureSensorSource:
         spi.close()
         return parsed_data
 
-
-    def read_optoforce_data(self):
+    async def read_optoforce_data(self):
         # Assuming OptoForce sensor uses I2C communication protocol
         # Read data from the I2C device
         data = self.i2c_connection.read_i2c_block_data(self.sensor_address, 0, 6)
@@ -60,3 +62,12 @@ class TextureSensorSource:
         # ...
 
         return parsed_data
+
+async def main():
+    # Example usage
+    sensor = TextureSensorSource("biotac_sp", port="/dev/ttyUSB0")
+    data = await sensor.read_data()
+    print(data)
+
+if __name__ == "__main__":
+    asyncio.run(main())
