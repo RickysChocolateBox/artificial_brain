@@ -135,8 +135,8 @@ class SensorInputMenuClass:
                 Brainstem.add_sensory_source("internal_temperature", internal_temperature_sensor_source)
             
             elif choice == 11:
-                internal_humidity_sensor_source = InternalhumiditySensorSource()
-                Brainstem.add_sensory_source("humidity", internal_humidity_sensor_source)
+                Humidity_sensor_source = HumiditySensorSource()
+                Brainstem.add_sensory_source("humidity", Humidity_sensor_source)
 
 
             else:
