@@ -110,8 +110,17 @@ class SensorInputMenuClass:
                  Brainstem.add_sensory_source("texture", texture_sensor_source)
 
             elif choice == 7:
-                external_heat_sensor_source = ExternalHeatSensorSource()
-                Brainstem.add_sensory_source("external_heat", external_heat_sensor_source)
+                 num_sensors = int(input("Enter the number of external heat sensors you want to add: "))
+                 external_heat_sensors = []
+
+                 for i in range(num_sensors):
+                     print(f"Enter settings for external heat sensor {i+1}:")
+                     port = input("Enter the port for the sensor: ")
+                     baud_rate = int(input("Enter the baud rate for the sensor: "))
+                     external_heat_sensor_source = ExternalHeatSensorSource(port, baud_rate)
+                     external_heat_sensors.append(external_heat_sensor_source)
+
+                 Brainstem.add_sensory_source("external_heat", external_heat_sensors)
 
             elif choice == 8:
                 gyroscopic_sensor_source = GyroscopicSensorSource()
