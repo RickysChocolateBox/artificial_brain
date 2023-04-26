@@ -1,12 +1,49 @@
 import numpy as np
 from AutoTuneToolkit import AutoTuneToolkit
 
+class DendriticCompartment:
+        def __init__(self, voltage=-70, threshold=-45, spike_duration=2, calcium_threshold=50, nmda_threshold=75):
+            self.voltage = voltage
+            self.threshold = threshold
+            self.spike_duration = spike_duration
+            self.calcium_threshold = calcium_threshold
+            self.nmda_threshold = nmda_threshold
+            self.spike_time = None
+            self.calcium_spike_time = None
+            self.nmda_spike_time = None
+
+        def update(self, voltage, delta_t):
+            self.voltage += delta_t * (voltage - self.voltage)
+
+        def spike_occurred(self):
+            return self.spike_time is not None
+
+        def reset_spike(self):
+            self.spike_time = None
+
+        def calcium_spike_occurred(self):
+            return self.calcium_spike_time is not None
+
+        def reset_calcium_spike(self):
+            self.calcium_spike_time = None
+
+        def nmda_spike_occurred(self):
+            return self.nmda_spike_time is not None
+
+        def reset_nmda_spike(self):
+         self.nmda_spike_time = None
+
 class BaseNeuron:
     def __init__(self, input_synapses, output_synapses, dendritic_compartments, resting_potential=-70, threshold=-55, 
                  refractory_period=2, capacitance=1, time_constant=20, synapse_strength=1.0, stdp_time_window=20, 
-                 stdp_potentiation=0.01, stdp_depression=0.002, axon_length=1000, soma_radius=10):
+                 stdp_potentiation=0.01, stdp_depression=0.002, axon_length=1000, soma_radius=10, 
+                 calcium_concentration=0.0, calcium_decay_rate=0.01, calcium_spike_threshold=0.2, 
+                 nmda_enabled=False, nmda_alpha=0.5, nmda_beta=0.5, nmda_gamma=0.1, nmda_v0=-70.0, 
+                 nmda_mg_concentration=1.0, nmda_mg_saturation=0.5, calcium_activated_k_channels=None,
+                 calcium_activated_k_channel_gmax=0.0, calcium_activated_k_channel_ec50=1.0, 
+                 calcium_activated_k_channel_hill=1.0, calcium_activated_k_channel_forward_rate=1.0, 
+                 calcium_activated_k_channel_backward_rate=1.0):
         
-
         # Common properties
         self.voltage = -70.0
         self.threshold = -55.0
@@ -18,6 +55,7 @@ class BaseNeuron:
         self.synaptic_outputs = []
         self.synaptic_weights = {}
         self.AutoTuneToolkit = AutoTuneToolkit
+        
         # Customizable properties
         self.custom_properties = {}
         
@@ -46,11 +84,37 @@ class BaseNeuron:
         self.dendritic_spikes = []
         self.calcium_spikes = []
         self.nmda_spikes = []
-
+        
         # Ion channel properties
         self.sodium_channels = []
         self.potassium_channels = []
         self.leak_channels = []
+        self.calcium_activated_k_channels = calcium_activated_k_channels
+        self.calcium_activated_k_channel_gmax = calcium_activated_k_channel_gmax
+        self.calcium_activated_k_channel_ec50 = calcium_activated_k_channel_ec50
+        self.calcium_activated_k_channel_hill = calcium_activated_k_channel_hill
+        self.calcium_activated_k_channel_forward_rate = calcium_activated_k_channel_forward_rate
+        self.calcium_activated_k_channel_backward_rate = calcium_activated_k_channel_backward_rate
+
+       # Calcium properties
+        self.calcium_concentration = calcium_concentration
+        self.calcium_decay_rate = calcium_decay_rate
+        self.calcium_spike_threshold = calcium_spike_threshold
+        
+        # NMDA receptor properties
+        self.nmda_enabled = nmda_enabled
+        self.nmda_alpha = nmda_alpha
+        self.nmda_beta = nmda_beta
+        self.nmda_gamma = nmda_gamma
+        self.nmda_v0 = nmda_v0
+        self.nmda_mg_concentration = nmda_mg_concentration
+        self.nmda_mg_saturation = nmda_mg_saturation
+
+        # Calcium-activated potassium channels
+        if calcium_activated_k_channels is None:
+            self.calcium_activated_k_channels = []
+        else:
+            self.calcium_activated_k_channels = calcium_activated_k_channels
 
         # Synaptic plasticity
         self.stdp_enabled = False
@@ -58,7 +122,20 @@ class BaseNeuron:
         self.stdp_potentiation = 0.01
         self.stdp_depression = 0.01
         self.dendritic_compartments = [DendriticCompartment() for _ in range(dendritic_compartments)]
-     
+                # Spike-frequency adaptation
+        self.sfa_enabled = False
+        self.sfa_time_constant = 100.0
+        self.sfa_gain = 0.01
+        self.sfa_current = 0.0
+        
+        # Backpropagation of action potentials
+        self.bpa_enabled = False
+        self.bpa_compartments = []
+        self.bpa_delay = 0.1
+        
+        # Axonal conduction delays
+        self.axonal_delays = []
+        self.axonal_speed = 100.0
 
     def set_property(self, property_name, value):
         self.custom_properties[property_name] = value
@@ -199,38 +276,6 @@ class BaseNeuron:
             if compartment.nmda_spike_occurred():
                 self.nmda_spikes.append(compartment.nmda_spike_time)
                 compartment.reset_nmda_spike()
-
-class DendriticCompartment:
-    def __init__(self, voltage=-70, threshold=-45, spike_duration=2, calcium_threshold=50, nmda_threshold=75):
-        self.voltage = voltage
-        self.threshold = threshold
-        self.spike_duration = spike_duration
-        self.calcium_threshold = calcium_threshold
-        self.nmda_threshold = nmda_threshold
-        self.spike_time = None
-        self.calcium_spike_time = None
-        self.nmda_spike_time = None
-
-    def update(self, voltage, delta_t):
-        self.voltage += delta_t * (voltage - self.voltage)
-
-    def spike_occurred(self):
-        return self.spike_time is not None
-
-    def reset_spike(self):
-        self.spike_time = None
-
-    def calcium_spike_occurred(self):
-        return self.calcium_spike_time is not None
-
-    def reset_calcium_spike(self):
-        self.calcium_spike_time = None
-
-    def nmda_spike_occurred(self):
-        return self.nmda_spike_time is not None
-
-    def reset_nmda_spike(self):
-        self.nmda_spike_time = None
 def simulate_neuron(neuron, input_data, delta_t=0.1):
     output_data = []
     for input_current in input_data:
