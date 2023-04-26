@@ -1,110 +1,93 @@
 import numpy as np
-from autotunetoolkit import AutoTuneToolkit
+from AutoTuneToolkit import AutoTuneToolkit
 
 class EntorhinalCortexNeuron:
-    def __init__(self, neuron_id, soma_size, dendritic_length, branching_patterns, axonal_length):
+    def __init__(self, neuron_id, auto_tune_toolkit):
         self.neuron_id = neuron_id
-        self.soma_size = soma_size
-        self.dendritic_length = dendritic_length
-        self.branching_patterns = branching_patterns
-        self.axonal_length = axonal_length
-        self.axonal_compartments = []
+        self.auto_tune_toolkit = auto_tune_toolkit
+        self.voltage = -70.0
+        self.calcium_concentration = 0.0
+        self.synaptic_inputs = []
+        self.synaptic_outputs = []
+        self.synaptic_weights = {}
+        self.threshold = -55.0
+        self.resting_potential = -70.0
+        self.refractory_period = 2.0
+        self.time_since_last_spike = float('inf')
+        self.current_time = 0.0
         self.dendritic_compartments = []
-        self.voltage = -70  # resting membrane potential in mV
-        self.calcium_concentration = 0.1  # intracellular calcium concentration in µM
-        self.ampa_receptors = 0
-        self.nmda_receptors = 0
-        self.gaba_a_receptors = 0
-        self.gaba_b_receptors = 0
-        self.synaptic_connections = []
-        self.atp_production = 0
-        self.atp_usage = 0
-        self.autotune_toolkit = AutoTuneToolkit()
+        self.axonal_compartments = []
+        self.soma_size = None
+        self.dendritic_length = None
+        self.axonal_length = None
+        self.ion_channels = {'NaV': {}, 'KV': {}, 'CaV': {}}
+        self.receptor_subtypes = {'AMPA': {}, 'NMDA': {}, 'GABA_A': {}, 'GABA_B': {}}
+        self.gene_expression = {}
+        self.neuromodulator_concentrations = {}
+        self.metabolic_processes = {}
 
-    def create_axonal_compartments(self, num_compartments, lengths, diameters):
-        self.axonal_compartments = [{'length': l, 'diameter': d} for l, d in zip(lengths, diameters)]
+    def update(self, delta_t):
+        self.current_time += delta_t
+        self.update_voltage(delta_t)
+        self.update_calcium_concentration(delta_t)
+        self.update_synaptic_weights()
+        self.update_energy_balance(delta_t)
+        self.modulate_by_neuromodulators(self.neuromodulator_concentrations)
+        
+        if self.voltage >= self.threshold and self.time_since_last_spike >= self.refractory_period:
+            self.generate_action_potential()
+            self.time_since_last_spike = 0
+        else:
+            self.time_since_last_spike += delta_t
 
-    def create_dendritic_compartments(self, num_compartments, lengths, diameters):
-        self.dendritic_compartments = [{'length': l, 'diameter': d} for l, d in zip(lengths, diameters)]
+    def update_energy_balance(self, delta_t):
+        energy_consumption_rate = self.auto_tune_toolkit.get_parameter('energy_consumption_rate')
+        energy_production_rate = self.auto_tune_toolkit.get_parameter('energy_production_rate')
+        self.energy_balance += (energy_production_rate - energy_consumption_rate * self.calculate_energy_usage()) * delta_t
 
-    def add_synaptic_connection(self, target_neuron, synapse_type, weight, delay):
-        connection = {
-            'target_neuron': target_neuron,
-            'synapse_type': synapse_type,
-            'weight': weight,
-            'delay': delay
-        }
-        self.synaptic_connections.append(connection)
+    def calculate_energy_usage(self):
+        voltage_factor_weight = self.auto_tune_toolkit.get_parameter('voltage_factor_weight')
+        calcium_factor_weight = self.auto_tune_toolkit.get_parameter('calcium_factor_weight')
+        synaptic_activity_factor_weight = self.auto_tune_toolkit.get_parameter('synaptic_activity_factor_weight')
 
-    def process_neuromodulation(self):
-        self.membrane_potential += self.neuromodulation
-        self.neuromodulation = 0
+        voltage_factor = abs(self.voltage - self.resting_potential) / abs(self.threshold - self.resting_potential)
+        calcium_factor = self.calcium_concentration / (self.calcium_concentration + 1.0)
+        synaptic_activity_factor = sum([abs(weight) for weight in self.synaptic_weights.values()]) / len(self.synaptic_weights)
 
-    def fire_if_required(self):
-        if self.membrane_potential >= self.threshold_potential:
-            self.membrane_potential = self.resting_potential
-            self.refractory_timer = self.refractory_period
-            self.send_spike_to_connected_neurons()
+        energy_usage = (voltage_factor_weight * voltage_factor
+                        + calcium_factor_weight * calcium_factor
+                        + synaptic_activity_factor_weight * synaptic_activity_factor)
+        return energy_usage
 
-    def receive_inhibition(self, synaptic_strength):
-        self.membrane_potential -= synaptic_strength * self.synaptic_strength_modulation
+    def update_calcium_concentration(self, delta_t, activity):
+        decay_rate = self.autotune_toolkit.get_parameter('decay_rate')
+        self.Ca_concentration += activity * delta_t - self.Ca_concentration * decay_rate * delta_t
 
-    def receive_excitation(self, synaptic_strength):
-        self.membrane_potential += synaptic_strength * self.synaptic_strength_modulation
+    def update_synaptic_weights(self, activity, target_neuron):
+        learning_rate = self.autotune_toolkit.get_parameter('learning_rate')
+        self.synaptic_weights[target_neuron] += learning_rate * activity
 
-    def connect_inhibitory(self, target_neuron, synaptic_strength):
-        self.inhibitory_connections[target_neuron] = synaptic_strength
-
-    def connect_excitatory(self, target_neuron, synaptic_strength):
-        self.excitatory_connections[target_neuron] = synaptic_strength
-
-    def send_spike_to_connected_neurons(self):
-        for neuron, strength in self.inhibitory_connections.items():
-            neuron.receive_inhibition(strength)
-        for neuron, strength in self.excitatory_connections.items():
-            neuron.receive_excitation(strength)
-
-    def update_calcium_concentration(self, delta_t, calcium_influx):
-        decay_rate = 0.1  # rate of calcium decay
-        self.calcium_concentration += delta_t * (calcium_influx - decay_rate * self.calcium_concentration)
-
-    def update_synaptic_weights(self, plasticity_rule):
-        for synapse in self.synaptic_connections:
-            synapse.update_weight(plasticity_rule)
-
-    def generate_action_potential(self, threshold=-55):
+    def generate_action_potential(self):
+        threshold = self.autotune_toolkit.get_parameter('threshold')
         if self.voltage >= threshold:
-            self.voltage = -70
-            return True
-        return False
+            self.spike_history.append(1)
+            self.voltage = self.autotune_toolkit.get_parameter('v_reset')
+        else:
+            self.spike_history.append(0)
 
-    def propagate_action_potential(self):
-        if self.generate_action_potential():
-            for compartment in self.axonal_compartments:
-                compartment.propagate()
+    def propagate_action_potential(self, connected_neurons):
+        for neuron in connected_neurons:
+            neuron.receive_spike(self.synaptic_weights[neuron])
 
-    def release_neurotransmitter(self):
-        if self.generate_action_potential():
-            for synapse in self.synaptic_connections:
-                synapse.release_neurotransmitter()
-
-    def update_metabolism(self, delta_t, activity_level):
-        atp_production_rate = 1.0
-        atp_usage_rate = 0.1
-        self.atp_production = atp_production_rate * activity_level
-        self.atp_usage = atp_usage_rate * activity_level
-        self.atp_production -= self.atp_usage * delta_t
+    def receive_spike(self, synaptic_weight):
+        self.voltage += synaptic_weight
 
     def modulate_by_neuromodulators(self, neuromodulator_concentrations):
         for neuromodulator, concentration in neuromodulator_concentrations.items():
-            self.autotune_toolkit.modulate_neuron(self, neuromodulator, concentration)
-    def simulate_time_step(self):
-        if self.refractory_timer > 0:
-            self.refractory_timer -= 1
-            return
+            if neuromodulator == "dopamine":
+                modulation_factor = self.autotune_toolkit.get_parameter('dopamine_modulation_factor')
+                self.synaptic_weights = {neuron: weight * (1 + modulation_factor * concentration) for neuron, weight in self.synaptic_weights.items()}
 
-        self.process_neuromodulation()
-        self.fire_if_required()
-
-        if self.pacemaker_activity:
-            self.auto_tune_toolkit.optimize_neuron(self)
+    def process_sensory_input(self, sensory_input):
+        sensory_weight = self.autotune_toolkit.get_parameter('sensory_weight')
+        self.voltage += sensory_input * sensory_weight
