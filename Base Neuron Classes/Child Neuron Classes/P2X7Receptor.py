@@ -6,8 +6,7 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-
-class GABACReceptor:
+class P2X7Receptor:
     def __init__(self, conductance):
         self.conductance = conductance
         self.activation = 0.0
@@ -19,7 +18,7 @@ class GABACReceptor:
         return m_inf, h_inf
 
     def time_constants(self, voltage):
-        tau_m = 1 / (np.exp((voltage + 25) / 10) + np.exp(-(voltage + 25) / 10))
+        tau_m = 1 / (np.exp((voltage + 20) / 10) + np.exp(-(voltage + 20) / 10))
         tau_h = 1 / (np.exp((voltage + 30) / 5) + np.exp(-(voltage + 30) / 5))
         return tau_m, tau_h
 
@@ -30,4 +29,5 @@ class GABACReceptor:
         self.inactivation += (h_inf - self.inactivation) * dt / tau_h
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation * self.inactivation * (voltage + 70)
+        return self.conductance * self.activation * self.inactivation * (voltage - 25)
+
