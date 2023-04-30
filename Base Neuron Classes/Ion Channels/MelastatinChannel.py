@@ -6,20 +6,20 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class ASICChannel(IonChannel):
+class MelastatinChannel(IonChannel):
     def __init__(self, conductance):
         super().__init__(conductance)
         self.activation = 0.0
         self.inactivation = 1.0
 
     def steady_state_values(self, voltage):
-        m_inf = 1 / (1 + np.exp(-(voltage + 20) / 10))
-        h_inf = 1 / (1 + np.exp((voltage + 40) / 10))
+        m_inf = 1 / (1 + np.exp((voltage + 20) / 6))
+        h_inf = 1 / (1 + np.exp(-(voltage + 30) / 3))
         return m_inf, h_inf
 
     def time_constants(self, voltage):
-        tau_m = 2
-        tau_h = 10
+        tau_m = 0.5 + 0.5 / (np.exp((voltage + 10) / 20) + np.exp(-(voltage + 10) / 20))
+        tau_h = 6 + 2 / (np.exp((voltage + 15) / 5) + np.exp(-(voltage + 15) / 5))
         return tau_m, tau_h
 
     def update(self, voltage, dt):
@@ -29,5 +29,4 @@ class ASICChannel(IonChannel):
         self.inactivation += (h_inf - self.inactivation) * dt / tau_h
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation**3 * self.inactivation * (voltage - 40)
-
+        return self.conductance * self.activation * self.inactivation * (voltage - 20)

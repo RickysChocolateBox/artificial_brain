@@ -6,23 +6,21 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class HCNChannel(IonChannel):
+class TwoPoreDomainKChannel(IonChannel):
     def __init__(self, conductance):
         self.conductance = conductance
         self.activation = 0.0
 
     def steady_state_values(self, voltage):
-        m_inf = 1 / (1 + np.exp((voltage + 50) / 10))
-        return m_inf
+        return 1 / (1 + np.exp(-(voltage + 40) / 20))
 
     def time_constants(self, voltage):
-        tau_m = 1 / (np.exp((voltage + 40) / 10) + np.exp(-(voltage + 40) / 10))
-        return tau_m
+        return 1 / (np.exp((voltage + 40) / 20) + np.exp(-(voltage + 40) / 20))
 
     def update(self, voltage, dt):
-        m_inf = self.steady_state_values(voltage)
-        tau_m = self.time_constants(voltage)
-        self.activation += (m_inf - self.activation) * dt / tau_m
+        a_inf = self.steady_state_values(voltage)
+        tau_a = self.time_constants(voltage)
+        self.activation += (a_inf - self.activation) * dt / tau_a
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation * (voltage + 35)
+        return self.conductance * self.activation * (voltage + 90)

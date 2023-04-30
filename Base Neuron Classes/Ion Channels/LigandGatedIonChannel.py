@@ -6,20 +6,20 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class KirChannel(IonChannel):
+class LigandGatedIonChannel(IonChannel):
     def __init__(self, conductance):
         super().__init__(conductance)
         self.activation = 0.0
         self.inactivation = 1.0
 
     def steady_state_values(self, voltage):
-        m_inf = 1 / (1 + np.exp(-(voltage + 0) / 10))
-        h_inf = 1 / (1 + np.exp((voltage + 20) / 10))
+        m_inf = 1 / (1 + np.exp((voltage + 30) / 5))
+        h_inf = 1 / (1 + np.exp(-(voltage + 40) / 4))
         return m_inf, h_inf
 
     def time_constants(self, voltage):
-        tau_m = 4
-        tau_h = 12
+        tau_m = 0.5 + 1 / (np.exp((voltage + 10) / 10) + np.exp(-(voltage + 10) / 10))
+        tau_h = 8 + 2 / (np.exp((voltage + 20) / 5) + np.exp(-(voltage + 20) / 5))
         return tau_m, tau_h
 
     def update(self, voltage, dt):
@@ -29,4 +29,4 @@ class KirChannel(IonChannel):
         self.inactivation += (h_inf - self.inactivation) * dt / tau_h
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation**3 * self.inactivation * (voltage + 100)
+        return self.conductance * self.activation * self.inactivation * (voltage - 50)

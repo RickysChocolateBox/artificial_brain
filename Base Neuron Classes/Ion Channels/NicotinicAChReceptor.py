@@ -6,7 +6,7 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class NicotinicAChReceptor:
+class NicotinicAChReceptor(IonChannel):
     def __init__(self, conductance):
         self.conductance = conductance
         self.activation = 0.0

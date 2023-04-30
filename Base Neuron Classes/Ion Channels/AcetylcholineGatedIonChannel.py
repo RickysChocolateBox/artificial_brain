@@ -6,7 +6,7 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class SerotoninReceptor(IonChannel):
+class AcetylcholineGatedIonChannel(IonChannel):
     def __init__(self, conductance):
         self.conductance = conductance
         self.activation = 0.0
@@ -30,3 +30,4 @@ class SerotoninReceptor(IonChannel):
 
     def compute_current(self, voltage):
         return self.conductance * self.activation * self.inactivation * (voltage - 5)
+

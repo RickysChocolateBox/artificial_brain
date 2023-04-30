@@ -6,20 +6,20 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class NaChannel(IonChannel):
+class TTypeCalciumChannel(IonChannel):
     def __init__(self, conductance):
-        super().__init__(conductance)
+        self.conductance = conductance
         self.activation = 0.0
         self.inactivation = 1.0
 
     def steady_state_values(self, voltage):
-        m_inf = 1 / (1 + np.exp(-(voltage + 40) / 10))
-        h_inf = 1 / (1 + np.exp((voltage + 60) / 10))
+        m_inf = 1 / (1 + np.exp(-(voltage + 10) / 10))
+        h_inf = 1 / (1 + np.exp((voltage + 20) / 5))
         return m_inf, h_inf
 
     def time_constants(self, voltage):
-        tau_m = 1
-        tau_h = 5
+        tau_m = 1 / (np.exp((voltage + 20) / 10) + np.exp(-(voltage + 20) / 10))
+        tau_h = 1 / (np.exp((voltage + 30) / 5) + np.exp(-(voltage + 30) / 5))
         return tau_m, tau_h
 
     def update(self, voltage, dt):
@@ -29,4 +29,4 @@ class NaChannel(IonChannel):
         self.inactivation += (h_inf - self.inactivation) * dt / tau_h
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation**3 * self.inactivation * (voltage - 50)
+        return self.conductance * self.activation * self.inactivation * (voltage - 110)
