@@ -6,20 +6,20 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class OpioidReceptor(IonChannel):
+class ZACChannel(IonChannel):
     def __init__(self, conductance):
-        self.conductance = conductance
+        super().__init__(conductance)
         self.activation = 0.0
         self.inactivation = 1.0
 
     def steady_state_values(self, voltage):
-        m_inf = 1 / (1 + np.exp(-(voltage + 0) / 10))
-        h_inf = 1 / (1 + np.exp((voltage + 10) / 5))
+        m_inf = 1 / (1 + np.exp(-(voltage + 20) / 10))
+        h_inf = 1 / (1 + np.exp((voltage + 30) / 10))
         return m_inf, h_inf
 
     def time_constants(self, voltage):
-        tau_m = 1 / (np.exp((voltage + 10) / 10) + np.exp(-(voltage + 10) / 10))
-        tau_h = 1 / (np.exp((voltage + 20) / 5) + np.exp(-(voltage + 20) / 5))
+        tau_m = 15 + 10 / (np.exp((voltage + 10) / 20) + np.exp(-(voltage + 10) / 20))
+        tau_h = 45 + 15 / (np.exp((voltage + 20) / 10) + np.exp(-(voltage + 20) / 10))
         return tau_m, tau_h
 
     def update(self, voltage, dt):
@@ -29,4 +29,4 @@ class OpioidReceptor(IonChannel):
         self.inactivation += (h_inf - self.inactivation) * dt / tau_h
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation * self.inactivation * (voltage - 0)
+        return self.conductance * self.activation * self.inactivation * (voltage - 30)
