@@ -6,20 +6,20 @@ class IonChannel:
 
     def compute_current(self, voltage):
         pass
-class SerotoninReceptor:
+class DopamineReceptor:
     def __init__(self, conductance):
         self.conductance = conductance
         self.activation = 0.0
         self.inactivation = 1.0
 
     def steady_state_values(self, voltage):
-        m_inf = 1 / (1 + np.exp(-(voltage + 5) / 10))
-        h_inf = 1 / (1 + np.exp((voltage + 15) / 5))
+        m_inf = 1 / (1 + np.exp(-(voltage + 0) / 10))
+        h_inf = 1 / (1 + np.exp((voltage + 10) / 5))
         return m_inf, h_inf
 
     def time_constants(self, voltage):
-        tau_m = 1 / (np.exp((voltage + 15) / 10) + np.exp(-(voltage + 15) / 10))
-        tau_h = 1 / (np.exp((voltage + 25) / 5) + np.exp(-(voltage + 25) / 5))
+        tau_m = 1 / (np.exp((voltage + 10) / 10) + np.exp(-(voltage + 10) / 10))
+        tau_h = 1 / (np.exp((voltage + 20) / 5) + np.exp(-(voltage + 20) / 5))
         return tau_m, tau_h
 
     def update(self, voltage, dt):
@@ -29,4 +29,4 @@ class SerotoninReceptor:
         self.inactivation += (h_inf - self.inactivation) * dt / tau_h
 
     def compute_current(self, voltage):
-        return self.conductance * self.activation * self.inactivation * (voltage - 5)
+        return self.conductance * self.activation * self.inactivation * (voltage - 0)
