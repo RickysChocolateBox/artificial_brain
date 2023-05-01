@@ -1,26 +1,43 @@
 import numpy as np
 
 class CytoskeletalDynamics:
-    def __init__(self, learning_rate, dynamics_threshold, noise_std_dev):
+    def __init__(self, filaments, learning_rate, activation_function, dynamics_rate, threshold):
+        self.filaments = filaments
         self.learning_rate = learning_rate
-        self.dynamics_threshold = dynamics_threshold
-        self.noise_std_dev = noise_std_dev
+        self.activation_function = activation_function
+        self.dynamics_rate = dynamics_rate
+        self.threshold = threshold
+        self.filament_activity = np.random.rand(filaments)
 
-    # Sigmoid activation function
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
-    # Update the cytoskeletal dynamics based on activity level and noise
-    def update_cytoskeletal_dynamics(self, dynamics_rate, activity_level):
-        # Add random noise to the activity level
-        noise = np.random.normal(0, self.noise_std_dev)
-        activity_level = self.sigmoid(activity_level + noise)
+    def relu(self, x):
+        return np.maximum(0, x)
 
-        # Update dynamics rate based on activity level
-        if activity_level >= self.dynamics_threshold:
-            dynamics_rate += self.learning_rate * (1 - dynamics_rate)
-        else:
-            dynamics_rate -= self.learning_rate * dynamics_rate
+    def apply_activation_function(self, x):
+        if self.activation_function == 'sigmoid':
+            return self.sigmoid(x)
+        elif self.activation_function == 'relu':
+            return self.relu(x)
 
-        return dynamics_rate
+    def update_cytoskeletal_dynamics(self, activity):
+        # Add random noise to activity
+        noise = np.random.normal(0, 0.1)
+        activity += noise
+
+        # Apply the specified activation function to the activity level
+        activity = self.apply_activation_function(activity)
+
+        # Update filament activity based on the learning rate, dynamics rate, and activity level
+        delta_filament_activity = self.learning_rate * self.dynamics_rate * activity
+        self.filament_activity += delta_filament_activity
+
+        # Ensure that the filament activity remains within the specified threshold
+        self.filament_activity = np.clip(self.filament_activity, 0, self.threshold)
+
+        return self.filament_activity
+
+    def get_filament_activity(self):
+        return self.filament_activity
 

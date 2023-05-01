@@ -22,3 +22,4 @@ class ReceptorModulation:
         return receptor_state
 
 
+# This class represents the mechanism of modulation of receptor desensitization and resensitization. The primary function, update_receptor_state, updates the receptor state based on the activity level and random noise. The receptor state is updated according to the desensitization_rate and resensitization_rate depending on the activity level.

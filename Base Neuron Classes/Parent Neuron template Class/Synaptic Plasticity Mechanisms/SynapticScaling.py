@@ -24,3 +24,4 @@ class SynapticScaling:
 
         return scaling_state
 
+# This class represents the mechanism of synaptic scaling of receptor expression. The primary function, update_scaling, updates the synaptic scaling state based on the activity level and random noise. The scaling state is increased or decreased according to the scaling_rate depending on whether the activity level is above or below the scaling_threshold.

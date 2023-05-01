@@ -24,3 +24,4 @@ class RetrogradeMessengerRelease:
 
         return release_state
 
+# This class represents the mechanism of changes in retrograde messenger release. The primary function, update_messenger_release, updates the retrograde messenger release state based on the activity level and random noise. The release state is increased or decreased according to the release_rate depending on whether the activity level is above or below the release_threshold.
