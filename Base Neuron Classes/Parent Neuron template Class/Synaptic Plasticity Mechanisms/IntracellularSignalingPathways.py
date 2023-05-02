@@ -1,26 +1,36 @@
 import numpy as np
 
 class IntracellularSignalingPathways:
-    def __init__(self, signaling_change_rate, signaling_threshold, noise_std_dev):
-        self.signaling_change_rate = signaling_change_rate
-        self.signaling_threshold = signaling_threshold
-        self.noise_std_dev = noise_std_dev
+    def __init__(self, signaling_rate, learning_rate, activation_function, threshold):
+        self.signaling_rate = signaling_rate
+        self.learning_rate = learning_rate
+        self.activation_function = activation_function
+        self.threshold = threshold
 
-    # Sigmoid activation function
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
 
-    # Update intracellular signaling pathways based on activity level and noise
-    def update_signaling(self, signaling_strength, activity_level):
-        # Add random noise to the activity level
-        noise = np.random.normal(0, self.noise_std_dev)
-        activity_level = self.sigmoid(activity_level + noise)
+    def relu(self, x):
+        return np.maximum(0, x)
 
-        # Update intracellular signaling pathways based on activity level
-        if activity_level >= self.signaling_threshold:
-            signaling_strength += self.signaling_change_rate
-        else:
-            signaling_strength -= self.signaling_change_rate
+    def apply_activation_function(self, x):
+        if self.activation_function == 'sigmoid':
+            return self.sigmoid(x)
+        elif self.activation_function == 'relu':
+            return self.relu(x)
 
-        return signaling_strength
+    def update_signaling_pathways(self, signaling_pathways, activity_level):
+        # Apply the specified activation function to the activity level
+        activity_level = self.apply_activation_function(activity_level)
+
+        # Calculate the altered signaling pathways based on the signaling rate and activity level
+        altered_signaling_pathways = self.signaling_rate * activity_level
+
+        # Update signaling pathways based on the learning rate and altered signaling pathways
+        signaling_pathways += self.learning_rate * altered_signaling_pathways
+
+        # Ensure that the signaling pathways remain within the specified threshold
+        signaling_pathways = np.clip(signaling_pathways, -self.threshold, self.threshold)
+
+        return signaling_pathways
 
