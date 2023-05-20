@@ -1,0 +1,1984 @@
+Add more functions to make this more like its biological counterpart? Take your time and think about it add as many different features as possible add more than just a few add 15 20 or more attributes. Thoroughly research each neuron type: Gain a comprehensive understanding of the specific function, structure, and connectivity of each neuron type. This knowledge will help you model their behavior accurately in my artificial brain.
+
+Now do the Granule cells. Go back to the very beginning of this conversation thread and read everything very carefully to make sure you have it aligned with my project and have a comprehensive class.
+
+Now do the Neurons of the medial septum. Go back to the very beginning of this conversation thread and read everything very carefully to make sure you have it aligned with my project and have a comprehensive class. And don’t forget to include the AutoTuneToolkit for anything it might be needed for! Make it as close to its biological counterpart. Take time and think about it, add as many different features as possible. Thoroughly research each neuron type: Gain a comprehensive understanding of the specific function, structure, and connectivity of each neuron type. This knowledge will help you model their behavior accurately in my artificial brain.
+
+Thoroughly research each neuron type: Gain a comprehensive understanding of the specific function, structure, and connectivity of each neuron type. 
+
+
+a list of all the improvements we discussed:
+1.	Add the __call__ method to make the class callable.
+2.	Add a backward method to calculate gradients during backpropagation.
+3.	Add a method to update the neuron's parameters based on gradients and a learning rate.
+4.	Create a more efficient implementation of the compute_z method by using vectorized operations.
+5.	Separate the ion channel class and create a master ion channel class to import into the BaseNeuron class.
+6.	Improve the efficiency of the BaseNeuron class.
+7.	Add additional ion channels, such as hyperpolarization-activated cyclic nucleotide-gated (HCN) channels or transient receptor potential (TRP) channels.
+8.	Implement glial cells like astrocytes and oligodendrocytes.
+9.	Model synaptic transmission more accurately by incorporating neurotransmitter release mechanisms, synaptic vesicle pools, and various types of neurotransmitter receptors (e.g., AMPA, GABA, etc.).
+10.	Add dendritic spines to model small protrusions on the dendrites that receive most of the synaptic inputs.
+11.	Add support for custom neuron morphologies.
+12.	Include inhibitory neurons, such as GABAergic interneurons.
+13.	Add gap junctions for electrical synapses.
+
+
+
+Here is a list of potential improvements to the BaseNeuron class to make it more versatile and capable of mimicking various types of neurons found in the human brain:
+
+1.	Inclusion of multiple types of ion channels:
+•	Add support for other ion channels such as calcium channels and chloride channels.
+
+Here's a list of functions and attributes in one of these ion channel classes. You can use this list as a reference to recall the structure of an ion channel class:
+1.	__init__(self, conductance): The constructor function, initializes the ion channel with a given conductance.
+2.	steady_state_values(self, voltage): Calculates the steady-state activation and inactivation values based on the voltage.
+3.	time_constants(self, voltage): Calculates the time constants for activation and inactivation based on the voltage.
+4.	update(self, voltage, dt): Updates the activation and inactivation values based on the voltage and the time step (dt).
+5.	compute_current(self, voltage): Computes the current flowing through the channel based on the voltage.
+Attributes:
+•	conductance: Conductance value of the ion channel.
+•	activation: Activation value of the ion channel, representing the probability of the channel being open.
+•	inactivation: Inactivation value of the ion channel, representing the probability of the channel being inactivated.
+Keep in mind that the specific functions for calculating steady-state values and time constants will differ for each ion channel class, but the general structure of the classes will be the same.
+
+1.	  Sodium (Na+) channels
+2.	Potassium (K+) channels
+3.	Calcium (Ca2+) channels
+4.	Chloride (Cl-) channels
+5.	Transient receptor potential (TRP) channels
+6.	Acid-sensing ion channels (ASICs)
+7.	ATP-sensitive K+ channels (KATP)
+8.	Big conductance calcium-activated K+ channels (BK or Maxi-K)
+9.	Cyclic nucleotide-gated (CNG) channels
+10.	Inward rectifier K+ channels (Kir)
+11.	Hyperpolarization-activated cyclic nucleotide-gated (HCN) channels
+12.	Epithelial sodium channels (ENaC)
+13.	P2X receptors
+14.	GABA-A receptors
+15.	NMDA receptors
+16.	AMPA receptors
+17.	Kainate receptors
+18.	5-HT3 receptors
+19.	Glycine receptors
+20.	GABA-C receptors
+21.	P2Y receptors
+22.	P2X7 receptors
+23.	Nicotinic acetylcholine receptors (nAChR)
+24.	Muscarinic acetylcholine receptors (mAChR)
+25.	Adenosine receptors
+26.	Histamine receptors
+27.	Glutamate receptors
+28.	Dopamine receptors
+29.	Serotonin receptors
+30.	Noradrenaline receptors
+31.	Acetylcholine-gated ion channels
+32.	Opioid receptors
+33.	T-type calcium channels
+34.	P/Q-type calcium channels
+35.	N-type calcium channels
+36.	L-type calcium channels
+37.	P-type calcium channels
+38.	R-type calcium channels
+39.	ITPR1 calcium channels
+40.	Ryanodine receptors
+41.	Two-pore domain K+ channels (K2P)
+42.	TWIK-related K+ channels (TREK)
+43.	G protein-coupled inwardly rectifying K+ channels (GIRK)
+44.	Calcium-activated K+ channels (KCa)
+45.	Stretch-activated ion channels
+46.	Acid-sensitive ion channels
+47.	Calmodulin-gated ion channels
+48.	Cystic fibrosis transmembrane conductance regulator (CFTR) channels
+49.	Ligand-gated ion channels
+50.	Melastatin (TRPM) channels
+51.	Endoplasmic reticulum calcium release-activated calcium (CRAC) channels
+52.	Pentameric ligand-gated ion channels
+53.	Zn2+ activated cation channels (ZAC)
+54.	Mitochondrial calcium uniporter channels
+55.	Mitochondrial potassium channels
+56.	Orai1 calcium channels
+57.	Aquaporin water channels
+58.	HCN channels
+59.	Ryanodine receptors
+60.	Na+/K+/2Cl- co-transporters
+61.	ClC chloride channels
+62.	Glycine-gated chloride channels
+63.	SK potassium channels
+64.	Hyperpolarization-activated and cyclic nucleotide-gated potassium channels
+65.	Sodium-dependent glucose transporters
+66.	Mitochondrial calcium uptake 1 (MICU1) channels
+67.	Mitochondrial ryanodine receptor 1 (MCU1) channels
+68.	Pannexin channels
+69.	Inositol 1,4,5-trisphosphate receptor (IP3R) channels
+70.	Endoplasmic reticulum-associated Ca2+ release channels
+71.	Anion exchangers
+72.	Zinc-activated ion channels
+73.	 Two-pore domain potassium channel 9 (K2P9.1)
+74.	Two-pore domain potassium channel 10 (K2P10.1)
+75.	Transient receptor potential cation channel subfamily M member 1 (TRPM1)
+76.	Transient receptor potential cation channel subfamily M member 3 (TRPM3)
+77.	Transient receptor potential cation channel subfamily V member 1 (TRPV1)
+78.	Transient receptor potential cation channel subfamily V member 2 (TRPV2)
+79.	Transient receptor potential cation channel subfamily V member 3 (TRPV3)
+80.	Transient receptor potential cation channel subfamily V member 4 (TRPV4)
+81.	Voltage-gated calcium channel alpha-1E subunit (CACNA1E)
+82.	Voltage-gated calcium channel alpha-1F subunit (CACNA1F)
+83.	Voltage-gated calcium channel alpha-1G subunit (CACNA1G)
+84.	Voltage-gated calcium channel alpha-1H subunit (CACNA1H)
+85.	Voltage-gated calcium channel alpha-1I subunit (CACNA1I)
+86.	Voltage-gated calcium channel alpha-1S subunit (CACNA1S)
+87.	Voltage-gated calcium channel alpha-1T subunit (CACNA1T)
+88.	Voltage-gated potassium channel subfamily A member 1 (KCNA1)
+89.	Voltage-gated potassium channel subfamily A member 2 (KCNA2)
+90.	Voltage-gated potassium channel subfamily A member 3 (KCNA3)
+91.	Voltage-gated potassium channel subfamily A member 4 (KCNA4)
+92.	Voltage-gated potassium channel subfamily A member 5 (KCNA5)
+93.	Voltage-gated potassium channel subfamily A member 6 (KCNA6)
+94.	Voltage-gated potassium channel subfamily A member 7 (KCNA7)
+95.	Voltage-gated potassium channel subfamily A member 8 (KCNA8)
+96.	Voltage-gated potassium channel subfamily A member 9 (KCNA9)
+97.	Voltage-gated potassium channel subfamily B member 1 (KCNB1)
+98.	Voltage-gated potassium channel subfamily B member 2 (KCNB2)
+99.	Voltage-gated potassium channel subfamily C member 1 (KCNQ1)
+100.	Voltage-gated potassium channel subfamily C member 2 (KCNQ2)
+
+2.	Inclusion of additional synaptic plasticity mechanisms:
+•	Implement other forms of synaptic plasticity, such as long-term depression (LTD), spike-timing-dependent plasticity (STDP), and homeostatic plasticity.
+
+Next, please create five comprehensive Python classes for the following neuroplasticity mechanisms.
+
+Ensuring that they are suitable for integration into a base neuron template class for use in functional neural networks for machine learning and AI applications. The classes should be complex but not computationally expensive. Include all necessary equations, functions, activation functions, learning rate parameters, and random noise as appropriate. Here are the five neuroplasticity mechanisms to create classes for:
+
+Mechanism A
+Mechanism B
+Mechanism C
+Mechanism D
+Mechanism E
+For each class, please include a brief description of the mechanism, any relevant parameters and their roles, and the primary functions the class should perform. Also, consider incorporating a learning rate parameter, random noise, activation functions, and the possibility of enabling or disabling specific mechanisms as needed."
+Add more features if needed to keep the same level of complexity!
+Replace "Mechanism A" to "Mechanism E" with the specific neuroplasticity mechanisms you'd like to create classes for and adjust the numbers if you need more or fewer classes. Make sure that the class name is descriptive not just abbreviations. 
+Add # comments so the code is more understandable. 
+Add explanations after each code box the explains how the code works.  
+
+1.	Dendritic spine growth and retraction
+2.	Long-term potentiation and depression (LTP/LTD)
+3.	Synaptic scaling
+4.	Homeostatic synaptic plasticity
+5.	Axonal sprouting and pruning
+6.	Neurogenesis and gliogenesis
+7.	Changes in gene expression
+8.	Epigenetic modifications
+9.	Changes in membrane excitability
+10.	Modulation of ion channel expression
+11.	Metaplasticity
+12.	Spike-timing-dependent plasticity (STDP)
+13.	Intrinsic plasticity
+14.	Compensatory plasticity
+15.	Structural plasticity
+16.	Synaptic tagging and capture
+17.	Synaptic metaplasticity
+18.	Input-specific plasticity
+19.	Silent synapse formation
+20.	Modification of synaptic vesicle recycling
+21.	Changes in neurotransmitter release probability
+22.	Changes in receptor trafficking
+23.	Regulation of protein synthesis
+24.	Changes in cytoskeletal dynamics
+25.	Axonal transport and localization of mRNAs
+26.	Neurotransmitter switching
+27.	Neuronal ensemble plasticity
+28.	Neuromodulation-induced plasticity
+29.	Glial-neuronal interactions and plasticity
+30.	Changes in network activity
+31.	Altered network connectivity
+32.	Structural remodeling of dendrites and axons
+33.	Neuronal cell death and replacement
+34.	Myelination and demyelination
+35.	Changes in extracellular matrix composition
+36.	Changes in extracellular pH
+37.	Plasticity of inhibitory neurons and synapses
+38.	Changes in intracellular signaling pathways
+39.	Transcription factor regulation of gene expression
+40.	Retrograde signaling from postsynaptic neurons
+41.	Changes in mitochondrial function
+42.	Modulation of synaptic cleft proteins
+43.	Changes in synaptic adhesion molecules
+44.	Changes in presynaptic vesicle release probability
+45.	Modulation of presynaptic calcium influx
+46.	Modulation of presynaptic neurotransmitter reuptake
+47.	Changes in dendritic branching complexity
+48.	Changes in spine morphology
+49.	Changes in dendritic spine turnover
+50.	Changes in extracellular vesicle-mediated signaling
+51.	Astrocytic plasticity
+52.	Perineuronal net plasticity
+53.	Structural plasticity of axonal boutons
+54.	Changes in synaptic release site geometry
+55.	Changes in active zone composition
+56.	Modulation of receptor desensitization and resensitization
+57.	Changes in retrograde messenger release
+58.	Modulation of endocannabinoid signaling
+59.	Changes in dendritic integration of synaptic inputs
+60.	Synaptic scaling of receptor expression
+61.	Changes in dendritic protein synthesis
+62.	Changes in receptor subunit composition
+63.	Changes in AMPA/NMDA receptor ratio
+64.	Changes in synaptic protein phosphorylation
+65.	Changes in GABA receptor expression
+66.	Changes in kainate receptor expression
+67.	Changes in metabotropic receptor expression
+68.	Changes in ionotropic receptor expression
+69.	Modulation of G protein-coupled receptor signaling
+70.	Modulation of second messenger signaling pathways
+71.	Modulation of kinase/phosphatase activity
+72.	Changes in spine calcium signaling
+73.	Changes in dendritic Ca2+ signaling
+74.	Changes in intracellular calcium buffering
+75.	Changes in extracellular calcium concentration
+76.	Changes in dendritic sodium and potassium channels
+77.	Changes in axonal sodium and potassium channels
+78.	Axonal sprouting
+79.	Dendritic spine density changes
+80.	Synaptic scaling
+81.	Metaplasticity
+82.	Structural remodeling
+83.	Long-term synaptic depression
+84.	Synaptic tagging and capture
+85.	Heterosynaptic plasticity
+86.	Synaptic homeostasis
+87.	Spontaneous synaptic activity
+88.	Synaptic pruning
+89.	Alterations in neurotransmitter release
+90.	Activity-dependent gene expression
+91.	Receptor trafficking
+92.	Regulation of ion channels
+93.	Neuron migration
+94.	Axonal pruning
+95.	Myelination
+96.	Synaptic vesicle recycling
+97.	Neuronal excitability changes
+98.	Alterations in glial cell function
+99.	Post-translational modifications of proteins
+100.	Modulation of calcium signaling
+101.	Intrinsic excitability changes
+102.	Neuron-glia interactions
+103.	Cell adhesion molecule expression
+104.	Changes in cytoskeletal dynamics
+105.	Axonal transport alterations
+106.	Altered action potential propagation
+107.	Changes in extracellular matrix molecules
+108.	Neurotrophic factor regulation
+109.	Activity-dependent protein synthesis
+110.	Changes in mitochondria function
+111.	Changes in autophagy
+112.	Modulation of neuronal death and survival
+113.	Neuronal activity-dependent synaptic competition
+114.	Long-term potentiation of inhibitory synapses
+115.	Altered dendritic integration
+116.	Alterations in intracellular signaling pathways
+117.	Changes in neuromodulator release
+118.	Regulation of synaptic vesicle pool size
+119.	Synaptic transmission changes
+120.	Spontaneous neurotransmitter release
+121.	Changes in axon guidance
+122.	Modulation of presynaptic function
+123.	Activity-dependent changes in voltage-gated channel expression
+124.	Regulation of excitatory-inhibitory balance
+125.	Changes in astrocyte function
+126.	Changes in microglia function
+127.	Regulation of synaptic vesicle priming
+128.	Changes in GABAergic transmission
+129.	Modulation of action potential threshold
+130.	Regulation of dendritic spine morphology
+131.	Changes in ion channel kinetics
+132.	Modulation of postsynaptic density structure
+133.	Changes in endocannabinoid signaling
+134.	Altered neuropeptide release
+135.	Regulation of calcium homeostasis
+136.	Changes in extracellular glutamate levels
+137.	Changes in extracellular potassium levels
+138.	Regulation of dendritic translation machinery
+139.	Changes in synaptic cleft dimensions
+140.	Changes in neuronal morphology
+141.	Changes in presynaptic calcium dynamics
+142.	Regulation of synaptic vesicle mobility
+143.	Changes in synaptic vesicle fusion pore size
+144.	Modulation of receptor clustering
+145.	Regulation of synaptic vesicle recycling kinetics
+146.	Changes in dendritic spine motility
+147.	Changes in axon terminal morphology
+148.	Regulation of postsynaptic receptor trafficking
+149.	Changes in dendritic field size
+150.	Changes in axon arborization
+151.	Changes in dendritic arborization
+152.	Changes in receptor phosphorylation status
+153.	Regulation of CaMKII activity
+154.	Changes in dendritic transport machinery
+155.	Regulation of mTOR signaling
+156.	Modulation of neuronal metabolism
+157.	Changes in intracellular pH levels
+158.	Modulation of ion channel kinetics
+159.	Inhibition of neurotransmitter release
+160.	Increase in neurotransmitter release
+161.	Alteration of neurotransmitter receptor density
+162.	Alteration of neurotransmitter receptor sensitivity
+163.	Homeostatic synaptic plasticity
+164.	Long-term depression (LTD)
+165.	Long-term potentiation (LTP)
+166.	Dendritic spine pruning
+167.	Dendritic spine formation
+168.	Synapse formation
+169.	Synapse elimination
+170.	Synaptic facilitation
+171.	Synaptic augmentation
+172.	Synaptic depression
+173.	Post-tetanic potentiation
+174.	Spike-timing-dependent plasticity
+175.	Synaptic scaling
+176.	Metaplasticity
+177.	Astrocyte-mediated plasticity
+178.	Changes in neural network connectivity
+179.	Changes in neural network topology
+180.	Changes in neural oscillations
+181.	Synaptic consolidation
+182.	Systems consolidation
+183.	Protein synthesis-dependent plasticity
+184.	Protein synthesis-independent plasticity
+185.	Modulation of local protein synthesis
+186.	Changes in receptor endocytosis
+187.	Changes in receptor exocytosis
+188.	Regulation of receptor lateral diffusion
+189.	Changes in neurotransmitter synthesis
+190.	Changes in neurotransmitter degradation
+191.	Regulation of neurotransmitter uptake
+192.	Changes in neurotransmitter storage
+193.	Modulation of neurotransmitter release probability
+194.	Alterations in presynaptic terminal structure
+195.	Changes in synapse size
+196.	Changes in synapse shape
+197.	Changes in synapse number
+198.	Modulation of synapse stability
+199.	Changes in synaptic scaffolding protein expression
+200.	Regulation of synaptic protein degradation
+
+
+
+3.	Incorporate inhibitory synapses:
+•	Add support for inhibitory synapses (e.g., GABAergic synapses), as the current implementation only supports excitatory synapses.
+a list of 100 different types of inhibitory synapse functions that you can consider adding to your base neuron class for functional neural networks:
+
+For the next five inhibitory synapse functions, please create Python classes with a high level of complexity that can be integrated into a base neuron template class for functional neural networks in machine learning and AI applications. Make sure to include appropriate initialization, calculations, and updates for each class while considering the specific functionality of each inhibitory synapse function. Add comments throughout the code for better understanding and provide a detailed explanation after each code block describing the functionality and purpose of each class. Ensure that the complexity of the code is consistent with the previously provided. The next five inhibitory synapse functions are:
+
+82.	Inhibitory interneuron-mediated goal-directed behavior
+83.	Inhibitory interneuron-mediated habit formation
+84.	Inhibitory interneuron-mediated attentional bias
+85.	Inhibitory interneuron-mediated fear extinction 
+
+When implementing these classes, consider the following features to maintain a high level of complexity:
+Please ensure that the code complexity is consistent with the previously provided examples, as well as clear and well-documented. Here's a more generalized list of functions and features to be used in a broader manner for different types of inhibitory functions:
+
+1.	__init__(self, dimensions, params): Constructor to initialize class variables such as the network dimensions and other specific parameters for the inhibitory function. Initializes the connectivity matrix with random values.
+2.	compute_inhibition(self, pre_activity, post_activity): Function to calculate inhibition based on pre-synaptic and post-synaptic activity levels using the connectivity matrix and specific inhibitory function mechanisms.
+3.	update_connectivity(self, pre_activity, post_activity, additional_params): Function to update the connectivity matrix based on the current activity levels of pre-synaptic and post-synaptic neurons, and specific inhibitory function mechanisms.
+4.	update_activity(self, current_activity, additional_params, dt): Function to update the activity levels of neurons, considering the inhibition effects, specific inhibitory function mechanisms, and ensuring that the activity values remain within the valid range (e.g., [0, 1]).
+5.	adjust_function_parameters(self, additional_params): Function to dynamically adjust the specific inhibitory function parameters based on external or internal factors.
+6.	integrate_additional_factors(self, activity_levels, additional_params, dt): Function to integrate additional factors into the model, adjusting inhibitory function parameters and updating activity levels accordingly.
+7.	np.fill_diagonal(self.connectivity_matrix, 0): Ensuring that the connectivity matrix has zero values along the diagonal, representing no self-connections.
+8.	clip_connectivity_matrix(self): Function to clip the connectivity matrix values to keep them within the specified range.
+9.	clip_activity_levels(self, new_activity): Function to clip the activity levels to keep them within the valid range (e.g., [0, 1]).
+10.	update_time(self, dt): Function to update the current time in the model, taking a time step dt as an input. This function is essential for considering the temporal dynamics of the neural network.
+11.	get_neighbors(self, neuron_index, radius): Function to retrieve the indices of neighboring neurons within a given radius for the specified neuron. This can be helpful in addressing spatial proximity and connectivity between neurons.
+12.	apply_temporal_dynamics(self, activity_levels, dt): Function to apply temporal dynamics, such as decay or integration, to the activity levels of neurons based on the specific inhibitory function mechanisms and the time step dt.
+13.	save_connectivity_matrix(self, filename): Function to save the current connectivity matrix to a file for further analysis or visualization.
+14.	load_connectivity_matrix(self, filename): Function to load a connectivity matrix from a file, allowing for the reuse or modification of previously saved connectivity matrices.
+15.	connectivity_matrix_from_indices(self, indices): Function to create a sub-connectivity matrix from a given set of neuron indices. This can be useful for analyzing local connectivity patterns within a specific area of the network.
+16.	apply_stdp(self, dt): Function to apply spike-timing-dependent plasticity (STDP) rules to the connectivity matrix based on pre-synaptic and post-synaptic activity levels and the time step dt. This can help model the effect of synaptic plasticity on inhibitory connections.
+17.	apply_homeostatic_plasticity(self, dt): Function to apply homeostatic plasticity rules to the connectivity matrix, ensuring the stability of the network by maintaining a balance between excitation and inhibition.
+18.	apply_structural_plasticity(self, dt): Function to apply structural plasticity rules to the connectivity matrix, allowing for the addition or removal of connections based on specific conditions or criteria.
+I want a fully finished functional class ready to run without running it!
+
+
+Keep in mind these need to be geared to being used in a base neuron template class. It should be focused more on interactions between one neuron communicating with its surrounding neurons  in a 4D network the 4th demotion being time.
+
+Continue starting over from #75, because it was cut off and, please keep the same level of complexity!
+
+
+1.	Shunting inhibition
+2.	Hyperpolarizing inhibition
+3.	Disinhibition
+4.	Feedback inhibition
+5.	Feedforward inhibition
+6.	Lateral inhibition
+7.	Perisomatic inhibition
+8.	Dendritic inhibition
+9.	Somatodendritic inhibition
+10.	Axo-axonic inhibition
+11.	Retrograde inhibition
+12.	Fast inhibition
+13.	Slow inhibition
+14.	Tonic inhibition
+15.	Phasic inhibition
+16.	Spatially tuned inhibition
+17.	Temporally tuned inhibition
+18.	Patterned inhibition
+19.	Depolarization-induced suppression of inhibition (DSI)
+20.	Depolarization-induced suppression of excitation (DSE)
+21.	Inhibition-stabilized sparsification
+22.	Inhibitory surround
+23.	Lateral connectivity suppression
+24.	Interspersed inhibition
+25.	Dispersed inhibition
+26.	Di-synaptic inhibition
+27.	Multi-synaptic inhibition
+28.	Indirect inhibition
+29.	Gating inhibition
+30.	Mutual inhibition
+31.	Convergent inhibition
+32.	Divergent inhibition
+33.	Delayed inhibition
+34.	Rebound inhibition
+35.	Inhibitory after-hyperpolarization (iAHP)
+36.	Inhibitory interneuron-mediated gain control
+37.	Inhibitory interneuron-mediated noise reduction
+38.	Inhibitory interneuron-mediated stimulus selection
+39.	Inhibitory interneuron-mediated temporal summation
+40.	Inhibitory interneuron-mediated spatial filtering
+41.	Inhibitory interneuron-mediated feature extraction
+42.	Inhibitory interneuron-mediated adaptation
+43.	Inhibitory interneuron-mediated synchronization
+44.	Inhibitory interneuron-mediated desynchronization
+45.	Inhibitory interneuron-mediated oscillation
+46.	Inhibitory interneuron-mediated phase locking
+47.	Inhibitory interneuron-mediated resonance
+48.	Inhibitory interneuron-mediated plasticity
+49.	Inhibitory interneuron-mediated synaptic scaling
+50.	Inhibitory interneuron-mediated homeostasis
+51.	Inhibitory interneuron-mediated competition
+52.	Inhibitory interneuron-mediated cooperation
+53.	Inhibitory interneuron-mediated coding
+54.	Inhibitory interneuron-mediated decoding
+55.	Inhibitory interneuron-mediated error correction
+56.	Inhibitory interneuron-mediated reinforcement
+57.	Inhibitory interneuron-mediated learning
+58.	Inhibitory interneuron-mediated memory
+59.	Inhibitory interneuron-mediated attention
+60.	Inhibitory interneuron-mediated perception
+61.	Inhibitory interneuron-mediated decision making
+62.	Inhibitory interneuron-mediated planning
+63.	Inhibitory interneuron-mediated problem solving
+64.	Inhibitory interneuron-mediated creativity
+65.	Inhibitory interneuron-mediated intuition
+66.	Inhibitory interneuron-mediated emotion regulation
+67.	Inhibitory interneuron-mediated social cognition
+68.	Inhibitory interneuron-mediated empathy
+69.	Inhibitory interneuron-mediated theory of mind
+70.	Inhibitory interneuron-mediated language processing
+71.	Inhibitory interneuron-mediated semantic memory
+72.	Inhibitory interneuron-mediated episodic memory
+73.	Inhibitory interneuron-mediated procedural memory
+74.	Inhibitory interneuron-mediated working memory
+75.	Inhibitory interneuron-mediated attentional control
+76.	Inhibitory interneuron-mediated motor control
+77.	Inhibitory interneuron-mediated movement planning
+78.	Inhibitory interneuron-mediated sensory integration
+79.	Inhibitory interneuron-mediated spatial navigation
+80.	Inhibitory interneuron-mediated decision making under uncertainty
+81.	Inhibitory interneuron-mediated reinforcement learning
+82.	Inhibitory interneuron-mediated goal-directed behavior
+83.	Inhibitory interneuron-mediated habit formation
+84.	Inhibitory interneuron-mediated attentional bias
+85.	Inhibitory interneuron-mediated fear extinction
+86.	Inhibitory interneuron-mediated fear conditioning
+87.	Inhibitory interneuron-mediated anxiety regulation
+88.	Inhibitory interneuron-mediated stress response
+89.	Inhibitory interneuron-mediated addiction
+90.	Inhibitory interneuron-mediated impulse control
+91.	Inhibitory interneuron-mediated risk assessment
+92.	Inhibitory interneuron-mediated social behavior
+93.	Inhibitory interneuron-mediated reward processing
+94.	Inhibitory interneuron-mediated aversion processing
+95.	Inhibitory interneuron-mediated cognitive control
+96.	Inhibitory interneuron-mediated attentional flexibility
+97.	Inhibitory interneuron-mediated perceptual decision making
+98.	Inhibitory interneuron-mediated action selection
+99.	Inhibitory interneuron-mediated semantic processing
+100.	Inhibitory interneuron-mediated syntactic processing
+
+This list includes a wide range of inhibitory synapse functions that can be incorporated into a base neuron class for functional neural networks. These functions can enable the network to perform complex cognitive tasks, such as attention, perception, memory, decision-making, and more.
+
+By incorporating these inhibitory synapse functions into your neural network models, you can create more realistic and accurate models that better reflect the biological processes underlying neural function, and ultimately improve the performance of your neural network models.
+
+4.	Inclusion of dendritic computation:
+•	Implement a more complex dendritic tree structure that allows for localized computation and information processing within the dendritic branches.
+a list of 100 different classes you can consider adding to your base neuron class to incorporate dendritic computation:
+
+1.	Dendritic Tree
+2.	Dendritic Branch
+3.	Dendritic Spine
+4.	Dendritic Calcium Channel
+5.	Dendritic NMDA Receptor
+6.	Dendritic AMPA Receptor
+7.	Dendritic Kainate Receptor
+8.	Dendritic GABAAR
+9.	Dendritic GABABR
+10.	Dendritic Voltage-Gated Ion Channel
+11.	Dendritic Gap Junction
+12.	Dendritic Action Potential
+13.	Dendritic Non-Linear Integration
+14.	Dendritic Linear Integration
+15.	Dendritic Subthreshold Integration
+16.	Dendritic Suprathreshold Integration
+17.	Dendritic Back propagation
+18.	Dendritic Spike-Timing-Dependent Plasticity
+19.	Dendritic Spike-Dependent Plasticity
+20.	Dendritic Meta-plasticity
+21.	Dendritic Dynamics
+22.	Dendritic Synaptic Integration
+23.	Dendritic Synaptic Plasticity
+24.	Dendritic Inhibition
+25.	Dendritic Excitation
+26.	Dendritic Bursting
+27.	Dendritic Tapering
+28.	Dendritic Regeneration
+29.	Dendritic Action Potential Initiation Zone
+30.	Dendritic Voltage Attenuation
+31.	Dendritic Synaptic Input Clustering
+32.	Dendritic Synaptic Input Spacing
+33.	Dendritic Synaptic Input Timing
+34.	Dendritic Integration Threshold
+35.	Dendritic Integration Weighting
+36.	Dendritic Active Membrane Properties
+37.	Dendritic Passive Membrane Properties
+38.	Dendritic Morphology
+39.	Dendritic Branching Angle
+40.	Dendritic Diameter
+41.	Dendritic Length
+42.	Dendritic Branching Order
+43.	Dendritic Electrotonic Structure
+44.	Dendritic Voltage-Dependent Conductance
+45.	Dendritic Synaptic Input Localization
+46.	Dendritic Synaptic Input Weight Normalization
+47.	Dendritic Synaptic Input Temporal Summation
+48.	Dendritic Spatial Summation
+49.	Dendritic Synaptic Input Time Constants
+50.	Dendritic Action Potential Duration
+51.	Dendritic Synaptic Saturation
+52.	Dendritic Synaptic Depression
+53.	Dendritic Synaptic Facilitation
+54.	Dendritic Synaptic Short-Term Plasticity
+55.	Dendritic Synaptic Long-Term Plasticity
+56.	Dendritic Synaptic Weight Scaling
+57.	Dendritic Voltage-Gated Potassium Channels
+58.	Dendritic Voltage-Gated Calcium Channels
+59.	Dendritic Voltage-Gated Sodium Channels
+60.	Dendritic Voltage-Gated Chloride Channels
+61.	Dendritic Synaptic Conductance Variability
+62.	Dendritic Synaptic Inhibitory Regulation
+63.	Dendritic Synaptic Excitatory Regulation
+64.	Dendritic Synaptic Weight Modification
+65.	Dendritic Synaptic Competition
+66.	Dendritic Synaptic Reinforcement
+67.	Dendritic Synaptic Tagging
+68.	Dendritic Synaptic Homeostasis
+69.	Dendritic Synaptic Scaling
+70.	Dendritic Synaptic Clustering
+71.	Dendritic Plasticity Inhibition
+72.	Dendritic Plasticity Facilitation
+73.	Dendritic Voltage-Gated Currents
+74.	Dendritic Calcium Wave
+75.	Dendritic Calcium Spikes
+76.	Dendritic Calcium Signaling
+77.	Dendritic Glutamate Transporters
+78.	Dendritic GABA Transporters
+79.	Dendritic Receptor Clustering
+80.	Dendritic Receptor Desensitization
+81.	Dendritic Receptor Saturation
+82.	Dendritic Synaptic Time Constant Adaptation
+83.	Dendritic Synaptic Plasticity Cooperativity
+84.	Dendritic Synaptic Plasticity Additivity
+85.	Dendritic Synaptic Plasticity Multiplicity
+86.	Dendritic Synaptic Plasticity Competition
+87.	Dendritic Synaptic Plasticity Learning Rules
+88.	Dendritic Synaptic Plasticity Memory
+89.	Dendritic Synaptic Plasticity Forgetting
+90.	Dendritic Synaptic Plasticity Generalization
+91.	Dendritic Synaptic Plasticity Discrimination
+92.	Dendritic Synaptic Plasticity Recall
+93.	Dendritic Synaptic Plasticity Reconsolidation
+94.	Dendritic Synaptic Plasticity Consolidation
+95.	Dendritic Synaptic Plasticity Stability
+96.	Dendritic Synaptic Plasticity Change Detection
+97.	Dendritic Synaptic Plasticity Error Correction
+98.	Dendritic Synaptic Plasticity Pattern Completion
+99.	Dendritic Synaptic Plasticity Pattern Separation
+100.	Dendritic Synaptic Plasticity Adaptation
+
+This list includes a wide range of classes that can be used to incorporate dendritic computation into a base neuron class for functional neural networks. Dendritic computation enables localized information processing within the dendritic tree, which is important for tasks such as feature extraction, pattern recognition, and context-dependent processing.
+
+By incorporating these dendritic computation classes into your neural network models, you can create more realistic and accurate models that better reflect the biological processes underlying neural function, and ultimately improve the performance of your neural network models.
+
+5.	Support for gap junctions and electrical synapses:
+•	Include gap junctions and electrical synapses to model the direct transfer of electrical signals between neurons.
+
+a list of 100 different classes you can consider adding to your base neuron class to incorporate support for gap junctions and electrical synapses:
+
+1.	Gap Junction
+2.	Electrical Synapse
+3.	Connexin
+4.	Pannexin
+5.	Hemichannel
+6.	Gap Junctional Coupling
+7.	Electrical Synaptic Coupling
+8.	Gap Junctional Conductance
+9.	Electrical Synaptic Conductance
+10.	Gap Junctional Resistance
+11.	Electrical Synaptic Resistance
+12.	Gap Junctional Rectification
+13.	Electrical Synaptic Rectification
+14.	Gap Junctional Dependence on Membrane Potential
+15.	Electrical Synaptic Dependence on Membrane Potential
+16.	Gap Junctional Dependence on Calcium Concentration
+17.	Electrical Synaptic Dependence on Calcium Concentration
+18.	Gap Junctional Dependence on pH
+19.	Electrical Synaptic Dependence on pH
+20.	Gap Junctional Dependence on Temperature
+21.	Electrical Synaptic Dependence on Temperature
+22.	Gap Junctional Dependence on Modulators
+23.	Electrical Synaptic Dependence on Modulators
+24.	Gap Junctional Heterotypic Coupling
+25.	Electrical Synaptic Heterotypic Coupling
+26.	Gap Junctional Homotypic Coupling
+27.	Electrical Synaptic Homotypic Coupling
+28.	Gap Junctional Spatial Distribution
+29.	Electrical Synaptic Spatial Distribution
+30.	Gap Junctional Temporal Dynamics
+31.	Electrical Synaptic Temporal Dynamics
+32.	Gap Junctional Synchronization
+33.	Electrical Synaptic Synchronization
+34.	Gap Junctional Desynchronization
+35.	Electrical Synaptic Desynchronization
+36.	Gap Junctional Inhibition
+37.	Electrical Synaptic Inhibition
+38.	Gap Junctional Excitation
+39.	Electrical Synaptic Excitation
+40.	Gap Junctional Modulation
+41.	Electrical Synaptic Modulation
+42.	Gap Junctional Plasticity
+43.	Electrical Synaptic Plasticity
+44.	Gap Junctional Learning
+45.	Electrical Synaptic Learning
+46.	Gap Junctional Memory
+47.	Electrical Synaptic Memory
+48.	Gap Junctional Transfer Entropy
+49.	Electrical Synaptic Transfer Entropy
+50.	Gap Junctional Information Flow
+51.	Electrical Synaptic Information Flow
+52.	Gap Junctional Signal Propagation
+53.	Electrical Synaptic Signal Propagation
+54.	Gap Junctional Signal Amplification
+55.	Electrical Synaptic Signal Amplification
+56.	Gap Junctional Signal Integration
+57.	Electrical Synaptic Signal Integration
+58.	Gap Junctional Signal Discrimination
+59.	Electrical Synaptic Signal Discrimination
+60.	Gap Junctional Signal Modulation
+61.	Electrical Synaptic Signal Modulation
+62.	Gap Junctional Signal Filtering
+63.	Electrical Synaptic Signal Filtering
+64.	Gap Junctional Signal Detection
+65.	Electrical Synaptic Signal Detection
+66.	Gap Junctional Signal Segregation
+67.	Electrical Synaptic Signal Segregation
+68.	Gap Junctional Signal Convergence
+69.	Electrical Synaptic Signal Convergence
+70.	Gap Junctional Signal Divergence
+71.	Electrical Synaptic Signal Divergence
+72.	Gap Junctional Neural Oscillations
+73.	Electrical Synaptic Neural Oscillations
+74.	Gap Junctional Phase Synchronization
+75.	Electrical Synaptic Phase Synchronization
+76.	Gap Junctional Spike Synchronization
+77.	Electrical Synaptic Spike Synchronization
+78.	Gap Junctional Burst Synchronization
+79.	Electrical Synaptic Burst Synchronization
+80.	Gap Junctional Neural Coherence
+81.	Electrical Synaptic Neural Coherence
+82.	Gap Junctional Neural Resonance
+83.	Electrical Synaptic Neural Resonance
+84.	Gap Junctional Neural Entrainment
+85.	Electrical Synaptic Neural Entrainment
+86.	Gap Junctional Neural Firing Patterns
+87.	Electrical Synaptic Neural Firing Patterns
+88.	Gap Junctional Neural Rhythms
+89.	Electrical Synaptic Neural Rhythms
+90.	Gap Junctional Neural Bursting
+91.	Electrical Synaptic Neural Bursting
+92.	Gap Junctional Neural Synchronization Disorder
+93.	Electrical Synaptic Neural Synchronization Disorder
+94.	Gap Junctional Neural Co-Activity
+95.	Electrical Synaptic Neural Co-Activity
+96.	Gap Junctional Neural Circuit Dynamics
+97.	Electrical Synaptic Neural Circuit Dynamics
+98.	Gap Junctional Neural Communication
+99.	Electrical Synaptic Neural Communication
+100.	Gap Junctional Neural Network Formation
+
+This list includes a wide range of classes that can be used to incorporate gap junctions and electrical synapses into a base neuron class for functional neural networks. Gap junctions and electrical synapses allow for direct transfer of electrical signals between neurons, which is important for tasks such as synchronization, oscillation, and network formation.
+
+By incorporating these gap junction and electrical synapse classes into your neural network models, you can create more realistic and accurate models that better reflect the biological processes underlying neural function, and ultimately improve the performance of your neural network models.
+
+
+6.	Incorporate neuromodulators and neurotransmitter systems:
+•	Model the effect of neuromodulators (e.g., dopamine, serotonin, acetylcholine, etc.) on synaptic transmission and neuron excitability.
+ 
+a list of 100 different classes you can consider adding to your base neuron class to incorporate neuromodulators and neurotransmitter systems:
+
+1.	Neuromodulation
+2.	Neurotransmitter
+3.	Dopamine
+4.	Serotonin
+5.	Acetylcholine
+6.	Norepinephrine
+7.	GABA
+8.	Glutamate
+9.	Histamine
+10.	Endocannabinoids
+11.	Neuropeptides
+12.	Adenosine
+13.	Nitric Oxide
+14.	Carbon Monoxide
+15.	Monoamines
+16.	Receptors
+17.	G Protein-Coupled Receptors
+18.	Ionotropic Receptors
+19.	Metabotropic Receptors
+20.	Dopamine Receptors
+21.	Serotonin Receptors
+22.	Acetylcholine Receptors
+23.	Norepinephrine Receptors
+24.	GABA Receptors
+25.	Glutamate Receptors
+26.	Histamine Receptors
+27.	Endocannabinoid Receptors
+28.	Neuropeptide Receptors
+29.	Adenosine Receptors
+30.	Nitric Oxide Receptors
+31.	Carbon Monoxide Receptors
+32.	Modulation of Ion Channels
+33.	Modulation of Synaptic Transmission
+34.	Modulation of Neuronal Excitability
+35.	Modulation of Synaptic Plasticity
+36.	Modulation of Neuromodulation
+37.	Modulation of Neurotransmitter Release
+38.	Modulation of Synaptic Vesicle Recycling
+39.	Modulation of Synaptic Adhesion
+40.	Modulation of Dendritic Spine Density
+41.	Modulation of Neuronal Growth
+42.	Modulation of Neuronal Survival
+43.	Modulation of Neuronal Migration
+44.	Modulation of Neuronal Differentiation
+45.	Modulation of Neuronal Apoptosis
+46.	Modulation of Neuronal Regeneration
+47.	Modulation of Neuronal Network Formation
+48.	Modulation of Neuronal Network Connectivity
+49.	Modulation of Neuronal Network Function
+50.	Modulation of Neuronal Network Plasticity
+51.	Modulation of Synaptic Homeostasis
+52.	Modulation of Synaptic Scaling
+53.	Modulation of Synaptic Potentiation
+54.	Modulation of Synaptic Depression
+55.	Modulation of Synaptic Facilitation
+56.	Modulation of Synaptic Inhibition
+57.	Modulation of Synaptic Competition
+58.	Modulation of Synaptic Cooperation
+59.	Modulation of Synaptic Interference
+60.	Modulation of Synaptic Filtering
+61.	Modulation of Synaptic Noise
+62.	Modulation of Synaptic Timing
+63.	Modulation of Synaptic Integration
+64.	Modulation of Synaptic Segregation
+65.	Modulation of Synaptic Convergence
+66.	Modulation of Synaptic Divergence
+67.	Modulation of Synaptic Plasticity Thresholds
+68.	Modulation of Synaptic Weighting
+69.	Modulation of Synaptic Saturation
+70.	Modulation of Synaptic Memory
+71.	Modulation of Synaptic Forgetting
+72.	Modulation of Synaptic Generalization
+73.	Modulation of Synaptic Discrimination
+74.	Modulation of Synaptic Recall
+75.	Modulation of Synaptic Reconsolidation
+76.	Modulation of Synaptic Consolidation
+77.	Modulation of Synaptic Stability
+78.	Modulation of Synaptic Change Detection
+79.	Modulation of Synaptic Error Correction
+80.	Modulation of Synaptic Pattern Completion
+81.	Modulation of Synaptic Pattern Separation
+82.	Dopamine Modulation of Synaptic Transmission
+83.	Serotonin Modulation of Synaptic Transmission
+84.	Acetylcholine Modulation of Synaptic Transmission
+85.	Norepinephrine Modulation of Synaptic Transmission
+86.	GABA Modulation of Synaptic Transmission
+87.	Glutamate Modulation of Synaptic Transmission
+88.	Histamine Modulation of Synaptic Transmission
+89.	Endocannabinoid Modulation of Synaptic Transmission
+90.	Neuropeptide Modulation of Synaptic Transmission
+91.	Adenosine Modulation of Synaptic Transmission
+92.	Nitric Oxide Modulation of Synaptic Transmission
+93.	Carbon Monoxide Modulation of Synaptic Transmission
+94.	Dopamine Modulation of Neuronal Excitability
+95.	Serotonin Modulation of Neuronal Excitability
+96.	Acetylcholine Modulation of Neuronal Excitability
+97.	Norepinephrine Modulation of Neuronal Excitability
+98.	GABA Modulation of Neuronal Excitability
+99.	Glutamate Modulation of Neuronal Excitability
+100.	Histamine Modulation of Neuronal Excitability
+
+This list includes a variety of classes that can be used to model the effects of neuromodulators on synaptic transmission and neuronal excitability in a base neuron class for functional neural networks. Neuromodulators such as dopamine, serotonin, and acetylcholine play important roles in modulating neural function and behavior, and can have profound effects on learning, memory, attention, motivation, and emotion.
+
+By incorporating these neuromodulator classes into your neural network models, you can create more realistic and accurate models that better reflect the biological processes underlying neural function, and ultimately improve the performance of your neural network models.
+
+
+7.	Inclusion of adaptive properties:
+•	Implement adaptive mechanisms, such as intrinsic excitability, that allow neurons to adjust their behavior based on their recent activity history.
+a list of 100 different classes you can consider adding to your base neuron class to incorporate adaptive properties:
+
+1.	Adaptive Properties
+2.	Intrinsic Excitability
+3.	Spike Frequency Adaptation
+4.	Spike Threshold Adaptation
+5.	Spike Timing Dependent Plasticity
+6.	Calcium Dependent Plasticity
+7.	Voltage Dependent Plasticity
+8.	Synapse Specific Plasticity
+9.	Homeostatic Plasticity
+10.	Short Term Plasticity
+11.	Long Term Plasticity
+12.	Synaptic Scaling
+13.	Synaptic Saturation
+14.	Synaptic Stabilization
+15.	Synaptic Unmasking
+16.	Synaptic Tagging
+17.	Synaptic Capture
+18.	Synaptic Interference
+19.	Synaptic Hetero-synaptic Plasticity
+20.	Synaptic Homosynaptic Plasticity
+21.	Synaptic Coupling
+22.	Synaptic Meta plasticity
+23.	Synaptic Presynaptic Plasticity
+24.	Synaptic Post synaptic Plasticity
+25.	Synaptic Hebbian Plasticity
+26.	Synaptic Anti-Hebbian Plasticity
+27.	Synaptic Spike Timing Dependent Plasticity
+28.	Synaptic Spike Timing Dependent Long-Term Potentiation
+29.	Synaptic Spike Dependent Plasticity
+30.	Synaptic Activity Dependent Plasticity
+31.	Synaptic Neural Modulation
+32.	Synaptic Neuromodulator Plasticity
+33.	Synaptic Learning
+34.	Synaptic Memory
+35.	Synaptic Forgetting
+36.	Synaptic Generalization
+37.	Synaptic Discrimination
+38.	Synaptic Recall
+39.	Synaptic consolidation
+40.	Synaptic Consolidation
+41.	Synaptic Stability
+42.	Synaptic Change Detection
+43.	Synaptic Error Correction
+44.	Synaptic Pattern Completion
+45.	Synaptic Pattern Separation
+46.	Synaptic Adaptation
+47.	Synaptic Facilitation
+48.	Synaptic Depression
+49.	Synaptic Potentiation
+50.	Synaptic Desensitization
+51.	Synaptic Sensitization
+52.	Synaptic Tolerance
+53.	Synaptic Meta plasticity Thresholds
+54.	Synaptic Meta plasticity Timing
+55.	Synaptic Meta plasticity Magnitude
+56.	Synaptic Meta plasticity Stability
+57.	Synaptic Meta plasticity Hierarchy
+58.	Synaptic Meta plasticity Interference
+59.	Synaptic Meta plasticity Learning
+60.	Synaptic Meta plasticity Memory
+61.	Synaptic Meta plasticity Forgetting
+62.	Synaptic Meta plasticity Generalization
+63.	Synaptic Meta plasticity Discrimination
+64.	Synaptic Meta plasticity Recall
+65.	Synaptic Meta plasticity Reconsolidation
+66.	Synaptic Meta plasticity Consolidation
+67.	Synaptic Meta plasticity Stability
+68.	Synaptic Meta plasticity Change Detection
+69.	Synaptic Meta plasticity Error Correction
+70.	Synaptic Meta plasticity Pattern Completion
+71.	Synaptic Meta plasticity Pattern Separation
+72.	Synaptic Meta plasticity Adaptation
+73.	Synaptic Meta plasticity Facilitation
+74.	Synaptic Meta plasticity Depression
+75.	Synaptic Meta plasticity Potentiation
+76.	Synaptic Meta plasticity Desensitization
+77.	Synaptic Meta plasticity Sensitization
+78.	Synaptic Meta plasticity Tolerance
+79.	Synaptic Meta plasticity Threshold Modulation
+80.	Synaptic Meta plasticity Timing Modulation
+81.	Synaptic Meta plasticity Magnitude Modulation
+82.	Synaptic Meta plasticity Stability Modulation
+83.	Synaptic Meta plasticity Hierarchy Modulation
+84.	Synaptic Meta plasticity Interference Modulation
+85.	Synaptic Meta plasticity Learning Modulation
+86.	Synaptic Meta plasticity Memory Modulation
+87.	Synaptic Meta plasticity Forgetting Modulation
+88.	Synaptic Meta plasticity Generalization Modulation
+89.	Synaptic Meta plasticity Discrimination Modulation
+90.	Synaptic Meta plasticity Recall Modulation
+91.	Synaptic Meta plasticity Reconsolidation Modulation
+92.	Synaptic Meta plasticity Consolidation Modulation
+93.	Synaptic Meta plasticity Stability Modulation
+94.	Synaptic Meta plasticity Change Detection Modulation
+95.	Synaptic Meta plasticity Error Correction Modulation
+96.	Synaptic Meta plasticity Pattern Completion Modulation
+97.	Synaptic Meta plasticity Pattern Separation Modulation
+98.	Synaptic Meta plasticity Adaptation Modulation
+99.	Synaptic Meta plasticity Facilitation Modulation
+100.	Intrinsic Excitability
+101.	Adaptation
+102.	Spike Frequency Adaptation
+103.	Subthreshold Adaptation
+104.	Spike Timing-Dependent Plasticity
+105.	Homeostatic Plasticity
+106.	Synaptic Scaling
+107.	Intrinsic Plasticity
+108.	Voltage-Dependent Conductances
+109.	Calcium-Dependent Conductances
+110.	Potassium-Dependent Conductances
+111.	Sodium-Dependent Conductances
+112.	Hyperpolarization-Activated Cyclic Nucleotide-Gated Channels (HCN Channels)
+113.	Transient Receptor Potential (TRP) Channels
+114.	Cyclic Nucleotide-Gated Channels (CNG Channels)
+115.	Calcium-Activated Potassium Channels
+116.	BK Channels
+117.	SK Channels
+118.	Voltage-Gated Calcium Channels
+119.	L-Type Calcium Channels
+120.	T-Type Calcium Channels
+121.	P/Q-Type Calcium Channels
+122.	N-Type Calcium Channels
+123.	R-Type Calcium Channels
+124.	H-Type Calcium Channels
+125.	Voltage-Gated Potassium Channels
+126.	Delayed Rectifier Potassium Channels
+127.	A-Type Potassium Channels
+128.	M-Type Potassium Channels
+129.	HCN-Dependent Potassium Channels
+130.	Calcium-Dependent Potassium Channels
+131.	ATP-Dependent Potassium Channels
+132.	Inwardly Rectifying Potassium Channels
+133.	Voltage-Gated Sodium Channels
+134.	Tetrodotoxin-Resistant Sodium Channels
+135.	Tetrodotoxin-Sensitive Sodium Channels
+136.	Persistent Sodium Channels
+137.	Fast-Inactivating Sodium Channels
+138.	Slow-Inactivating Sodium Channels
+139.	Voltage-Gated Chloride Channels
+140.	Calcium-Activated Chloride Channels
+141.	Cyclic Nucleotide-Gated Chloride Channels
+142.	TRP-Dependent Chloride Channels
+143.	Volume-Sensitive Chloride Channels
+144.	Two-Pore Domain Potassium Channels (K2P Channels)
+145.	Inward Rectifier Chloride Channels
+146.	Proton-Gated Ion Channels
+147.	Amiloride-Sensitive Sodium Channels
+148.	G-Protein-Coupled Receptors (GPCRs)
+149.	Adrenergic Receptors
+150.	Cholinergic Receptors
+151.	Dopaminergic Receptors
+152.	Serotonergic Receptors
+153.	Histaminergic Receptors
+154.	Opioid Receptors
+155.	Cannabinoid Receptors
+156.	NMDA Receptors
+157.	AMPA Receptors
+158.	Kainate Receptors
+159.	Metabotropic Glutamate Receptors
+160.	GABAergic Receptors
+161.	Glycinergic Receptors
+162.	Adenosine Receptors
+163.	Purinergic Receptors
+164.	Nitric Oxide Receptors
+165.	Carbon Monoxide Receptors
+166.	Neurotrophin Receptors
+167.	Growth Factor Receptors
+168.	Hormone Receptors
+169.	Tyrosine Kinase Receptors
+170.	Ionotropic Receptors
+171.	Metabotropic Receptors
+172.	Presynaptic Modulation
+173.	Postsynaptic Modulation
+174.	Heterosynaptic Modulation
+175.	Spike-Timing-Dependent Inhibition
+176.	Synaptic Decrement
+177.	Synaptic Potentiation
+178.	Synaptic Depression
+179.	Synaptic Facilitation
+180.	Synaptic Inhibition
+181.	Synaptic Saturation
+182.	Synaptic Homeostasis
+183.	Synaptic Plasticity Threshold
+184.	Synaptic Weighting
+185.	Synaptic Time Constants
+186.	Short-Term Synaptic Plasticity
+187.	Long-Term Synaptic Plasticity
+188.	Spike-Time-Dependent Plasticity
+189.	Bidirectional Synaptic Plasticity
+190.	Unidirectional Synaptic Plasticity
+191.	Associative Synaptic Plasticity
+192.	Hebbian Synaptic Plasticity
+193.	Anti-Hebbian Synaptic Plasticity
+194.	Spike-Dependent Synaptic Plasticity
+195.	Calcium-Dependent Synaptic Plasticity
+196.	Protein-Synthesis-Dependent Synaptic Plasticity
+197.	Synaptic Scaling Homeostasis
+This list includes a range of classes that can be used to implement adaptive mechanisms, such as intrinsic excitability, in a base neuron class for functional neural networks. Adaptive properties allow neurons to adjust their behavior based on their recent activity history, which is important for tasks such as learning, memory, and adaptation to changes in the environment.
+
+By incorporating these adaptive properties into your neural network models, you can create more flexible and adaptive models that are better able to respond to changes in the input data and perform more complex tasks.
+
+8.	Support for spatially extended neuron models:
+•	Implement multi-compartment models to more accurately represent the spatial distribution of membrane potential and ion concentrations within a neuron.
+here's a list of 100 different classes you can consider adding to your base neuron class to support spatially extended neuron models:
+
+1.	Multi-Compartment Models
+2.	Cable Theory
+3.	Active Dendrites
+4.	Passive Dendrites
+5.	Axon Initial Segment (AIS)
+6.	Axonal Conductance
+7.	Axonal Delay
+8.	Axonal Branching
+9.	Axonal Action Potential Propagation
+10.	Axonal Spike Initiation
+11.	Axonal Refractory Period
+12.	Axonal Synaptic Integration
+13.	Axonal Connectivity
+14.	Axonal Modulation
+15.	Axonal Plasticity
+16.	Axonal Regeneration
+17.	Dendritic Conductance
+18.	Dendritic Delay
+19.	Dendritic Branching
+20.	Dendritic Voltage Attenuation
+21.	Dendritic Voltage-Dependent Conductances
+22.	Dendritic Calcium Dynamics
+23.	Dendritic Calcium-Dependent Conductances
+24.	Dendritic Potassium Dynamics
+25.	Dendritic Sodium Dynamics
+26.	Dendritic Calcium-Activated Potassium Channels
+27.	Dendritic HCN Channels
+28.	Dendritic NMDA Receptors
+29.	Dendritic AMPA Receptors
+30.	Dendritic Kainate Receptors
+31.	Dendritic Metabotropic Glutamate Receptors
+32.	Dendritic GABAergic Receptors
+33.	Dendritic Glycinergic Receptors
+34.	Dendritic Adenosine Receptors
+35.	Dendritic Purinergic Receptors
+36.	Dendritic Nitric Oxide Receptors
+37.	Dendritic Carbon Monoxide Receptors
+38.	Dendritic Neurotrophin Receptors
+39.	Dendritic Growth Factor Receptors
+40.	Dendritic Hormone Receptors
+41.	Dendritic Tyrosine Kinase Receptors
+42.	Dendritic Ionotropic Receptors
+43.	Dendritic Metabotropic Receptors
+44.	Dendritic Presynaptic Modulation
+45.	Dendritic Postsynaptic Modulation
+46.	Dendritic Heterosynaptic Modulation
+47.	Dendritic Spike-Time-Dependent Inhibition
+48.	Dendritic Synaptic Decrement
+49.	Dendritic Synaptic Potentiation
+50.	Dendritic Synaptic Depression
+51.	Dendritic Synaptic Facilitation
+52.	Dendritic Synaptic Inhibition
+53.	Dendritic Synaptic Saturation
+54.	Dendritic Synaptic Homeostasis
+55.	Dendritic Synaptic Scaling
+56.	Dendritic Synaptic Metaplasticity
+57.	Dendritic Synaptic Plasticity Threshold
+58.	Dendritic Synaptic Weighting
+59.	Dendritic Synaptic Time Constants
+60.	Dendritic Short-Term Synaptic Plasticity
+61.	Dendritic Long-Term Synaptic Plasticity
+62.	Dendritic Spike-Time-Dependent Plasticity
+63.	Dendritic Bidirectional Synaptic Plasticity
+64.	Dendritic Unidirectional Synaptic Plasticity
+65.	Dendritic Associative Synaptic Plasticity
+66.	Dendritic Hebbian Synaptic Plasticity
+67.	Dendritic Anti-Hebbian Synaptic Plasticity
+68.	Dendritic Spike-Dependent Synaptic Plasticity
+69.	Dendritic Calcium-Dependent Synaptic Plasticity
+70.	Dendritic Protein-Synthesis-Dependent Synaptic Plasticity
+71.	Dendritic Synaptic Scaling Homeostasis
+72.	Soma Conductance
+73.	Soma Delay
+74.	Somatic Voltage Attenuation
+75.	Somatic Voltage-Dependent Conductances
+76.	Somatic Calcium Dynamics
+77.	Somatic Calcium-Dependent Conductances
+78.	Somatic Potassium Dynamics
+79.	Somatic Sodium Dynamics
+80.	Somatic Calcium-Activated Potassium Channels
+81.	Somatic HCN Channels
+82.	Somatic NMDA Receptors
+83.	Somatic AMPA Receptors
+84.	Somatic Kainate Receptors
+85.	Somatic Metabotropic Glutamate Receptors
+86.	Somatic GABAergic Receptors
+87.	Somatic Glycinergic Receptors
+88.	Somatic Adenosine Receptors
+89.	Somatic Purinergic Receptors
+90.	Somatic Nitric Oxide Receptors
+91.	Somatic Carbon Monoxide Receptors
+92.	Somatic Neurotrophin Receptors
+93.	Somatic Growth Factor Receptors
+94.	Somatic Hormone Receptors
+95.	Somatic Tyrosine Kinase Receptors
+96.	Somatic Ionotropic Receptors
+97.	Somatic Metabotropic Receptors
+98.	Somatic Presynaptic Modulation
+99.	Somatic Postsynaptic Modulation
+100.	Somatic Heterosynaptic Modulation
+101.	Somatic Spike-Time-Dependent Inhibition
+
+This list includes a range of classes that can be used to implement multi-compartment models and accurately represent the spatial distribution of membrane potential and ion concentrations within a neuron. By incorporating these spatially extended neuron models into your neural network models, you can create more realistic and accurate models that better reflect the biological processes underlying neural function and ultimately improve the performance of your neural network models.
+
+
+9.	Incorporate glial cells and their interactions with neurons:
+•	Model the influence of glial cells (e.g., astrocytes and microglia) on neuronal activity, synaptic transmission, and plasticity.
+here's a list of 100 different classes you can consider adding to your base neuron class to incorporate glial cells and their interactions with neurons:
+
+1.	Astrocytes
+2.	Microglia
+3.	Oligodendrocytes
+4.	Schwann Cells
+5.	Myelination
+6.	Myelin Maintenance
+7.	Myelin Degeneration
+8.	Myelin Regeneration
+9.	Myelin-Dependent Conductances
+10.	Myelin-Dependent Axonal Delay
+11.	Myelin-Dependent Axonal Action Potential Propagation
+12.	Myelin-Dependent Axonal Spike Initiation
+13.	Myelin-Dependent Axonal Refractory Period
+14.	Myelin-Dependent Axonal Synaptic Integration
+15.	Myelin-Dependent Axonal Connectivity
+16.	Myelin-Dependent Axonal Modulation
+17.	Myelin-Dependent Axonal Plasticity
+18.	Myelin-Dependent Axonal Regeneration
+19.	Glial Fibrillary Acidic Protein (GFAP)
+20.	Glial Sodium-Potassium Pumps
+21.	Glial Calcium Dynamics
+22.	Glial Calcium-Dependent Conductances
+23.	Glial Potassium Dynamics
+24.	Glial Sodium Dynamics
+25.	Glial Calcium-Activated Potassium Channels
+26.	Glial HCN Channels
+27.	Glial NMDA Receptors
+28.	Glial AMPA Receptors
+29.	Glial Kainate Receptors
+30.	Glial Metabotropic Glutamate Receptors
+31.	Glial GABAergic Receptors
+32.	Glial Glycinergic Receptors
+33.	Glial Adenosine Receptors
+34.	Glial Purinergic Receptors
+35.	Glial Nitric Oxide Receptors
+36.	Glial Carbon Monoxide Receptors
+37.	Glial Neurotrophin Receptors
+38.	Glial Growth Factor Receptors
+39.	Glial Hormone Receptors
+40.	Glial Tyrosine Kinase Receptors
+41.	Glial Ionotropic Receptors
+42.	Glial Metabotropic Receptors
+43.	Glial Presynaptic Modulation
+44.	Glial Postsynaptic Modulation
+45.	Glial Heterosynaptic Modulation
+46.	Glial Spike-Time-Dependent Inhibition
+47.	Glial Synaptic Decrement
+48.	Glial Synaptic Potentiation
+49.	Glial Synaptic Depression
+50.	Glial Synaptic Facilitation
+51.	Glial Synaptic Inhibition
+52.	Glial Synaptic Saturation
+53.	Glial Synaptic Homeostasis
+54.	Glial Synaptic Scaling
+55.	Glial Synaptic Metaplasticity
+56.	Glial Synaptic Plasticity Threshold
+57.	Glial Synaptic Weighting
+58.	Glial Synaptic Time Constants
+59.	Glial Short-Term Synaptic Plasticity
+60.	Glial Long-Term Synaptic Plasticity
+61.	Glial Spike-Time-Dependent Plasticity
+62.	Glial Bidirectional Synaptic Plasticity
+63.	Glial Unidirectional Synaptic Plasticity
+64.	Glial Associative Synaptic Plasticity
+65.	Glial Hebbian Synaptic Plasticity
+66.	Glial Anti-Hebbian Synaptic Plasticity
+67.	Glial Spike-Dependent Synaptic Plasticity
+68.	Glial Calcium-Dependent Synaptic Plasticity
+69.	Glial Protein-Synthesis-Dependent Synaptic Plasticity
+70.	Glial Synaptic Scaling Homeostasis
+71.	Astrocyte Ion Channels
+72.	Astrocyte Transporters
+73.	Astrocyte Gap Junctions
+74.	Astrocyte Calcium Dynamics
+75.	Astrocyte Calcium Signaling
+76.	Astrocyte Calcium Waves
+77.	Astrocyte Calcium Oscillations
+78.	Astrocyte Intracellular Signaling Pathways
+79.	Astrocyte Gliotransmitters
+80.	Astrocyte Neurotransmitter Uptake
+81.	Astrocyte Neurotransmitter Release
+82.	Astrocyte Glutamate Clearance
+83.	Astrocyte Glutamate Uptake Transporters
+84.	Astrocyte Glutamate Release Modulation
+85.	Astrocyte GABA Clearance
+86.	Astrocyte GABA Uptake Transporters
+87.	Astrocyte GABA Release Modulation
+88.	Astrocyte Adenosine Release
+89.	Astrocyte ATP Release
+90.	Astrocyte Nitric Oxide Release
+91.	Astrocyte Endocannabinoid Signaling
+92.	Astrocyte Endocannabinoid Uptake and Metabolism
+93.	Astrocyte Metabolism and Energy Regulation
+94.	Astrocyte Glycogen Metabolism
+95.	Astrocyte Lactate Shuttle
+96.	Astrocyte Vascular Coupling
+97.	Astrocyte Blood-Brain Barrier Regulation
+98.	Microglia Ion Channels
+99.	Microglia Transporters
+100.	Microglia Intracellular Signaling Pathways
+
+This list includes a range of classes that can be used to model the influence of glial cells, such as astrocytes and microglia, on neuronal activity, synaptic transmission, and plasticity. By incorporating these classes into your neural network models, you can create more biologically realistic and accurate models that better reflect the complex interactions between neurons and glial cells in the brain. This can ultimately improve the performance and utility of your neural network models for various applications, such as neuroscience research, drug development, and artificial intelligence.
+
+10.	Inclusion of energy consumption and metabolism:
+•	Add support for modeling the energy consumption of neurons and the impact of metabolic processes on neuronal activity.
+
+here's a list of 100 different classes you can consider adding to your base neuron class to include energy consumption and metabolism:
+
+1.	ATP Production
+2.	ATP Hydrolysis
+3.	Mitochondrial Respiration
+4.	Oxidative Phosphorylation
+5.	Glycolysis
+6.	Gluconeogenesis
+7.	Pentose Phosphate Pathway
+8.	Citric Acid Cycle
+9.	Electron Transport Chain
+10.	Reactive Oxygen Species (ROS)
+11.	Reactive Nitrogen Species (RNS)
+12.	Calcium Homeostasis
+13.	Sodium-Potassium Pumps
+14.	Chloride Transporters
+15.	Glutamate Transporters
+16.	GABA Transporters
+17.	Monoamine Transporters
+18.	Energy Dependent Calcium Transporters
+19.	Energy Dependent Sodium Transporters
+20.	Energy Dependent Chloride Transporters
+21.	Energy Dependent Potassium Transporters
+22.	Energy Dependent Amino Acid Transporters
+23.	Energy Dependent Neurotransmitter Transporters
+24.	Energy Dependent Ion Channels
+25.	Energy Dependent Voltage-Gated Ion Channels
+26.	Energy Dependent Ligand-Gated Ion Channels
+27.	Energy Dependent Gap Junctions
+28.	Energy Dependent Synaptic Vesicle Release
+29.	Energy Dependent Synaptic Vesicle Recycling
+30.	Energy Dependent Synaptic Vesicle Transport
+31.	Energy Dependent Synaptic Vesicle Filling
+32.	Energy Dependent Synaptic Vesicle Endocytosis
+33.	Energy Dependent Protein Synthesis
+34.	Energy Dependent Protein Degradation
+35.	Energy Dependent Protein Folding
+36.	Energy Dependent Membrane Trafficking
+37.	Energy Dependent Cytoskeleton Dynamics
+38.	Energy Dependent Actin Dynamics
+39.	Energy Dependent Microtubule Dynamics
+40.	Energy Dependent Intermediate Filament Dynamics
+41.	Energy Dependent Vesicular Transport
+42.	Energy Dependent Endoplasmic Reticulum Dynamics
+43.	Energy Dependent Mitochondrial Dynamics
+44.	Energy Dependent Lysosomal Function
+45.	Energy Dependent Autophagy
+46.	Energy Dependent Apoptosis
+47.	Energy Dependent DNA Replication
+48.	Energy Dependent DNA Repair
+49.	Energy Dependent RNA Transcription
+50.	Energy Dependent RNA Processing
+51.	Energy Dependent RNA Transport
+52.	Energy Dependent RNA Translation
+53.	Energy Dependent DNA Methylation
+54.	Energy Dependent Histone Modification
+55.	Energy Dependent Epigenetic Regulation
+56.	Energy Dependent Cell Signaling
+57.	Energy Dependent Second Messenger Signaling
+58.	Energy Dependent Kinase Signaling
+59.	Energy Dependent Phosphatase Signaling
+60.	Energy Dependent G-Protein Coupled Receptor Signaling
+61.	Energy Dependent Growth Factor Signaling
+62.	Energy Dependent Hormone Signaling
+63.	Energy Dependent Neurotransmitter Signaling
+64.	Energy Dependent Synaptic Signaling
+65.	Energy Dependent Calcium Signaling
+66.	Energy Dependent Nitric Oxide Signaling
+67.	Energy Dependent Carbon Monoxide Signaling
+68.	Energy Dependent Prostaglandin Signaling
+69.	Energy Dependent Endocannabinoid Signaling
+70.	Energy Dependent Retinoic Acid Signaling
+71.	Energy Dependent Sonic Hedgehog Signaling
+72.	Energy Dependent Wnt Signaling
+73.	Energy Dependent TGF-beta Signaling
+74.	Energy Dependent Notch Signaling
+75.	Energy Dependent NF-kappaB Signaling
+76.	Energy Dependent Jak-STAT Signaling
+77.	Energy Dependent MAP
+78.	Energy Dependent PI3K-Akt Signaling
+79.	Energy Dependent Ras-MAPK Signaling
+80.	Energy Dependent mTOR Signaling
+81.	Energy Dependent Hippo Signaling
+82.	Energy Dependent JNK Signaling
+83.	Energy Dependent p38 Signaling
+84.	Energy Dependent ERK Signaling
+85.	Energy Dependent cAMP Signaling
+86.	Energy Dependent cGMP Signaling
+87.	Energy Dependent IP3 Signaling
+88.	Energy Dependent DAG Signaling
+89.	Energy Dependent PKC Signaling
+90.	Energy Dependent CaMK Signaling
+91.	Energy Dependent PKA Signaling
+92.	Energy Dependent PP2A Signaling
+93.	Energy Dependent PP1 Signaling
+94.	Energy Dependent AMPK Signaling
+95.	Energy Dependent NAD+ Signaling
+96.	Energy Dependent Sirtuin Signaling
+97.	Energy Dependent Oxidative Stress Response
+98.	Energy Dependent Heat Shock Response
+99.	Energy Dependent DNA Damage Response
+100.	Energy Dependent Cell Cycle Progression
+
+This list includes a range of classes that can be used to model the energy consumption of neurons and the impact of metabolic processes on neuronal activity. By incorporating these classes into your neural network models, you can create more biologically realistic and accurate models that better reflect the metabolic demands of neuronal activity. This can ultimately improve the performance and utility of your neural network models for various applications, such as neuroscience research, drug development, and artificial intelligence.
+
+Please let me know which improvements you would like to focus on, and I can provide guidance on how to implement them in your BaseNeuron class.
+
+
+
+
+
+
+
+
+
+
+600 Types of neurons in the human brain
+1.	Pyramidal cells 
+2.	Granule cells
+3.	Purkinje cells
+4.	Basket cells
+5.	Chandelier cells
+6.	Martinotti cells
+7.	Double bouquet cells
+8.	Neurogliaform cells
+9.	Spiny stellate cells
+10.	Golgi cells
+11.	Lugaro cells
+12.	Unipolar brush cells
+13.	Stellate cells
+14.	Mitral cells
+15.	Tufted cells
+16.	Periglomerular cells
+17.	External tufted cells
+18.	Medium spiny neurons
+19.	Renshaw cells
+20.	Betz cells
+21.	Anterior horn cells
+22.	Fusiform cells
+23.	Bushy cells
+24.	Octopus cells
+25.	Globular bushy cells
+26.	Olfactory receptor neurons
+27.	Horizontal cells
+28.	Amacrine cells
+29.	Bipolar cells
+30.	Parvalbumin-positive (PV+) interneurons
+31.	Somatostatin-positive (SST+) interneurons
+32.	Locus coeruleus neurons
+33.	Raphe nucleus neurons
+34.	Mesencephalic trigeminal nucleus neurons
+35.	Subthalamic nucleus neurons
+36.	Ventral tegmental area (VTA) neurons
+37.	Neurons of the nucleus accumbens
+38.	Cerebellar stellate cells
+39.	Cerebellar Golgi cells
+40.	Inferior olivary neurons
+41.	Dorsal cochlear nucleus neurons
+42.	Ventral cochlear nucleus neurons
+43.	Neurons of the substantia nigra
+44.	Neurons of the habenula
+45.	Neurons of the pedunculopontine nucleus
+46.	Neurons of the thalamic reticular nucleus
+47.	Neurons of the suprachiasmatic nucleus
+48.	Neurons of the medial septum
+49.	Neurons of the diagonal band of Broca
+50.	  Entorhinal cortex neurons
+51.	Basal forebrain cholinergic neurons
+52.	Bed nucleus of the stria terminalis neurons
+53.	Periaqueductal gray neurons
+54.	Nucleus accumbens medium spiny neurons
+55.	Lateral habenula neurons
+56.	Hippocampal mossy cells
+57.	Septal cholinergic neurons
+58.	Cerebellar Purkinje cells
+59.	Red nucleus neurons
+60.	Olivocochlear neurons
+61.	Lateral geniculate nucleus neurons
+62.	Medial geniculate nucleus neurons
+63.	Ventral posterolateral nucleus neurons
+64.	Ventral posteromedial nucleus neurons
+65.	Substantia gelatinosa neurons
+66.	Dorsal root ganglion neurons
+67.	Suprachiasmatic nucleus neurons
+68.	Anterior hypothalamic neurons
+69.	Lateral hypothalamic neurons
+70.	Medial hypothalamic neurons
+71.	Arcuate nucleus neurons
+72.	Supraoptic nucleus neurons
+73.	Paraventricular nucleus neurons
+74.	Subthalamic nucleus neurons
+75.	Interpeduncular nucleus neurons
+76.	Nucleus of the solitary tract neurons
+77.	Pontine nucleus neurons
+78.	Nucleus reticularis tegmenti pontis neurons
+79.	Spinal trigeminal nucleus neurons
+80.	Ventral horn interneurons
+81.	Dorsal horn interneurons
+82.	Intermediate zone neurons
+83.	Renshaw interneurons
+84.	Clarke's nucleus neurons
+85.	Vestibular nucleus neurons
+86.	Medial vestibular nucleus neurons
+87.	Lateral vestibular nucleus neurons
+88.	Nucleus prepositus neurons
+89.	Interstitial nucleus of Cajal neurons
+90.	Superior olivary complex neurons
+91.	Inferior olive neurons
+92.	Parabrachial nucleus neurons
+93.	Ventral tegmental area dopamine neurons
+94.	Substantia nigra pars compacta dopamine neurons
+95.	Edinger-Westphal nucleus preganglionic neurons
+96.	Interneurons of the dorsal lateral geniculate nucleus
+97.	Interneurons of the ventral lateral geniculate nucleus
+98.	Cerebral cortex pyramidal neurons
+99.	Cerebral cortex interneurons
+100.	
+101.	Medial prefrontal cortex pyramidal neurons
+102.	Lateral prefrontal cortex pyramidal neurons
+103.	Orbitofrontal cortex pyramidal neurons
+104.	Anterior cingulate cortex pyramidal neurons
+105.	Posterior cingulate cortex pyramidal neurons
+106.	Primary motor cortex pyramidal neurons
+107.	Primary somatosensory cortex pyramidal neurons
+108.	Primary auditory cortex pyramidal neurons
+109.	Primary visual cortex pyramidal neurons
+110.	Inferior temporal cortex pyramidal neurons
+111.	Dorsolateral striatum medium spiny neurons
+112.	Ventral striatum medium spiny neurons
+113.	Dorsomedial thalamus neurons
+114.	Ventral lateral thalamus neurons
+115.	Ventral anterior thalamus neurons
+116.	Ventral posterior thalamus neurons
+117.	Medial geniculate body neurons
+118.	Lateral geniculate body neurons
+119.	Pulvinar nucleus neurons
+120.	Posterior parietal cortex pyramidal neurons
+121.	Anterior insula cortex pyramidal neurons
+122.	Posterior insula cortex pyramidal neurons
+123.	Entorhinal cortex layer II stellate cells
+124.	Entorhinal cortex layer III pyramidal neurons
+125.	Entorhinal cortex layer V pyramidal neurons
+126.	Amygdala pyramidal neurons
+127.	Hippocampal CA2 pyramidal neurons
+128.	Hippocampal CA4 pyramidal neurons
+129.	Hippocampal subiculum neurons
+130.	Basal ganglia striatal interneurons
+131.	Basal ganglia pallidal neurons
+132.	Basal ganglia subthalamic neurons
+133.	Globus pallidus neurons
+134.	Subthalamic nucleus neurons
+135.	Ventral tegmental area GABAergic neurons
+136.	Substantia nigra pars reticulata GABAergic neurons
+137.	Suprachiasmatic nucleus VIP neurons
+138.	Suprachiasmatic nucleus AVP neurons
+139.	Superior colliculus deep layer neurons
+140.	Superior colliculus intermediate layer neurons
+141.	Inferior colliculus stellate neurons
+142.	Inferior colliculus giant neurons
+143.	Dorsal root ganglion mechanoreceptor neurons
+144.	Dorsal root ganglion nociceptor neurons
+145.	Dorsal root ganglion thermoreceptor neurons
+146.	Cerebellar climbing fibers
+147.	Cerebellar mossy fibers
+148.	Cerebellar granule cell interneurons
+149.	Cerebellar unipolar brush cells
+150.	Cerebellar Golgi cell interneurons
+151.	        Basal forebrain GABAergic neurons
+152.	Supramammillary nucleus GABAergic neurons
+153.	Hypothalamic arcuate nucleus POMC neurons
+154.	Hypothalamic arcuate nucleus NPY/AgRP neurons
+155.	Hypothalamic dorsomedial nucleus neurons
+156.	Hypothalamic ventromedial nucleus neurons
+157.	Hypothalamic lateral nucleus neurons
+158.	Hypothalamic posterior nucleus neurons
+159.	Hypothalamic paraventricular nucleus CRH neurons
+160.	Hypothalamic paraventricular nucleus oxytocin neurons
+161.	Hypothalamic suprachiasmatic nucleus VIP neurons
+162.	Hypothalamic suprachiasmatic nucleus AVP neurons
+163.	Hypothalamic supraoptic nucleus oxytocin neurons
+164.	Hypothalamic supraoptic nucleus vasopressin neurons
+165.	Midbrain periaqueductal gray GABAergic neurons
+166.	Midbrain periaqueductal gray glutamatergic neurons
+167.	Midbrain periaqueductal gray dopaminergic neurons
+168.	Midbrain substantia nigra pars compacta GABAergic neurons
+169.	Midbrain substantia nigra pars compacta glutamatergic neurons
+170.	Midbrain ventral tegmental area glutamatergic neurons
+171.	Midbrain ventral tegmental area GABAergic neurons
+172.	Nucleus accumbens D1 receptor-expressing neurons
+173.	Nucleus accumbens D2 receptor-expressing neurons
+174.	Nucleus accumbens cholinergic interneurons
+175.	Dorsal striatum cholinergic interneurons
+176.	Dorsal striatum parvalbumin-expressing interneurons
+177.	Dorsal striatum somatostatin-expressing interneurons
+178.	Primary visual cortex fast-spiking interneurons
+179.	Primary visual cortex somatostatin-expressing interneurons
+180.	Primary motor cortex neurogliaform cells
+181.	Primary motor cortex chandelier cells
+182.	Dorsolateral prefrontal cortex pyramidal neurons
+183.	Orbitofrontal cortex interneurons
+184.	Anterior cingulate cortex interneurons
+185.	Posterior cingulate cortex interneurons
+186.	Entorhinal cortex layer IV spiny stellate cells
+187.	Entorhinal cortex layer V neurogliaform cells
+188.	Hippocampal mossy fiber-associated cells
+189.	Hippocampal stratum oriens interneurons
+190.	Basolateral amygdala principal neurons
+191.	Central amygdala principal neurons
+192.	Amygdala intercalated cells
+193.	Thalamus reticular nucleus GABAergic neurons
+194.	Thalamus ventral posterior medial nucleus excitatory neurons
+195.	Thalamus ventral posterior lateral nucleus inhibitory neurons
+196.	Spinal cord Clarke's nucleus interneurons
+197.	Spinal cord dorsal horn substance P-expressing interneurons
+198.	Spinal cord ventral horn Renshaw cells
+199.	Superior colliculus superficial layer neurons
+200.	Inferior colliculus dorsal cortex neurons
+201.	        Olfactory bulb short axon cells
+202.	Olfactory bulb deep short axon cells
+203.	Olfactory bulb external tufted cells
+204.	Olfactory bulb periglomerular cells
+205.	Olfactory bulb tufted cells
+206.	Substantia nigra pars compacta dopaminergic neurons
+207.	Substantia nigra pars compacta GABAergic neurons
+208.	Substantia nigra pars reticulata GABAergic neurons
+209.	Subthalamic nucleus glutamatergic neurons
+210.	Subthalamic nucleus GABAergic neurons
+211.	Cerebellar basket cells
+212.	Cerebellar Purkinje cell basket cells
+213.	Cerebellar molecular layer interneurons
+214.	Cerebellar Golgi cell dendritic interneurons
+215.	Cerebellar Lugaro cells
+216.	Cerebellar granule cell Golgi cell interneurons
+217.	Inferior olivary nucleus GABAergic neurons
+218.	Inferior olivary nucleus glutamatergic neurons
+219.	Superior colliculus optic tract neurons
+220.	Superior colliculus deep layer GABAergic neurons
+221.	Inferior colliculus deep layer GABAergic neurons
+222.	Inferior colliculus intermediate layer GABAergic neurons
+223.	Inferior colliculus superficial layer GABAergic neurons
+224.	Retina dopaminergic amacrine cells
+225.	Retina starburst amacrine cells
+226.	Retina dopaminergic interneurons
+227.	Trigeminal motor nucleus neurons
+228.	Trigeminal principal nucleus neurons
+229.	Trigeminal spinal nucleus neurons
+230.	Dorsal cochlear nucleus principal neurons
+231.	Dorsal cochlear nucleus stellate cells
+232.	Ventral cochlear nucleus octopus cells
+233.	Ventral cochlear nucleus bushy cells
+234.	Ventral cochlear nucleus multipolar cells
+235.	Locus coeruleus noradrenergic neurons
+236.	Raphe nucleus serotonergic neurons
+237.	Mesencephalic trigeminal nucleus proprioceptive neurons
+238.	Vestibular nucleus giant cells
+239.	Vestibular nucleus mossy cells
+240.	Pedunculopontine nucleus cholinergic neurons
+241.	Pedunculopontine nucleus GABAergic neurons
+242.	Pedunculopontine nucleus glutamatergic neurons
+243.	Thalamic ventral posterior lateral nucleus excitatory neurons
+244.	Thalamic ventral posterior medial nucleus inhibitory neurons
+245.	Thalamic ventral lateral nucleus inhibitory neurons
+246.	Medial septum cholinergic neurons
+247.	Medial septum GABAergic neurons
+248.	Medial septum glutamatergic neurons
+249.	Diagonal band of Broca cholinergic neurons
+250.	Diagonal band of Broca GABAergic neurons
+251.	        Cerebral cortex Martinotti cells
+252.	Cerebral cortex neurogliaform cells
+253.	Cerebral cortex bipolar cells
+254.	Cerebral cortex tufted cells
+255.	Cerebral cortex pyramidal tract neurons
+256.	Cerebral cortex pyramidal tract interneurons
+257.	Cerebral cortex spiny stellate cells
+258.	Cerebral cortex VIP interneurons
+259.	Cerebral cortex SST interneurons
+260.	Cerebral cortex layer 6 corticothalamic neurons
+261.	Cerebral cortex layer 5 corticospinal neurons
+262.	Cerebral cortex layer 5 cortico-subcortical neurons
+263.	Cerebral cortex layer 4 spiny neurons
+264.	Cerebral cortex layer 4 star pyramidal neurons
+265.	Cerebral cortex layer 4 bipolar neurons
+266.	Cerebral cortex layer 2/3 tufted neurons
+267.	Cerebral cortex layer 2/3 horizontal neurons
+268.	Cerebral cortex layer 2/3 Cajal-Retzius cells
+269.	Cerebral cortex layer 2/3 Martinotti cells
+270.	Cerebral cortex layer 2/3 neurogliaform cells
+271.	Basal forebrain AChE neurons
+272.	Basal forebrain GABAergic interneurons
+273.	Basal forebrain cortically projecting neurons
+274.	Basal forebrain globus pallidus projecting neurons
+275.	Bed nucleus of the stria terminalis glutamatergic neurons
+276.	Bed nucleus of the stria terminalis GABAergic neurons
+277.	Bed nucleus of the stria terminalis cholinergic interneurons
+278.	Periaqueductal gray glutamatergic interneurons
+279.	Periaqueductal gray GABAergic interneurons
+280.	Periaqueductal gray dopaminergic interneurons
+281.	Nucleus accumbens D1 receptor-expressing cholinergic interneurons
+282.	Nucleus accumbens D2 receptor-expressing cholinergic interneurons
+283.	Dorsolateral striatum parvalbumin-expressing interneurons
+284.	Dorsolateral striatum somatostatin-expressing interneurons
+285.	Ventral striatum parvalbumin-expressing interneurons
+286.	Ventral striatum somatostatin-expressing interneurons
+287.	Ventral striatum cholinergic interneurons
+288.	Dorsal striatum dopamine receptor 1-expressing neurons
+289.	Dorsal striatum dopamine receptor 2-expressing neurons
+290.	Dorsal striatum enkephalin-expressing neurons
+291.	Dorsal striatum substance P-expressing neurons
+292.	Primary motor cortex corticospinal neurons
+293.	Primary motor cortex corticostriatal neurons
+294.	Primary motor cortex corticopontine neurons
+295.	Primary somatosensory cortex thalamocortical neurons
+296.	Primary somatosensory cortex corticospinal neurons
+297.	Primary somatosensory cortex corticostriatal neurons
+298.	Primary auditory cortex thalamocortical neurons
+299.	Primary auditory cortex corticofugal neurons
+300.	Primary auditory cortex interneurons
+301.	        Primary auditory cortex pyramidal neurons
+302.	Primary visual cortex simple cells
+303.	Primary visual cortex complex cells
+304.	Primary visual cortex orientation-tuned neurons
+305.	Primary visual cortex direction-tuned neurons
+306.	Primary visual cortex color-selective neurons
+307.	Inferior temporal cortex face-selective neurons
+308.	Inferior temporal cortex object-selective neurons
+309.	Inferior temporal cortex shape-selective neurons
+310.	Posterior parietal cortex visual attention neurons
+311.	Posterior parietal cortex spatial cognition neurons
+312.	Posterior parietal cortex motor planning neurons
+313.	Anterior cingulate cortex emotion-selective neurons
+314.	Anterior cingulate cortex decision-making neurons
+315.	Anterior cingulate cortex error-detection neurons
+316.	Prefrontal cortex working memory neurons
+317.	Prefrontal cortex executive function neurons
+318.	Prefrontal cortex attention-selective neurons
+319.	Amygdala fear-selective neurons
+320.	Amygdala aggression-selective neurons
+321.	Amygdala reward-selective neurons
+322.	Hippocampus place-selective neurons
+323.	Hippocampus spatial memory neurons
+324.	Hippocampus theta rhythm neurons
+325.	Entorhinal cortex grid cells
+326.	Entorhinal cortex border cells
+327.	Entorhinal cortex head-direction cells
+328.	Basal ganglia direct pathway neurons
+329.	Basal ganglia indirect pathway neurons
+330.	Basal ganglia cholinergic interneurons
+331.	Inferior olive climbing fibers
+332.	Inferior olive mossy fibers
+333.	Inferior olive granule cells
+334.	Superior colliculus motor neurons
+335.	Superior colliculus saccade neurons
+336.	Inferior colliculus sound localization neurons
+337.	Inferior colliculus frequency-tuned neurons
+338.	Cochlear nucleus octopus cells
+339.	Cochlear nucleus bushy cells
+340.	Cochlear nucleus multipolar cells
+341.	Medial vestibular nucleus inhibitory neurons
+342.	Medial vestibular nucleus excitatory neurons
+343.	Lateral vestibular nucleus inhibitory neurons
+344.	Lateral vestibular nucleus excitatory neurons
+345.	Hypoglossal nucleus motor neurons
+346.	        Dorsal motor nucleus of the vagus motor neurons
+347.	Nucleus ambiguus motor neurons
+348.	Solitary tract nucleus sensory neurons
+349.	Nucleus tractus solitarius neurons
+350.	Hypothalamic lateral hypothalamic area neurons
+351.	Hypothalamic ventromedial hypothalamic nucleus neurons
+352.	Hypothalamic dorsomedial hypothalamic nucleus neurons
+353.	Hypothalamic medial preoptic area neurons
+354.	Hypothalamic paraventricular hypothalamic nucleus neurons
+355.	Hypothalamic arcuate hypothalamic nucleus neurons
+356.	Hypothalamic supraoptic hypothalamic nucleus neurons
+357.	Hypothalamic suprachiasmatic hypothalamic nucleus neurons
+358.	Spinal trigeminal nucleus neurons
+359.	Spinal trigeminal nucleus interpolaris neurons
+360.	Spinal trigeminal nucleus caudalis neurons
+361.	Lateral reticular nucleus neurons
+362.	Inferior olivary nucleus Purkinje cells
+363.	Globus pallidus external segment neurons
+364.	Globus pallidus internal segment neurons
+365.	Substantia nigra pars compacta calbindin-expressing neurons
+366.	Substantia nigra pars reticulata calbindin-expressing neurons
+367.	Pedunculopontine nucleus calbindin-expressing neurons
+368.	Hippocampus basket cells
+369.	Hippocampus pyramidal cells
+370.	Hippocampus stratum lacunosum-moleculare neurons
+371.	Hippocampus stratum radiatum neurons
+372.	Hippocampus stratum oriens neurons
+373.	Hippocampus stratum pyramidale neurons
+374.	Nucleus accumbens dopamine receptor 1-expressing neurons
+375.	Nucleus accumbens dopamine receptor 2-expressing neurons
+376.	Cerebellar granule cells
+377.	Cerebellar Purkinje cells
+378.	Cerebellar unipolar brush cells
+379.	Cerebellar molecular layer interneurons
+380.	Cerebellar deep nucleus neurons
+381.	Cerebellar vestibular nucleus neurons
+382.	Inferior colliculus commissural neurons
+383.	Inferior colliculus multipolar neurons
+384.	Inferior colliculus radial neurons
+385.	Superior colliculus commissural neurons
+386.	Superior colliculus burst neurons
+387.	Superior colliculus intermediate layer neurons
+388.	Thalamus ventral posterolateral nucleus neurons
+389.	Thalamus ventral posteromedial nucleus neurons
+390.	Thalamus lateral geniculate nucleus neurons
+391.	        Thalamus medial geniculate nucleus neurons
+392.	Thalamus pulvinar neurons
+393.	Thalamus ventral anterior nucleus neurons
+394.	Thalamus ventral lateral nucleus neurons
+395.	Thalamus dorsal lateral geniculate nucleus neurons
+396.	Thalamus centromedian nucleus neurons
+397.	Anterior cingulate cortex layer 2/3 pyramidal neurons
+398.	Anterior cingulate cortex layer 2/3 Martinotti cells
+399.	Anterior cingulate cortex layer 2/3 neurogliaform cells
+400.	Anterior cingulate cortex layer 5 pyramidal neurons
+401.	Anterior cingulate cortex layer 5 corticospinal neurons
+402.	Anterior cingulate cortex layer 5 corticostriatal neurons
+403.	Anterior cingulate cortex layer 5 cortico-subcortical neurons
+404.	Anterior cingulate cortex layer 6 corticothalamic neurons
+405.	Anterior cingulate cortex layer 6 corticocortical neurons
+406.	Anterior cingulate cortex VIP interneurons
+407.	Anterior cingulate cortex SST interneurons
+408.	Anterior cingulate cortex parvalbumin-expressing interneurons
+409.	Anterior cingulate cortex somatostatin-expressing interneurons
+410.	Anterior cingulate cortex cholinergic interneurons
+411.	Basolateral amygdala pyramidal neurons
+412.	Basolateral amygdala interneurons
+413.	Basolateral amygdala calbindin-expressing neurons
+414.	Basolateral amygdala calretinin-expressing interneurons
+415.	Basolateral amygdala somatostatin-expressing interneurons
+416.	Basolateral amygdala parvalbumin-expressing interneurons
+417.	Hippocampal CA1 pyramidal neurons
+418.	Hippocampal CA2 pyramidal neurons
+419.	Hippocampal CA3 pyramidal neurons
+420.	Hippocampal dentate gyrus granule cells
+421.	Hippocampal oriens-lacunosum moleculare interneurons
+422.	Hippocampal stratum radiatum interneurons
+423.	Hippocampal mossy cells
+424.	Hippocampal inhibitory mossy cells
+425.	Hippocampal CA1 oriens-lacunosum moleculare interneurons
+426.	Hippocampal CA1 basket cells
+427.	Hippocampal CA1 bistratified cells
+428.	Hippocampal CA1 axo-axonic cells
+429.	Dentate gyrus hilar mossy cells
+430.	Dentate gyrus inhibitory mossy cells
+431.	Dentate gyrus hilar perforant path-associated interneurons
+432.	Dentate gyrus granule cell-associated interneurons
+433.	Nucleus accumbens medium spiny neurons expressing D1 receptors and substance P
+434.	Nucleus accumbens medium spiny neurons expressing D2 receptors and enkephalin
+435.	Nucleus accumbens cholinergic interneurons
+436.	Ventral tegmental area dopaminergic neurons
+437.	Ventral tegmental area GABAergic interneurons
+438.	Ventral tegmental area glutamatergic interneurons
+439.	Subthalamic nucleus glutamatergic projection neurons
+440.	Subthalamic nucleus GABAergic interneurons
+441.	        Subthalamic nucleus cholinergic interneurons
+442.	Globus pallidus GABAergic projection neurons
+443.	Globus pallidus cholinergic interneurons
+444.	Substantia nigra pars compacta dopaminergic neurons
+445.	Substantia nigra pars reticulata GABAergic projection neurons
+446.	Pedunculopontine nucleus cholinergic neurons
+447.	Pedunculopontine nucleus glutamatergic neurons
+448.	Hypoglossal nucleus inhibitory interneurons
+449.	Hypoglossal nucleus excitatory interneurons
+450.	Dorsal motor nucleus of the vagus inhibitory interneurons
+451.	Dorsal motor nucleus of the vagus excitatory interneurons
+452.	Nucleus ambiguus inhibitory interneurons
+453.	Nucleus ambiguus excitatory interneurons
+454.	Solitary tract nucleus inhibitory interneurons
+455.	Solitary tract nucleus excitatory interneurons
+456.	Lateral reticular nucleus inhibitory interneurons
+457.	Lateral reticular nucleus excitatory interneurons
+458.	Inferior olivary nucleus inhibitory interneurons
+459.	Inferior olivary nucleus excitatory interneurons
+460.	Cerebral cortex layer 1 neurons
+461.	Cerebral cortex layer 2 neurons
+462.	Cerebral cortex layer 3 neurons
+463.	Cerebral cortex layer 5 neurons
+464.	Cerebral cortex layer 6 neurons
+465.	Cerebral cortex VIP-expressing interneurons
+466.	Cerebral cortex SST-expressing interneurons
+467.	Cerebral cortex parvalbumin-expressing interneurons
+468.	Cerebral cortex somatostatin-expressing interneurons
+469.	Cerebral cortex cholinergic interneurons
+470.	Dorsal horn neurons
+471.	Ventral horn neurons
+472.	Intermediolateral cell column neurons
+473.	Clarke's nucleus neurons
+474.	Cuneate nucleus neurons
+475.	Gracile nucleus neurons
+476.	Inferior colliculus non-tonotopic neurons
+477.	Superior colliculus non-saccade neurons
+478.	Inferior olivary nucleus complex spikes neurons
+479.	Inferior olivary nucleus simple spikes neurons
+480.	Globus pallidus striatal projection neurons
+481.	       Globus pallidus parafascicular projection neurons
+482.	Substantia nigra pars compacta calretinin-expressing neurons
+483.	Substantia nigra pars compacta somatostatin-expressing neurons
+484.	Pedunculopontine nucleus parvalbumin-expressing neurons
+485.	Pedunculopontine nucleus somatostatin-expressing neurons
+486.	Hypoglossal nucleus cholinergic interneurons
+487.	Hypoglossal nucleus glutamatergic interneurons
+488.	Dorsal motor nucleus of the vagus GABAergic interneurons
+489.	Dorsal motor nucleus of the vagus glutamatergic interneurons
+490.	Nucleus ambiguus GABAergic interneurons
+491.	Nucleus ambiguus glutamatergic interneurons
+492.	Solitary tract nucleus GABAergic interneurons
+493.	Solitary tract nucleus glutamatergic interneurons
+494.	Lateral reticular nucleus GABAergic interneurons
+495.	Lateral reticular nucleus glutamatergic interneurons
+496.	Cerebral cortex VIP-expressing basket cells
+497.	Cerebral cortex SST-expressing Martinotti cells
+498.	Cerebral cortex neurogliaform cells
+499.	Cerebral cortex double bouquet cells
+500.	Cerebral cortex bipolar cells
+501.	Inferior olive glomerular cells
+502.	Inferior olive dorsal cap cells
+503.	Inferior olive ventral cap cells
+504.	Inferior olive subnucleus alpha neurons
+505.	Inferior olive subnucleus beta neurons
+506.	Inferior olive subnucleus gamma neurons
+507.	Inferior olive subnucleus delta neurons
+508.	Inferior olive subnucleus epsilon neurons
+509.	Inferior olive subnucleus zeta neurons
+510.	Inferior olive subnucleus theta neurons
+511.	Globus pallidus striatal projection neurons expressing dynorphin
+512.	Globus pallidus striatal projection neurons expressing enkephalin
+513.	Subthalamic nucleus glutamatergic interneurons
+514.	Subthalamic nucleus GABAergic interneurons
+515.	Substantia nigra pars reticulata calretinin-expressing neurons
+516.	Substantia nigra pars reticulata somatostatin-expressing neurons
+517.	Pedunculopontine nucleus tyrosine hydroxylase-expressing neurons
+518.	Pedunculopontine nucleus parvalbumin-expressing interneurons
+519.	Dorsal motor nucleus of the vagus cholinergic interneurons
+520.	Dorsal motor nucleus of the vagus glutamatergic projection neurons
+521.	        Nucleus ambiguus cholinergic interneurons
+522.	Nucleus ambiguus glutamatergic projection neurons
+523.	Solitary tract nucleus cholinergic interneurons
+524.	Solitary tract nucleus glutamatergic projection neurons
+525.	Lateral reticular nucleus cholinergic interneurons
+526.	Lateral reticular nucleus glutamatergic projection neurons
+527.	Cerebral cortex pyramidal tract neurons
+528.	Cerebral cortex cortico-cortical projection neurons
+529.	Cerebral cortex cortico-thalamic projection neurons
+530.	Cerebral cortex cortico-striatal projection neurons
+531.	Cerebral cortex cortico-pontine projection neurons
+532.	Cerebral cortex cortico-nigral projection neurons
+533.	Cerebral cortex cortico-hypothalamic projection neurons
+534.	Inferior olive climbing fibers
+535.	Inferior olive Golgi cells
+536.	Inferior olive unipolar brush cells
+537.	Inferior olive granule cells
+538.	Inferior olive mossy cells
+539.	Inferior olive Basket cells
+540.	Inferior olive glial cells
+541.	Globus pallidus parvalbumin-expressing interneurons
+542.	Globus pallidus somatostatin-expressing interneurons
+543.	Substantia nigra pars compacta GABAergic projection neurons
+544.	Substantia nigra pars reticulata cholinergic interneurons
+545.	Pedunculopontine nucleus glutamatergic projection neurons
+546.	Hypoglossal nucleus GABAergic interneurons
+547.	Hypoglossal nucleus glutamatergic projection neurons
+548.	Dorsal motor nucleus of the vagus GABAergic projection neurons
+549.	Nucleus ambiguus GABAergic projection neurons
+550.	Solitary tract nucleus GABAergic projection neurons
+551.	Lateral reticular nucleus GABAergic projection neurons
+552.	Cerebral cortex layer 1 inhibitory interneurons
+553.	Cerebral cortex layer 2/3 neurogliaform cells
+554.	Cerebral cortex layer 2/3 double bouquet cells
+555.	Cerebral cortex layer 5 cortico-subthalamic projection neurons
+556.	Cerebral cortex layer 5 cortico-amygdala projection neurons
+557.	Cerebral cortex layer 6 corticothalamic projection neurons
+558.	Cerebral cortex layer 6 cortico-collicular projection neurons
+559.	Cerebral cortex layer 6 cortico-hippocampal projection neurons
+560.	Basolateral amygdala intercalated cells
+561.	       Basolateral amygdala dendrite-targeting interneurons
+562.	Basolateral amygdala neurogliaform cells
+563.	Basolateral amygdala double bouquet cells
+564.	Hippocampus CA1 neurogliaform cells
+565.	Hippocampus CA1 bistratified cells
+566.	Hippocampus CA1 Schaffer collateral-associated interneurons
+567.	Hippocampus CA2 bistratified cells
+568.	Hippocampus CA2 oriens-lacunosum moleculare interneurons
+569.	Hippocampus CA3 neurogliaform cells
+570.	Hippocampus CA3 mossy cell-associated interneurons
+571.	Hippocampus CA3 Schaffer collateral-associated interneurons
+572.	Hippocampus dentate gyrus hilar commissural associational interneurons
+573.	Hippocampus dentate gyrus hilar perforant path-associated interneurons
+574.	Hippocampus dentate gyrus molecular layer interneurons
+575.	Hippocampus dentate gyrus basket cells
+576.	Hippocampus dentate gyrus hilar mossy cells
+577.	Hippocampus entorhinal cortex layer 2/3 pyramidal neurons
+578.	Hippocampus entorhinal cortex layer 2/3 interneurons
+579.	Hippocampus entorhinal cortex layer 5 pyramidal neurons
+580.	Hippocampus entorhinal cortex layer 5 interneurons
+581.	Hippocampus subiculum pyramidal neurons
+582.	Hippocampus subiculum interneurons
+583.	Thalamus anterior nucleus interneurons
+584.	Thalamus dorsal lateral geniculate nucleus interneurons
+585.	Thalamus centromedian nucleus interneurons
+586.	Thalamus medial geniculate nucleus interneurons
+587.	Thalamus pulvinar interneurons
+588.	Cerebellar granule cells
+589.	Cerebellar Purkinje cells
+590.	Cerebellar basket cells
+591.	Cerebellar stellate cells
+592.	Cerebellar Golgi cells
+593.	Cerebellar unipolar brush cells
+594.	Cerebellar vestibulocerebellar projection neurons
+595.	Cerebellar deep cerebellar nuclei projection neurons
+596.	Cerebellar glial cells
+597.	Vestibular nucleus inhibitory interneurons
+598.	Vestibular nucleus excitatory interneurons
+599.	Vestibular nucleus GABAergic projection neurons
+600.	Vestibular nucleus glutamatergic projection neurons
+
+
