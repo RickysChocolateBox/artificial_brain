@@ -1,6 +1,6 @@
-
-       
-        self.brain_structure = {
+class BrainStructure:
+    def __init__(self):
+       self.BrainStructure = {
     "Left Hemisphere": {
         "Forebrain": {
             "Telencephalon": {
@@ -106,7 +106,7 @@
         },
     },
     "Right Hemisphere": {
-"Forebrain": {
+         "Forebrain": {
             "Telencephalon": {
                 "Cerebral_cortex": {
                     "Neocortex": {
@@ -210,3 +210,6 @@
         },
     },
 } 
+
+    def get_regions(self, hemisphere, brain_part):
+        return self.brain_structure[hemisphere][brain_part]
