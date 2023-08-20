@@ -162,8 +162,8 @@ class SensorApp(tk.Tk):
             return self.validate_thermocouple_data(sensor_data)
         elif sensor_type == 'Thermistor':
             return self.validate_thermistor_data(sensor_data)
-        elif sensor_type == 'Semiconductors':
-            return self.validate_semiconductors_data(sensor_data)
+        elif sensor_type == 'Semiconductor':
+            return self.validate_semiconductor_data(sensor_data)
         elif sensor_type == 'IR':
             return self.validate_ir_data(sensor_data)
         elif sensor_type == 'Bimetallic':
@@ -202,7 +202,7 @@ class SensorApp(tk.Tk):
         except ValueError:
             return False
 
-    def validate_semiconductors_data(self, sensor_data):
+    def validate_semiconductor_data(self, sensor_data):
         try:
             output_type = sensor_data['Output Type (e.g., Analog, Digital)']
             interface = sensor_data['Interface (e.g., I2C, SPI)']
