@@ -1,40 +1,13 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from sqlalchemy import create_engine, Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from motor_manager_db import MotorDatabase
 
-# Database Setup
-Base = declarative_base()
-
-class Motor(Base):
-    __tablename__ = "motors"
-    id = Column(Integer, primary_key=True)
-    motor_type = Column(String)
-    brush_type = Column(String)
-    motor_name = Column(String)
-    rpm = Column(Integer)
-    gear_reduction = Column(Float)
-    resistance = Column(Float)
-    torque = Column(Float)
-    voltage = Column(Float)
-    current = Column(Float)
-    encoder_ratio = Column(Float)
-    safe_temperature = Column(Float)
-    warning_temperature = Column(Float)
-    red_flag_temperature = Column(Float)
-    description = Column(String)
-
-DATABASE_URL = "sqlite:///motors.db"
-engine = create_engine(DATABASE_URL)
-Base.metadata.create_all(engine)
-SessionLocal = sessionmaker(bind=engine)
 
 class MotorManager:
     def __init__(self, root):
         self.root = root
         self.root.title("Motor Management")
-        self.session = SessionLocal()
+        self.motor_db = MotorDatabase() # Create an instance of MotorDatabase
         self.current_motor_id = None
         self.create_widgets()
         self.load_motors()
@@ -271,35 +244,28 @@ class MotorManager:
         try:  # Start of the try block
             # Validate Motor Type
             motor_type = self.motor_type.get()
-            if not self.validate_motor_type(motor_type):
+            if motor_type not in ["DC", "Stepper", "Servo", "Linear Actuator"]:
                 messagebox.showerror("Validation Error", "Invalid Motor Type! Select one of: DC, Stepper, Servo, Linear Actuator.")
                 return
 
             # Validate Brush Type
             brush_type = self.brush_type.get()
-            if not self.validate_brush_type(brush_type):
+            if brush_type not in ["Brushed", "Brushless"]:
                 messagebox.showerror("Validation Error", "Invalid Brush Type! Select one of: Brushed, Brushless.")
                 return
 
             # Validate RPM
             rpm = self.rpm.get()
-            if not self.validate_positive_integer(rpm):
+            if not rpm.isdigit() or int(rpm) <= 0:
                 messagebox.showerror("Validation Error", "RPM must be a positive integer!")
                 return
 
             # Validate other float attributes
-            gear_reduction = self.gear_reduction.get()
-            resistance = self.resistance.get()
-            torque = self.torque.get()
-            voltage = self.voltage.get()
-            current = self.current.get()
-            encoder_ratio = self.encoder_ratio.get()
-            safe_temperature = self.safe_temperature.get()
-            warning_temperature = self.warning_temperature.get()
-            red_flag_temperature = self.red_flag_temperature.get()
-
-            for value, field_name in zip([gear_reduction, resistance, torque, voltage, current, encoder_ratio, safe_temperature, warning_temperature, red_flag_temperature],
-                                         ["Gear Reduction", "Resistance", "Torque", "Voltage", "Current", "Encoder Ratio", "Safe Temperature", "Warning Temperature", "Red Flag Temperature"]):
+            for value, field_name in zip([self.gear_reduction.get(), self.resistance.get(), self.torque.get(),
+                                          self.voltage.get(), self.current.get(), self.encoder_ratio.get(),
+                                          self.safe_temperature.get(), self.warning_temperature.get(), self.red_flag_temperature.get()],
+                                         ["Gear Reduction", "Resistance", "Torque", "Voltage", "Current", "Encoder Ratio",
+                                          "Safe Temperature", "Warning Temperature", "Red Flag Temperature"]):
                 try:
                     if float(value) <= 0:
                         messagebox.showerror("Validation Error", f"{field_name} must be a positive number!")
@@ -314,40 +280,39 @@ class MotorManager:
                 return
 
             # All validations passed, proceed to add the motor to the database
-            new_motor = Motor(
-                motor_type=motor_type,
-                brush_type=brush_type,
-                motor_name=self.motor_name.get(),
-                rpm=int(rpm),
-                gear_reduction=float(gear_reduction),
-                resistance=float(resistance),
-                torque=float(torque),
-                voltage=float(voltage),
-                current=float(current),
-                encoder_ratio=float(encoder_ratio),
-                safe_temperature=float(safe_temperature),
-                warning_temperature=float(warning_temperature),
-                red_flag_temperature=float(red_flag_temperature),
-                description=self.description.get()
-            )
-            self.session.add(new_motor)
-            self.session.commit()
+            motor_data = {
+                'motor_type': motor_type,
+                'brush_type': brush_type,
+                'motor_name': self.motor_name.get(),
+                'rpm': int(rpm),
+                'gear_reduction': float(self.gear_reduction.get()),
+                'resistance': float(self.resistance.get()),
+                'torque': float(self.torque.get()),
+                'voltage': float(self.voltage.get()),
+                'current': float(self.current.get()),
+                'encoder_ratio': float(self.encoder_ratio.get()),
+                'safe_temperature': float(self.safe_temperature.get()),
+                'warning_temperature': float(self.warning_temperature.get()),
+                'red_flag_temperature': float(self.red_flag_temperature.get()),
+                'description': self.description.get()
+            }
+            self.motor_db.add_motor(motor_data) # Call to MotorDatabase's method
             self.load_motors()
             self.clear_fields()
             messagebox.showinfo("Success", "Motor added successfully!")
-        except Exception as e:  # Corrected here
+        except Exception as e:
             messagebox.showerror("Database Error", str(e))
 
     def load_motors(self):
-        motors = self.session.query(Motor).all()
+        motors = self.motor_db.get_all_motors()
         self.motors_listbox.delete(0, tk.END)
         for motor in motors:
-            self.motors_listbox.insert(tk.END, motor.motor_name)
+            self.motors_listbox.insert(tk.END, motor['motor_name'])
 
     def load_selected_motor(self, event):
         index = self.motors_listbox.curselection()[0]
-        selected_motor = self.session.query(Motor).all()[index]
-        self.current_motor_id = selected_motor.id
+        selected_motor = self.motor_db.get_motor_by_index(index)  # Use get_motor_by_index here
+        self.current_motor_id = selected_motor.id  # Updated to selected_motor.id as selected_motor is an object
         self.motor_type.set(selected_motor.motor_type)
         self.brush_type.set(selected_motor.brush_type)
         self.motor_name.delete(0, tk.END)
@@ -377,39 +342,34 @@ class MotorManager:
 
     def update_motor(self):
         try:  # Start of the try block
-            motor = self.session.query(Motor).filter(Motor.id == self.current_motor_id).first()
-            motor.motor_type = self.motor_type.get()
-            motor.brush_type = self.brush_type.get()
-            motor.motor_name = self.motor_name.get()
-            motor.rpm = int(self.rpm.get())
-            motor.gear_reduction = float(self.gear_reduction.get())
-            motor.resistance = float(self.resistance.get())
-            motor.torque = float(self.torque.get())
-            motor.voltage = float(self.voltage.get())
-            motor.current = float(self.current.get())
-            motor.encoder_ratio = float(self.encoder_ratio.get())
-            motor.safe_temperature = float(self.safe_temperature.get())
-            motor.warning_temperature = float(self.warning_temperature.get())
-            motor.red_flag_temperature = float(self.red_flag_temperature.get())
-            motor.description = self.description.get()
-            self.session.commit()
+            motor_data = {
+                'motor_type': self.motor_type.get(),
+                'brush_type': self.brush_type.get(),
+                'motor_name': self.motor_name.get(),
+                'rpm': int(self.rpm.get()),
+                'gear_reduction': float(self.gear_reduction.get()),
+                'resistance': float(self.resistance.get()),
+                'torque': float(self.torque.get()),
+                'voltage': float(self.voltage.get()),
+                'current': float(self.current.get()),
+                'encoder_ratio': float(self.encoder_ratio.get()),
+                'safe_temperature': float(self.safe_temperature.get()),
+                'warning_temperature': float(self.warning_temperature.get()),
+                'red_flag_temperature': float(self.red_flag_temperature.get()),
+                'description': self.description.get()
+            }
+            self.motor_db.update_motor(self.current_motor_id, motor_data)
             self.load_motors()
             self.clear_fields()
+            messagebox.showinfo("Success", "Motor updated successfully!")
         except Exception as e:  # Corrected here
             messagebox.showerror("Database Error", str(e))
 
     def delete_motor(self):
         try:  # Start of the try block
-            motor = self.session.query(Motor).filter(Motor.id == self.current_motor_id).first()
-            self.session.delete(motor)
-            self.session.commit()
+            self.motor_db.delete_motor(self.current_motor_id)
             self.load_motors()
             self.clear_fields()
+            messagebox.showinfo("Success", "Motor deleted successfully!")
         except Exception as e:  # Corrected here
             messagebox.showerror("Database Error", str(e))
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = MotorManager(root)
-    root.mainloop()
-
