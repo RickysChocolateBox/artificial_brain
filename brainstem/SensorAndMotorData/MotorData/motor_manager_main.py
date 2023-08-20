@@ -7,7 +7,7 @@ import tkinter as tk
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Motor Management Application")
-    parser.add_argument("--config", dest="config_file", help="Path to the configuration file", default="config.ini")
+    parser.add_argument("--config", dest="config_file", help="Path to the configuration file", default="motor_manager_config.ini")
     return parser.parse_args()
 
 def read_configuration(config_file):

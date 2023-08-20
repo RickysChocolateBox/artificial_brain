@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from linked_db import LinkedDatabase
-from motor_manager_db import MotorDatabase
+from motor_manager_db.py import MotorDatabase
 from temperature_sensor_db import TemperatureSensorDatabase
 
 class LinkageApp:

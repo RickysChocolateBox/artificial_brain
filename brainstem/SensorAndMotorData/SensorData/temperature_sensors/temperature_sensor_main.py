@@ -6,7 +6,7 @@ from temperature_sensor_app import SensorApp
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Temperature Sensor Application")
-    parser.add_argument("--config", dest="config_file", help="Path to the configuration file", default="config.ini")
+    parser.add_argument("--config", dest="config_file", help="Path to the configuration file", default="temperature_sensor_config.ini")
     return parser.parse_args()
 
 def read_configuration(config_file):
