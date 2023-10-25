@@ -133,7 +133,7 @@ urllib3==1.26.15
 wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
 webencodings==0.5.1
 websocket-client @ file:///C:/ci/websocket-client_1614804375980/work
-Werkzeug==2.2.3
+Werkzeug==3.0.1
 wincertstore==0.2
 wrapt==1.14.1
 zipp @ file:///C:/b/abs_b9jfdr908q/croot/zipp_1672387552360/work
